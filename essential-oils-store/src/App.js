@@ -1,5 +1,6 @@
 import './App.css';
 import ProductListing from './pages/ProductListing';
+import Product from './pages/Product';
 import ContactUs from './pages/ContactUs';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -33,6 +34,9 @@ function App() {
 
         {/* Product Listing route */}
         <Route path="/products" element={<ProductListing/>} />
+
+        {/* Individual product route */}
+        <Route path="/products/:product_id" element={<Product/>} />
 
         {/* Contact Us route */}
         <Route path="/contact" element={<ContactUs/>} />
