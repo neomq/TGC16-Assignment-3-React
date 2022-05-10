@@ -3,8 +3,8 @@ import { Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import axios from 'axios'
 
-const BASE_URL = "https://essential-oils-store.herokuapp.com"
-// const BASE_URL = "https://3000-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
+// const BASE_URL = "https://essential-oils-store.herokuapp.com"
+const BASE_URL = "https://3000-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
 
 export default function ProductListing() {
     const [products, setProducts] = useState([])
