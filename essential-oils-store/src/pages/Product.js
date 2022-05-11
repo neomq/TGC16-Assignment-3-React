@@ -5,11 +5,10 @@ import axios from 'axios'
 
 
 // const BASE_URL = "https://essential-oils-store.herokuapp.com"
-const BASE_URL = "https://3000-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
+const BASE_URL = "https://8080-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
 
 export default function Product() {
     
-    // const [currentProduct, setCurrentProduct] = useState();
     const [currentEssentialOil, setCurrentEssentialOil] = useState("");
     const [currentPrice, setCurrentPrice] = useState(0);
     const [currentSize, setCurrentSize] = useState("");

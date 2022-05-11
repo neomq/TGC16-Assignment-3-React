@@ -4,40 +4,57 @@ import Product from './pages/Product';
 import Cart from './pages/Cart';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Profile from './pages/Profile';
 import axios from "axios"
 
 // import react router stuff
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import React, { useState } from 'react';
 
-
 // const BASE_URL = "https://essential-oils-store.herokuapp.com"
-const BASE_URL = "https://3000-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
+const BASE_URL = "https://8080-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
 
 function App() {
 
   const [loggedIn, setLoggedIn] = useState(false)
-  const [userId, setUserId] = useState(0)
+  const [userName, setUserName] = useState("")
+  
 
   // check for access token
   const accessToken = localStorage.getItem('accessToken')
   if (accessToken) {
+    
     const checkAccesssToken = async () => {
+
       const response = await axios.get(BASE_URL + "/api/users/profile", {
         headers: {
           authorization: "Bearer " + accessToken
         }
       })
-      console.log("access token", response.data)
-      setUserId(response.data.id)
-
+      
+      console.log(response.data)
+      console.log(response.data.id)
+ 
       // see if the id and returning access token is the same
-      if (userId === parseInt(localStorage.getItem('id'))) {
+      if (response.data.id === parseInt(localStorage.getItem('id'))) {
         setLoggedIn(true)
-        setUserId(userId)
+        setUserName(response.data.name)
       }
     }
     checkAccesssToken()
+  }
+
+  // logout
+  const logout = async () => {
+    const response = await axios.post(BASE_URL + "/api/users/logout", {
+      'refreshToken': localStorage.getItem('refreshToken')
+    })
+
+    if (response.data) {
+      localStorage.clear()
+      setLoggedIn(false)
+      setUserName("")
+    }
   }
 
   return (
@@ -51,20 +68,31 @@ function App() {
             <Link to="/products">Products</Link>
           </li>
           <li>
-            <Link to="/login">Login</Link>
+            <Link to="/profile">Profile</Link>
+          </li>
+          <li>
+            <Link
+              style={{ display: loggedIn === true ? "none" : "block" }}
+              to="/login">Login
+            </Link>
+            <p className="m-0"
+              style={{ display: loggedIn === true ? "block" : "none" }}>
+              Welcome, {userName}
+            </p>
+            <Link 
+              style={{ display: loggedIn === true ? "block" : "none" }}
+              onClick={logout}
+              to="/">Logout
+            </Link>
           </li>
           <li>
             <Link to="/cart">Cart</Link>
-          </li>
-          <li>
-            <Link style={{
-              display: loggedIn === true ? "block" : "none"
-            }}>Welcome {userId}</Link>
           </li>
         </ul>
       </nav>
       
       <Routes>
+
         {/* Home route */}
         <Route path="/" element={<Home/>} />
 
@@ -79,6 +107,9 @@ function App() {
 
         {/* Login route */}
         <Route path="/login" element={<Login/>} />
+
+        {/* Profile route */}
+        <Route path="/profile" element={<Profile/>} />
 
       </Routes>
 

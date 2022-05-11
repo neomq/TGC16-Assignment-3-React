@@ -1,10 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Form, Button, Alert } from 'react-bootstrap';
-import { useNavigate} from "react-router-dom";
 import axios from 'axios'
 
 // const BASE_URL = "https://essential-oils-store.herokuapp.com"
-const BASE_URL = "https://3000-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
+const BASE_URL = "https://8080-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
 
 export default function Login() {
 
@@ -26,7 +26,7 @@ export default function Login() {
            
             localStorage.setItem("accessToken", response.data.accessToken)
             localStorage.setItem('refreshToken', response.data.refreshToken)
-            localStorage.setItem('id', response.data.id)
+            localStorage.setItem('id', response.data.user_id)
             navigate('/') //re-direct to home page
 
         } else if (response.status === 204) {
