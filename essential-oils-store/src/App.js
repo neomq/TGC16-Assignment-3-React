@@ -5,6 +5,8 @@ import Cart from './pages/Cart';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
+import Register from './pages/Register';
+import Welcome from './pages/Welcome';
 import axios from "axios"
 
 // import react router stuff
@@ -19,11 +21,10 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false)
   const [userName, setUserName] = useState("")
   
-
   // check for access token
-  const accessToken = localStorage.getItem('accessToken')
+  const accessToken = localStorage.getItem('accessToken') 
   if (accessToken) {
-    
+  
     const checkAccesssToken = async () => {
 
       const response = await axios.get(BASE_URL + "/api/users/profile", {
@@ -110,6 +111,12 @@ function App() {
 
         {/* Profile route */}
         <Route path="/profile" element={<Profile/>} />
+
+        {/* Register route */}
+        <Route path="/register" element={<Register/>} />
+
+        {/* Welcome route */}
+        <Route path="/welcome" element={<Welcome/>} />
 
       </Routes>
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Form, Button, Alert } from 'react-bootstrap';
 import axios from 'axios'
 
@@ -15,6 +15,9 @@ export default function Login() {
     const navigate = useNavigate();
 
     async function login() {
+
+        //console.log(email)
+        //console.log(password)
         const response = await axios.post(BASE_URL + "/api/users/login/", {
             'email': email,
             'password': password
@@ -48,6 +51,8 @@ export default function Login() {
                 </Alert>
 
                 <Button variant="primary" onClick={login}>Login</Button>
+
+                <p>Don't have an account? <Link to="/register">Register here.</Link></p>
             </Form>
         </React.Fragment>
 
