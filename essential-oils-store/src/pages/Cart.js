@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Button } from 'react-bootstrap';
 import axios from "axios";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 
 const BASE_URL = "https://essential-oils-store.herokuapp.com"
 // const BASE_URL = "https://3000-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
 
 
 export default function Cart() {
-    const [cartItems, setCartItems] = useState([])
     const [loggedIn, setLoggedIn] = useState([])
+    const [cartItems, setCartItems] = useState([])
+    // const [cartItem, setCartItem] = useState([])
 
     useEffect(() => {
         // check if user is logged in
@@ -39,6 +40,49 @@ export default function Cart() {
         setCartItems(response.data)
     }
 
+    const decreaseItemQty = async (product_id) => {
+        // Get cart item index
+        const index = cartItems.findIndex(i => i.product_id === parseInt(product_id))
+        
+        // Clone the state
+        let cloned = [...cartItems]
+
+        // Modify item quantity
+        if (cloned[index].item_quantity > 1) {
+            cloned[index].item_quantity -= 1;
+        }
+        // replace the state
+        setCartItems(cloned)
+
+        alert("1 qty removed!")
+        
+        let user_id = localStorage.getItem("id")
+        await axios.post(BASE_URL + "/api/cart/" + user_id + "/updateQuantity/" + product_id, {
+            'newQuantity': cloned[index].item_quantity
+        })
+    }
+
+    const increaseItemQty = async (product_id) => {
+        // Get cart item index
+        const index = cartItems.findIndex(i => i.product_id === parseInt(product_id))
+        
+        // Clone the state
+        let cloned = [...cartItems]
+
+        // Modify item quantity
+        cloned[index].item_quantity += 1
+        
+        // replace the state
+        setCartItems(cloned)
+
+        alert("1 qty added!")
+        
+        let user_id = localStorage.getItem("id")
+        await axios.post(BASE_URL + "/api/cart/" + user_id + "/updateQuantity/" + product_id, {
+            'newQuantity': cloned[index].item_quantity
+        })
+    }
+
     return (
         <React.Fragment>
             <h1 class="text-center">My Shopping Cart</h1>
@@ -65,12 +109,16 @@ export default function Cart() {
                                 <div className="cart-item">
                                     <div className=" d-flex align-items-center text-start text-md-center row">
                                         <div className="col-md-5 col-12">
-                                            <div className="d-flex align-items-center">
-                                                <img src={c.products.image} width="80px" alt="..." />
-                                                <div className="text-start">
-                                                    <strong>{c.products.essentialoil.name}</strong>
-                                                    <div className="text-muted text-sm">{c.products.size.size}</div>
+                                            <div className="d-flex justify-content-between align-items-center">
+                                                <div className="d-flex align-items-center col-10">
+                                                    <img src={c.products.image} width="80px" alt="..." />
+                                                    <div className="text-start">
+                                                        <strong>{c.products.essentialoil.name}</strong>
+                                                        <div className="text-muted text-sm">{c.products.size.size}</div>
+                                                    </div>
                                                 </div>
+                                                
+
                                                 <div className="d-md-none text-center col-2" onClick={()=>{deleteCartItem(c.product_id)}}>
                                                     <Button variant="link"><AiOutlineClose /></Button>
                                                 </div>
@@ -82,7 +130,13 @@ export default function Cart() {
                                                 <div className="col-md-4">
                                                     <div className="row">
                                                         <div className="d-md-none text-muted col-6">Quantity</div>
-                                                        <div className="text-end text-md-center col-md-12 col-6">{c.item_quantity}</div>
+                                                        <div className="text-end text-md-center col-md-12 col-6">
+                                                            <div className="row d-flex align-items-center justify-content-end justify-content-md-center">
+                                                                <button class="col-2 btn btn-sm" onClick={() => {decreaseItemQty(c.product_id)}}><AiOutlineMinus/></button>
+                                                                    <div className="col-3 p-1 border text-center">{c.item_quantity}</div>
+                                                                <button class="col-2 btn btn-sm" onClick={() => {increaseItemQty(c.product_id)}}><AiOutlinePlus/></button>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div className="col-md-3">
