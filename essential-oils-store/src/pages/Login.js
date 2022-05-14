@@ -13,7 +13,7 @@ export default function Login() {
     const [unableToLogin, setUnableToLogin] = useState(false)
 
     // const navigate = useNavigate();
-    
+
     async function login() {
 
         console.log(email)
@@ -32,7 +32,6 @@ export default function Login() {
             localStorage.setItem('id', response.data.user_id)
             // navigate('/') //re-direct to home page
             
-
         } else if (response.status === 204) {
             setUnableToLogin(true)
         }

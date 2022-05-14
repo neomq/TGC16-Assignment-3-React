@@ -25,12 +25,13 @@ function App() {
 
   // offcanvas
   const [show, setShow] = useState(false);
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const [showLogin, setShowLogin] = useState(true)
   const [showRegister, setShowRegister] = useState(false)
-  
+
   const showLoginForm = () => {
     setShowLogin(true);
     setShowRegister(false);
