@@ -4,8 +4,8 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios'
 
 
-// const BASE_URL = "https://essential-oils-store.herokuapp.com"
-const BASE_URL = "https://8080-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
+const BASE_URL = "https://essential-oils-store.herokuapp.com"
+// const BASE_URL = "https://8080-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
 
 export default function Product() {
     
@@ -38,11 +38,18 @@ export default function Product() {
     }, [product_id])
 
     // Add to cart
-    // const addToCart = async (product_id) => {
-    //         await axios.post(BASE_URL + "/api/shoppingcart/add/" + product_id)
-    //         setAdded(true)
-    //         setLoaded(true)
-    // }
+    const addToCart = async () => {
+        // check if user is logged in
+        if (localStorage.getItem("id") !== null) {
+
+            // add item to cart
+            let user_id = localStorage.getItem("id")
+            await axios.get(BASE_URL + "/api/cart/" + user_id + "/add/" + product_id)
+            alert("item added to cart!")
+        } else {
+            // if user is not logged in, show alert and direct user to login
+        }
+    }
 
     return <React.Fragment>
         <h1>{currentEssentialOil.name} ({currentSize.size})</h1>
@@ -52,7 +59,7 @@ export default function Product() {
         <p>Use: {currentUse.map( (u) => (u.type)).join(", ")}</p>
         <p>Scent Profile: {currentScent.map( (s) => (s.type)).join(", ")}</p>
 
-        <Button variant="dark">Add to Cart</Button>{' '}
+        <Button variant="dark" onClick={addToCart}>Add to Cart</Button>{' '}
 
         <Accordion defaultActiveKey="0">
             <Accordion.Item eventKey="0">

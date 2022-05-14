@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { Form, Button, Alert } from 'react-bootstrap';
 import axios from 'axios'
 
-// const BASE_URL = "https://essential-oils-store.herokuapp.com"
-const BASE_URL = "https://8080-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
+const BASE_URL = "https://essential-oils-store.herokuapp.com"
+// const BASE_URL = "https://8080-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
 
 export default function Login() {
 
@@ -12,12 +12,12 @@ export default function Login() {
     const [password, setPassword] = useState("")
     const [unableToLogin, setUnableToLogin] = useState(false)
 
-    const navigate = useNavigate();
-
+    // const navigate = useNavigate();
+    
     async function login() {
 
-        //console.log(email)
-        //console.log(password)
+        console.log(email)
+        console.log(password)
         const response = await axios.post(BASE_URL + "/api/users/login/", {
             'email': email,
             'password': password
@@ -30,7 +30,8 @@ export default function Login() {
             localStorage.setItem("accessToken", response.data.accessToken)
             localStorage.setItem('refreshToken', response.data.refreshToken)
             localStorage.setItem('id', response.data.user_id)
-            navigate('/') //re-direct to home page
+            // navigate('/') //re-direct to home page
+            
 
         } else if (response.status === 204) {
             setUnableToLogin(true)
@@ -51,8 +52,6 @@ export default function Login() {
                 </Alert>
 
                 <Button variant="primary" onClick={login}>Login</Button>
-
-                <p>Don't have an account? <Link to="/register">Register here.</Link></p>
             </Form>
         </React.Fragment>
 

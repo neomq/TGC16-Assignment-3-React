@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios'
 
-// const BASE_URL = "https://essential-oils-store.herokuapp.com"
-const BASE_URL = "https://8080-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
+const BASE_URL = "https://essential-oils-store.herokuapp.com"
+// const BASE_URL = "https://8080-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
 
 export default function Profile() {
 
@@ -32,6 +32,7 @@ export default function Profile() {
             <h4>Account Information</h4>
             <p>{name}</p>
             <p>{email}</p>
+            <p>Log Out</p>
         </React.Fragment>
 
     )

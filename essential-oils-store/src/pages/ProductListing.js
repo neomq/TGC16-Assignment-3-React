@@ -3,8 +3,8 @@ import { Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import axios from 'axios'
 
-// const BASE_URL = "https://essential-oils-store.herokuapp.com"
-const BASE_URL = "https://8080-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
+const BASE_URL = "https://essential-oils-store.herokuapp.com"
+// const BASE_URL = "https://8080-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
 
 export default function ProductListing() {
     const [products, setProducts] = useState([])
@@ -17,6 +17,19 @@ export default function ProductListing() {
         }
         fetchProducts()
     }, []) // emulate componenetDidMount
+
+    const addToCart = async (product_id) => {
+        // check if user is logged in
+        if (localStorage.getItem("id") !== null) {
+
+            // add item to cart
+            let user_id = localStorage.getItem("id")
+            await axios.get(BASE_URL + "/api/cart/" + user_id + "/add/" + product_id)
+            alert("item added to cart!")
+        } else {
+            // if user is not logged in, show alert and direct user to login
+        }
+    }
 
     return (
         <React.Fragment>
@@ -35,7 +48,7 @@ export default function ProductListing() {
                                     </Card.Text>
                                 </Card.Body>
                             </Link>
-                            <><Button variant="dark" className="lead fs-5 rounded-0">Add to Cart</Button>{' '}</>
+                            <><Button variant="dark" className="lead fs-5 rounded-0" onClick={() => {addToCart(p.id)}}>Add to Cart</Button>{' '}</>
                         </Card>
                     </Col>
                 ))}

@@ -12,21 +12,38 @@ import axios from "axios"
 // import react router stuff
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import React, { useState } from 'react';
+import { Navbar, Container, Nav, Offcanvas } from 'react-bootstrap';
+import { AiOutlineUser, AiOutlineShopping } from "react-icons/ai";
 
-// const BASE_URL = "https://essential-oils-store.herokuapp.com"
-const BASE_URL = "https://8080-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
+const BASE_URL = "https://essential-oils-store.herokuapp.com"
+// const BASE_URL = "https://8080-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
 
 function App() {
 
   const [loggedIn, setLoggedIn] = useState(false)
   const [userName, setUserName] = useState("")
+
+  // offcanvas
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const [showLogin, setShowLogin] = useState(true)
+  const [showRegister, setShowRegister] = useState(false)
+  
+  const showLoginForm = () => {
+    setShowLogin(true);
+    setShowRegister(false);
+  }
+  const showRegisterForm = () => {
+    setShowRegister(true);
+    setShowLogin(false);
+  }
   
   // check for access token
   const accessToken = localStorage.getItem('accessToken') 
   if (accessToken) {
-  
     const checkAccesssToken = async () => {
-
       const response = await axios.get(BASE_URL + "/api/users/profile", {
         headers: {
           authorization: "Bearer " + accessToken
@@ -60,6 +77,42 @@ function App() {
 
   return (
     <Router>
+
+      <Navbar bg="light">
+          <Container>
+              <Nav.Link href="/">Logo</Nav.Link>
+            <Nav>
+              <Nav.Link onClick={handleShow}><AiOutlineUser/></Nav.Link>
+              <Nav.Link href="/cart"><AiOutlineShopping/></Nav.Link>
+            </Nav>
+          </Container>
+      </Navbar>
+
+      {/* Login Offcanvas */}
+      <Offcanvas show={show} onHide={handleClose} placement="end">
+        <Offcanvas.Header closeButton></Offcanvas.Header>
+        <Offcanvas.Body>
+          {showLogin === true ?
+            <React.Fragment>
+              <Login/>
+              <p className="m-0">Don't have an account? <span className="text-decoration-underline" role="button" onClick={showRegisterForm}>Register here.</span></p>
+            </React.Fragment>
+          :null}
+          {showRegister === true ?
+            <React.Fragment>
+              <Register/>
+              <p className="m-0">Already have an account? <span className="text-decoration-underline" role="button" onClick={showLoginForm}>Login here.</span></p>
+            </React.Fragment>
+          :null}
+          {/* {loggedIn === true ?
+            <React.Fragment>
+              <Profile/>
+            </React.Fragment>
+          :null} */}
+        </Offcanvas.Body>
+      </Offcanvas>
+    
+
       <nav>
         <ul>
           <li>
