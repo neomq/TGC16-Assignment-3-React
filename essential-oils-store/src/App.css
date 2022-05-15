@@ -1,0 +1,221 @@
+body {
+    background-color: #f1f1ee;
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.navbar {
+    background-color: #f1f1ee;
+}
+
+.navbar-item {
+    color: #5F4027;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+}
+
+.navbar-brand {
+    color: #5F4027;
+    font-family: 'Prata', serif;
+    line-height: 0.9;
+}
+
+.bg {
+    background-color: #f1f1ee;
+    height: 100vh;
+}
+
+/* --- Home --- */
+.header-content {
+    height: 100vh;
+    width: 100vw;
+    background-image: url("/public/bg01.jpeg");
+    background-position: 35% 50%;
+    /* background-color: rgba(57, 57, 57, 0.288);
+    background-blend-mode: overlay; */
+    background-size: cover;
+}
+
+.header-content .title {
+    font-size: 48px;
+    line-height: 1.1;
+    color: #5F4027;
+    font-family: 'Prata', serif;
+}
+
+.header-content .short-text {
+    font-size: 18px;
+    letter-spacing: 0.3px;
+    line-height: 1.2;
+    color: #5F4027;
+    font-family: 'Poppins', sans-serif;
+}
+
+.header-content .cta-btn {
+    border: 3px solid #5F4027;
+    color: #F1F1EE;
+    background-color: #5F4027;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.6px;
+}
+
+.header-content .cta-btn:hover {
+    border: 3px solid #412b19;
+    color: #F1F1EE;
+    background-color: #412b19;
+}
+
+.header-content {
+    font-family: 'Prata', serif;
+    color: #5F4027;
+}
+
+/* --- Product Listing Page --- */
+.page-container {
+    margin-top: 100px;
+    padding: 0 20px;
+}
+
+.page-header {
+    background-color: #dfdfdc;
+}
+
+.page-header .page-title {
+    color: #5F4027;
+    font-family: 'Prata', serif;
+    font-size: 24px;
+    letter-spacing: 0.6px;
+}
+
+.page-header .page-subtitle {
+    color: #5F4027;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.4px;
+    font-weight: 300;
+}
+
+.page-body {
+    margin-top: 40px;
+}
+
+.product-title {
+    font-family: 'Prata', serif;
+    letter-spacing: 0.5px;
+    font-size: 16px;
+    color: #5F4027;
+}
+
+.product-title .small-text {
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.5px;
+    font-size: 14px;
+    color: #5F4027;
+    font-weight: 300;
+}
+
+.addtocart-btn {
+    border: 1px solid #5F4027;
+    color: #5F4027;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.6px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.addtocart-btn:hover {
+    border: 1px solid #5F4027;
+    color: #F1F1EE;
+    background-color: #5F4027;
+}
+
+.search,
+.search .search-box,
+.search select,
+.search select option,
+.search .accordion-header,
+.search .accordion-button,
+.search .accordion-body,
+input,
+input::placeholder {
+    color: #5F4027;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.4px;
+    font-weight: 300;
+}
+
+.search select {
+    border: 1px solid #5f402743;
+}
+
+.accordion-item,
+.accordion-header,
+.accordion-body {
+    background: none !important;
+    border: none !important;
+    outline: 0px !important;
+    box-shadow: none !important;
+}
+
+.accordion button {
+    border-bottom: 1px solid #5f402743;
+    background: none !important;
+    outline: 0px !important;
+    box-shadow: none !important;
+}
+
+input:focus,
+input:hover,
+input:active,
+.accordion:focus,
+.accordion:active,
+.accordion:hover,
+select:focus
+{
+    outline: 0px !important;
+    box-shadow: none !important;
+}
+
+.search-btn-pri {
+    border: 1px solid #5F4027;
+    background-color: #5F4027;
+    color: #F1F1EE;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.6px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.search-btn-pri:hover {
+    border: 1px solid #412b19;
+    background-color: #412b19;
+    color: #F1F1EE;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.6px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.search-btn-sec {
+    border: 1px solid #5F4027;
+    color: #5F4027;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.6px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+
+/* --- Media Query --- */
+@media screen and (min-width: 768px) {
+    .header-content .short-text {
+        background-position: 10% 90%;
+    }
+  }

@@ -10,7 +10,6 @@ const BASE_URL = "https://essential-oils-store.herokuapp.com"
 export default function Cart() {
     const [loggedIn, setLoggedIn] = useState([])
     const [cartItems, setCartItems] = useState([])
-    // const [cartItem, setCartItem] = useState([])
 
     useEffect(() => {
         // check if user is logged in
@@ -53,8 +52,6 @@ export default function Cart() {
         }
         // replace the state
         setCartItems(cloned)
-
-        alert("1 qty removed!")
         
         let user_id = localStorage.getItem("id")
         await axios.post(BASE_URL + "/api/cart/" + user_id + "/updateQuantity/" + product_id, {
@@ -180,7 +177,7 @@ export default function Cart() {
             </>
             :
             <div>
-                <p className="lead text-center">Please log in to add items to your shopping cart.</p>
+                <p className="lead text-center">Please log in to view your shopping cart.</p>
             </div>
             }
 

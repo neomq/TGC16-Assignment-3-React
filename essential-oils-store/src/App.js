@@ -10,10 +10,9 @@ import Welcome from './pages/Welcome';
 import axios from "axios"
 
 // import react router stuff
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React, { useState } from 'react';
-import { Navbar, Container, Nav, Offcanvas } from 'react-bootstrap';
-import { AiOutlineUser, AiOutlineShopping } from "react-icons/ai";
+import { AiOutlineUser, AiOutlineShopping, AiOutlineMenu } from "react-icons/ai";
 
 const BASE_URL = "https://essential-oils-store.herokuapp.com"
 // const BASE_URL = "https://8080-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
@@ -21,26 +20,8 @@ const BASE_URL = "https://essential-oils-store.herokuapp.com"
 function App() {
 
   const [loggedIn, setLoggedIn] = useState(false)
-  const [userName, setUserName] = useState("")
+  // const [userName, setUserName] = useState("")
 
-  // offcanvas
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  const [showLogin, setShowLogin] = useState(true)
-  const [showRegister, setShowRegister] = useState(false)
-
-  const showLoginForm = () => {
-    setShowLogin(true);
-    setShowRegister(false);
-  }
-  const showRegisterForm = () => {
-    setShowRegister(true);
-    setShowLogin(false);
-  }
-  
   // check for access token
   const accessToken = localStorage.getItem('accessToken') 
   if (accessToken) {
@@ -57,95 +38,39 @@ function App() {
       // see if the id and returning access token is the same
       if (response.data.id === parseInt(localStorage.getItem('id'))) {
         setLoggedIn(true)
-        setUserName(response.data.name)
+        // setUserName(response.data.name)
       }
     }
     checkAccesssToken()
   }
 
-  // logout
-  const logout = async () => {
-    const response = await axios.post(BASE_URL + "/api/users/logout", {
-      'refreshToken': localStorage.getItem('refreshToken')
-    })
-
-    if (response.data) {
-      localStorage.clear()
-      setLoggedIn(false)
-      setUserName("")
-    }
-  }
-
   return (
     <Router>
 
-      <Navbar bg="light">
-          <Container>
-              <Nav.Link href="/">Logo</Nav.Link>
-            <Nav>
-              <Nav.Link onClick={handleShow}><AiOutlineUser/></Nav.Link>
-              <Nav.Link href="/cart"><AiOutlineShopping/></Nav.Link>
-            </Nav>
-          </Container>
-      </Navbar>
+      <nav className="navbar navbar-expand-lg fixed-top p-3">
+        <div className="container-fluid">
+          <a className="navbar-brand" href="/">Aroma.</a>
+          <button className="navbar-toggler navbar-item border-0" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
+            <AiOutlineMenu/>
+          </button>
+          <div className="collapse navbar-collapse" id="nav">
+            <div className="d-flex flex-fill justify-content-between">
+              <div className="d-flex align-items-center">
+                <a className="navbar-item btn fs-6" href="/products" role="button">Products</a>
+              </div>
 
-      {/* Login Offcanvas */}
-      <Offcanvas show={show} onHide={handleClose} placement="end">
-        <Offcanvas.Header closeButton></Offcanvas.Header>
-        <Offcanvas.Body>
-          {showLogin === true ?
-            <React.Fragment>
-              <Login/>
-              <p className="m-0">Don't have an account? <span className="text-decoration-underline" role="button" onClick={showRegisterForm}>Register here.</span></p>
-            </React.Fragment>
-          :null}
-          {showRegister === true ?
-            <React.Fragment>
-              <Register/>
-              <p className="m-0">Already have an account? <span className="text-decoration-underline" role="button" onClick={showLoginForm}>Login here.</span></p>
-            </React.Fragment>
-          :null}
-          {/* {loggedIn === true ?
-            <React.Fragment>
-              <Profile/>
-            </React.Fragment>
-          :null} */}
-        </Offcanvas.Body>
-      </Offcanvas>
-    
-
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/products">Products</Link>
-          </li>
-          <li>
-            <Link to="/profile">Profile</Link>
-          </li>
-          <li>
-            <Link
-              style={{ display: loggedIn === true ? "none" : "block" }}
-              to="/login">Login
-            </Link>
-            <p className="m-0"
-              style={{ display: loggedIn === true ? "block" : "none" }}>
-              Welcome, {userName}
-            </p>
-            <Link 
-              style={{ display: loggedIn === true ? "block" : "none" }}
-              onClick={logout}
-              to="/">Logout
-            </Link>
-          </li>
-          <li>
-            <Link to="/cart">Cart</Link>
-          </li>
-        </ul>
+              <div className="d-flex">
+              {loggedIn === true ?
+                <a className="btn navbar-item fs-5" href="/profile" role="button"><AiOutlineUser/></a>
+                : <a className="btn navbar-item fs-5" href="/login" role="button"><AiOutlineUser/></a>
+                }
+                <a className="btn navbar-item fs-5" href="/cart" role="button"><AiOutlineShopping/></a>
+              </div>
+            </div>
+          </div>
+        </div>
       </nav>
-      
+
       <Routes>
 
         {/* Home route */}

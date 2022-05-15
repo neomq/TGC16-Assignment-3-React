@@ -52,14 +52,23 @@ export default function Product() {
     }
 
     return <React.Fragment>
-        <h1>{currentEssentialOil.name} ({currentSize.size})</h1>
-        <h3>${currentPrice}</h3>
-        <img src={currentImage} alt="..." width="500px"/>
-        <p>{currentEssentialOil.description}</p>
-        <p>Use: {currentUse.map( (u) => (u.type)).join(", ")}</p>
-        <p>Scent Profile: {currentScent.map( (s) => (s.type)).join(", ")}</p>
 
-        <Button variant="dark" onClick={addToCart}>Add to Cart</Button>{' '}
+        <div className="page-container">
+
+        <div className="d-flex">
+            <div>
+                <img src={currentImage} alt="..." width="500px"/>
+            </div>
+            
+            <div>
+                <h1>{currentEssentialOil.name} ({currentSize.size})</h1>
+                <h3>${currentPrice}</h3>
+                <p>{currentEssentialOil.description}</p>
+                <p>Use: {currentUse.map( (u) => (u.type)).join(", ")}</p>
+                <p>Scent Profile: {currentScent.map( (s) => (s.type)).join(", ")}</p>
+                <Button variant="dark" onClick={addToCart}>Add to Cart</Button>
+            </div>
+        </div>
 
         <Accordion defaultActiveKey="0">
             <Accordion.Item eventKey="0">
@@ -83,6 +92,8 @@ export default function Product() {
                 </Accordion.Body>
             </Accordion.Item>
         </Accordion>
+
+        </div>
         
     </React.Fragment>
 }

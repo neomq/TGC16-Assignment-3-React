@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from 'axios'
 
 const BASE_URL = "https://essential-oils-store.herokuapp.com"
@@ -25,6 +26,16 @@ export default function Profile() {
         fetchProfile();
     }, [])
 
+    // logout
+    const logout = async () => {
+        const response = await axios.post(BASE_URL + "/api/users/logout", {
+            'refreshToken': localStorage.getItem('refreshToken')
+        })
+
+        if (response.data) {
+            localStorage.clear()
+        }
+    }
 
     return (
         <React.Fragment>
@@ -32,7 +43,7 @@ export default function Profile() {
             <h4>Account Information</h4>
             <p>{name}</p>
             <p>{email}</p>
-            <p>Log Out</p>
+            <Link onClick={logout} to="/"><button type="button" class="btn btn-dark">Log Out</button></Link>
         </React.Fragment>
 
     )

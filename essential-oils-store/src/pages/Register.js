@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Button, Form } from 'react-bootstrap';
 import { useState } from "react"
 import axios from 'axios'
@@ -87,6 +87,8 @@ export default function Register() {
                 {invalidConfirmPassword === true ? <Form.Text style={{color: 'red'}}>Passwords do not match.</Form.Text>:null}
             </Form>
             <Button variant="primary" onClick={register}>Sign Up</Button>
+
+            <p>Already have an account? <Link to="/login">Login here.</Link></p>
             
         </React.Fragment>
     )
