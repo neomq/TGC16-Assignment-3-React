@@ -6,7 +6,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
-import Welcome from './pages/Welcome';
+import CheckoutSuccess from './pages/CheckoutSuccess';
 import axios from "axios"
 
 // import react router stuff
@@ -94,8 +94,8 @@ function App() {
         {/* Register route */}
         <Route path="/register" element={<Register/>} />
 
-        {/* Welcome route */}
-        <Route path="/welcome" element={<Welcome/>} />
+        {/* Checkout success route */}
+        <Route path="/paymentsuccess" element={<CheckoutSuccess/>} />
 
       </Routes>
 

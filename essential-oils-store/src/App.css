@@ -57,16 +57,13 @@ body {
 }
 
 .header-content .cta-btn {
-    border: 3px solid #5F4027;
     color: #F1F1EE;
     background-color: #5F4027;
-    font-weight: 600;
     font-family: 'Poppins', sans-serif;
     letter-spacing: 0.6px;
 }
 
 .header-content .cta-btn:hover {
-    border: 3px solid #412b19;
     color: #F1F1EE;
     background-color: #412b19;
 }
@@ -86,14 +83,14 @@ body {
     background-color: #dfdfdc;
 }
 
-.page-header .page-title {
+.page-title {
     color: #5F4027;
     font-family: 'Prata', serif;
     font-size: 24px;
     letter-spacing: 0.6px;
 }
 
-.page-header .page-subtitle {
+.page-subtitle {
     color: #5F4027;
     font-family: 'Poppins', sans-serif;
     font-size: 14px;
@@ -143,16 +140,29 @@ body {
 .search .accordion-button,
 .search .accordion-body,
 input,
-input::placeholder {
-    color: #5F4027;
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px;
+input::-webkit-input-placeholder
+{
+    color: #5F4027 !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 14px !important;
     letter-spacing: 0.4px;
     font-weight: 300;
 }
 
-.search select {
-    border: 1px solid #5f402743;
+.search select,
+.search .input-box,
+input
+{
+    border: 1px solid #5f402743 !important;
+}
+
+.accordion button,
+.accordion button:active,
+.accordion button:focus {
+    border-bottom: 1px solid #5f402743;
+    background: none !important;
+    outline: 0px !important;
+    box-shadow: none !important;
 }
 
 .accordion-item,
@@ -160,13 +170,6 @@ input::placeholder {
 .accordion-body {
     background: none !important;
     border: none !important;
-    outline: 0px !important;
-    box-shadow: none !important;
-}
-
-.accordion button {
-    border-bottom: 1px solid #5f402743;
-    background: none !important;
     outline: 0px !important;
     box-shadow: none !important;
 }
@@ -183,7 +186,8 @@ select:focus
     box-shadow: none !important;
 }
 
-.search-btn-pri {
+.search-btn-pri,
+.signin-btn {
     border: 1px solid #5F4027;
     background-color: #5F4027;
     color: #F1F1EE;
@@ -209,6 +213,26 @@ select:focus
     font-family: 'Poppins', sans-serif;
     letter-spacing: 0.6px;
     font-size: 14px;
+    font-weight: 300;
+}
+
+/* --- Sign In / Register / Profile Page --- */
+.page-title-large {
+    color: #5F4027;
+    font-family: 'Prata', serif;
+    font-size: 40px;
+    letter-spacing: 0.6px;
+}
+
+.form-input {
+    height: 43px;
+}
+
+.profile-section .section-title {
+    color: #5F4027;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.3px;
+    font-size: 20px;
     font-weight: 300;
 }
 

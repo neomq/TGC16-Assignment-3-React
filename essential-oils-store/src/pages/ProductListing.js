@@ -44,7 +44,7 @@ export default function ProductListing() {
                 <div className="page-body row">
 
                     <div className="search col-3">
-                        <div className="search-box border d-flex flex-row align-items-center ps-3">
+                        <div className="input-box d-flex flex-row align-items-center ps-3">
                             <FiSearch/><Form.Control type="text" placeholder="Search Products" className="py-2 bg-transparent border-0 rounded-0"/>
                         </div>
                         <Form.Select className="rounded-0 bg-transparent mt-3 py-2">

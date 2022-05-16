@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Button, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { useState } from "react"
 import axios from 'axios'
 
@@ -59,37 +59,48 @@ export default function Register() {
                 const response = await axios.post(BASE_URL + '/api/users/register', formState)
                 console.log("New user created", response.data)
 
-                navigate('/welcome', {
-                    'state': {
-                        'formData': formState
-                    }
-                })
+                alert("account created!")
+
+                navigate('/login')
         }
     }
 
     return (
         <React.Fragment>
-            <h1>Sign Up</h1>
-            <Form>
-                <Form.Control type="text" name="username" value={formState.username} onChange={updateFormField} placeholder="Your Name" autoComplete="off" />
-                {invalidName === true ? <Form.Text style={{color: 'red'}}>Please enter a valid username.</Form.Text>:null}
 
-                <Form.Control type="email" name="email" value={formState.email} onChange={updateFormField} placeholder="Enter email" />
-                {invalidEmail === true ? <Form.Text style={{color: 'red'}}>Please enter a valid email</Form.Text>:null}
+                <div className="page-container">
+                    <div className="row">
+                    <div className="form mx-auto col-md-4 mt-4">
+                        <h1 className="text-center page-title-large">Register</h1>
+                        <p className="text-center page-subtitle">Please fill in the information below.</p>
+                            <Form className="register-form my-4">
+                                <Form.Control type="text" name="username" value={formState.username} onChange={updateFormField} className="form-input bg-transparent rounded-0" placeholder="Your Name" autoComplete="off" />
+                                {invalidName === true ? <Form.Text style={{color: 'red'}}>Please enter a valid username.</Form.Text>:null}
 
-                <Form.Control type="text" name="address" value={formState.address} onChange={updateFormField} placeholder="Enter address" />
-                {invalidAddress === true ? <Form.Text style={{color: 'red'}}>Please enter a valid address</Form.Text>:null}
+                                <Form.Control type="email" name="email" value={formState.email} onChange={updateFormField} className="form-input bg-transparent rounded-0 mt-3" placeholder="Enter email" />
+                                {invalidEmail === true ? <Form.Text style={{color: 'red'}}>Please enter a valid email</Form.Text>:null}
 
-                <Form.Control type="password" name="password" value={formState.password} onChange={updateFormField} placeholder="Password" />
-                {invalidPassword === true ? <Form.Text style={{color: 'red'}}>Your password must be 8-20 characters long.</Form.Text>:<Form.Text className="text-muted">Please set a password that is at least 8-20 characters long and contain letters and numbers</Form.Text>}
+                                <Form.Control type="text" name="address" value={formState.address} onChange={updateFormField} className="form-input bg-transparent rounded-0 mt-3" placeholder="Enter address" />
+                                {invalidAddress === true ? <Form.Text style={{color: 'red'}}>Please enter a valid address</Form.Text>:null}
 
-                <Form.Control type="password" name="confirm_password" value={formState.confirm_password} onChange={updateFormField} placeholder="Confirm Password" />
-                {invalidConfirmPassword === true ? <Form.Text style={{color: 'red'}}>Passwords do not match.</Form.Text>:null}
-            </Form>
-            <Button variant="primary" onClick={register}>Sign Up</Button>
+                                <Form.Control type="password" name="password" value={formState.password} onChange={updateFormField} className="form-input bg-transparent rounded-0 mt-3" placeholder="Password" />
+                                {invalidPassword === true ? <Form.Text style={{color: 'red'}}>Your password must be 8-20 characters long.</Form.Text>:<Form.Text>Please set a password that is at least 8-20 characters long.</Form.Text>}
 
-            <p>Already have an account? <Link to="/login">Login here.</Link></p>
-            
+                                <Form.Control type="password" name="confirm_password" value={formState.confirm_password} onChange={updateFormField} className="form-input bg-transparent rounded-0 mt-3" placeholder="Confirm Password" />
+                                {invalidConfirmPassword === true ? <Form.Text style={{color: 'red'}}>Passwords do not match.</Form.Text>:null}
+
+                                <div className="d-grid mt-4">
+                                    <button className="rounded-0 py-2 signin-btn" type="button" onClick={register}>CREATE ACCOUNT</button>
+                                    {/* <Button variant="primary" onClick={register}>Create Account</Button> */}
+                                </div>
+                            </Form>
+
+                            <p className="mt-4 text-center page-subtitle">Already our customer? <Link to="/login">Sign in here.</Link></p>
+
+                    </div>
+                        
+                    </div>
+                </div>
         </React.Fragment>
     )
 

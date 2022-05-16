@@ -9,6 +9,7 @@ export default function Profile() {
 
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
+    const [address, setAddress] = useState("")
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -17,9 +18,10 @@ export default function Profile() {
                     authorization: "Bearer " + localStorage.getItem('accessToken')
                 }
             })
-
+            
             setName(response.data.name)
             setEmail(response.data.email)
+            setAddress(response.data.address)
 
             console.log("USER PROFILE", response.data)
         }
@@ -39,11 +41,27 @@ export default function Profile() {
 
     return (
         <React.Fragment>
-            <h1>My Profile</h1>
-            <h4>Account Information</h4>
-            <p>{name}</p>
-            <p>{email}</p>
-            <Link onClick={logout} to="/"><button type="button" class="btn btn-dark">Log Out</button></Link>
+
+            <div className="page-container">
+
+            <div className="row">
+                <div className="mx-auto col-md-5 mt-4">
+                <h1 className="text-center page-title-large">Welcome, {name}!</h1>
+
+                    <div className="profile-section mt-3">
+                        <p className="section-title text-center">Account Information</p>
+                        <p className="m-0 text-center">{name}</p>
+                        <p className="m-0 text-center">{email}</p>
+                        <p className="m-0 text-center">{address}</p>
+                        <p></p>
+                    </div>
+                    
+                    <Link onClick={logout} to="/"><button type="button" class="btn btn-dark">Log Out</button></Link>
+                </div>
+            </div>
+                
+            </div>
+            
         </React.Fragment>
 
     )
