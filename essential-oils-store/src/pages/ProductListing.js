@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Card, Form, CardGroup, Accordion } from 'react-bootstrap';
 import { FiSearch } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios'
 
 const BASE_URL = "https://essential-oils-store.herokuapp.com"
@@ -9,6 +9,8 @@ const BASE_URL = "https://essential-oils-store.herokuapp.com"
 
 export default function ProductListing() {
     const [products, setProducts] = useState([])
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -28,7 +30,8 @@ export default function ProductListing() {
             await axios.get(BASE_URL + "/api/cart/" + user_id + "/add/" + product_id)
             alert("item added to cart!")
         } else {
-            // if user is not logged in, show alert and direct user to login
+            // direct user to login
+            navigate('/login')
         }
     }
 

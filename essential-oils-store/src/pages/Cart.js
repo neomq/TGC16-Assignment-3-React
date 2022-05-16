@@ -183,7 +183,7 @@ export default function Cart() {
                     </>
                     :
                     <div>
-                        <p className="lead text-center">Please log in to view your shopping cart.</p>
+                        <p className="lead text-center">Please log in to view or add items to your shopping cart.</p>
                     </div>
                 }
 

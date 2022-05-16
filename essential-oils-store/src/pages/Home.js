@@ -16,7 +16,7 @@ export default function Home() {
                         <div className="cta d-flex flex-column position-absolute w-75 top-50 start-50 translate-middle">
                             <h1 className="cta title text-center col-md-6 mx-auto">Essential Oils for Your Mind & Body</h1>
                             <p className="cta my-3 short-text text-center col-md-6 mx-auto">The secret to long lasting mental & physical health</p>
-                            <a className="mt-4 cta-btn btn col-lg-3 mx-auto p-3 px-4 rounded-0" href="/products" role="button">SHOP NOW <span className="fs-5"><BsArrowRight/></span></a>
+                            <a className="mt-4 cta-btn btn col-lg-3 mx-auto p-2 px-4 rounded-0" href="/products" role="button">SHOP NOW <span className="fs-5"><BsArrowRight/></span></a>
                         </div>
                     </div>
             </div>  

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import { Button, Accordion } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { Accordion } from 'react-bootstrap';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios'
 
 
@@ -15,6 +15,8 @@ export default function Product() {
     const [currentImage, setCurrentImage] = useState("");
     const [currentUse, setCurrentUse] = useState([]);
     const [currentScent, setCurrentScent] = useState([]);
+
+    const navigate = useNavigate();
 
     // const params = useParams();
     let { product_id } = useParams();
@@ -47,7 +49,8 @@ export default function Product() {
             await axios.get(BASE_URL + "/api/cart/" + user_id + "/add/" + product_id)
             alert("item added to cart!")
         } else {
-            // if user is not logged in, show alert and direct user to login
+            // redirect user to login
+            navigate('/login')
         }
     }
 
@@ -55,44 +58,51 @@ export default function Product() {
 
         <div className="page-container">
 
-        <div className="d-flex">
-            <div>
-                <img src={currentImage} alt="..." width="500px"/>
+            <div className="row d-flex justify-content-center px-5">
+            
+                    <div className="col-6 d-flex justify-content-center mx-auto px-4">
+                        <img src={currentImage} class="img-fluid" alt="..."/>
+                    </div>
+                    
+                    <div className="col-6 px-4 product">
+                        <h1 className="mt-3 header-text">{currentEssentialOil.name}</h1>
+                        <p className="header-small">({currentSize.size})</p>
+                        <h3 className="subheader-text">${currentPrice}</h3>
+
+                        <p className="mt-4 mb-0 body-text"><strong>Use:</strong> {currentUse.map( (u) => (u.type)).join(", ")}</p>
+                        <p className="m-0 body-text"><strong>Scent Profile:</strong> {currentScent.map( (s) => (s.type)).join(", ")}</p>
+                        <p className="mt-4 body-text">{currentEssentialOil.description}</p>
+                        
+                        <div className="mt-4">
+                            <button className="btn rounded-0 p-2 px-5 addtocart-btn" onClick={addToCart}>Add To Cart</button>
+                        </div>
+                    </div>
             </div>
             
-            <div>
-                <h1>{currentEssentialOil.name} ({currentSize.size})</h1>
-                <h3>${currentPrice}</h3>
-                <p>{currentEssentialOil.description}</p>
-                <p>Use: {currentUse.map( (u) => (u.type)).join(", ")}</p>
-                <p>Scent Profile: {currentScent.map( (s) => (s.type)).join(", ")}</p>
-                <Button variant="dark" onClick={addToCart}>Add to Cart</Button>
+            <div className="px-5 py-4">
+                <Accordion defaultActiveKey="0">
+                    <Accordion.Item eventKey="0">
+                        <Accordion.Header><strong>Application</strong></Accordion.Header>
+                        <Accordion.Body className="body-text">
+                            <p className="mt-2 body-text">{currentEssentialOil.application}</p>
+                        </Accordion.Body>
+                    </Accordion.Item>
+                    <Accordion.Item eventKey="1">
+                        <Accordion.Header><strong>Directions</strong></Accordion.Header>
+                        <Accordion.Body>
+                            <p className="mt-2 body-text">{currentEssentialOil.directions}</p>
+                        </Accordion.Body>
+                    </Accordion.Item>
+                    <Accordion.Item eventKey="2">
+                        <Accordion.Header><strong>Benefits</strong></Accordion.Header>
+                        <Accordion.Body>
+                            <p className="mt-2 body-text"><strong>Beauty</strong><br/>{currentEssentialOil.beauty_benefits}</p>
+                            <p className="body-text"><strong>Health</strong><br/>{currentEssentialOil.body_benefits}</p>
+                            <p className="body-text"><strong>Emotional Wellness</strong><br/>{currentEssentialOil.emotional_benefits}</p>
+                        </Accordion.Body>
+                    </Accordion.Item>
+                </Accordion>
             </div>
-        </div>
-
-        <Accordion defaultActiveKey="0">
-            <Accordion.Item eventKey="0">
-                <Accordion.Header>Application</Accordion.Header>
-                <Accordion.Body>
-                    {currentEssentialOil.application}
-                </Accordion.Body>
-            </Accordion.Item>
-            <Accordion.Item eventKey="1">
-                <Accordion.Header>Directions</Accordion.Header>
-                <Accordion.Body>
-                    {currentEssentialOil.directions}
-                </Accordion.Body>
-            </Accordion.Item>
-            <Accordion.Item eventKey="2">
-                <Accordion.Header>Benefits</Accordion.Header>
-                <Accordion.Body>
-                    <p>Beauty<br/>{currentEssentialOil.beauty_benefits}</p>
-                    <p>Health<br/>{currentEssentialOil.body_benefits}</p>
-                    <p>Emotional Wellness<br/>{currentEssentialOil.emotional_benefits}</p>
-                </Accordion.Body>
-            </Accordion.Item>
-        </Accordion>
-
         </div>
         
     </React.Fragment>

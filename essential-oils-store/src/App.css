@@ -236,6 +236,52 @@ select:focus
     font-weight: 300;
 }
 
+/* -- Individual Product Page -- */
+.product .header-text {
+    font-family: 'Prata', serif;
+    letter-spacing: 0.5px;
+    font-size: 30px;
+    color: #5F4027;
+}
+
+.product .header-small {
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.5px;
+    font-size: 20px;
+    color: #5F4027;
+    font-weight: 300;
+}
+
+.product .subheader-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    color: #5F4027;
+}
+
+.product .body-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 300px;
+    letter-spacing: 0.4px;
+    color: #5F4027;
+}
+
+.accordion-body .body-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 300px;
+    letter-spacing: 0.4px;
+    color: #5F4027;
+}
+
+.accordion-header,
+.accordion-button {
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    letter-spacing: 0.4px;
+    color: #5F4027;
+}
+
 
 /* --- Media Query --- */
 @media screen and (min-width: 768px) {
