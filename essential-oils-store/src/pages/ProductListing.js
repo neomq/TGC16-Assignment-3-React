@@ -23,11 +23,10 @@ export default function ProductListing() {
         const fetchProducts = async () => {
             let response = await axios.get(BASE_URL + "/api/products");
             setProducts(response.data)
-            console.log(response.data)
+            console.log("setProducts", response.data)
         }
         fetchProducts()
     }, []) // emulate componenetDidMount
-
 
     useEffect(() => {
         const fetch = async () => {
@@ -35,7 +34,7 @@ export default function ProductListing() {
 
             console.log("product type", response.data)
             setProductType(response.data)
-            console.log(response.data)
+            console.log("setProductType", response.data)
         }
         fetch()
     }, [])
@@ -44,7 +43,7 @@ export default function ProductListing() {
         const fetch = async () => {
             let response = await axios.get(BASE_URL + "/api/products/usages");
 
-            console.log("usage", response.data)
+            console.log("setProductUse", response.data)
             setProductUse(response.data)
         }
         fetch()
@@ -100,9 +99,7 @@ export default function ProductListing() {
         }
 
         console.log("getSearch", getSearch)
-        
         const response = await axios.post(BASE_URL + "/api/products/search", getSearch)
-        
         console.log("search results:", response.data)
         setProducts(response.data)
     }
@@ -131,20 +128,18 @@ export default function ProductListing() {
                         <Form.Select name="typeSearch" value={typeSearch} onChange={(e) => setTypeSearch(e.target.value)} className="rounded-0 bg-transparent mt-3 py-2">
                             <option>-- Collection --</option>
                             {productType.map((t) =>
-                                <option key={t[1]}
-                                    value={t[1]}
-                                >{t[1]}
-                                </option>
+                                <option key={t[1]} value={t[1]}>{t[1]}</option>
                             )}
                         </Form.Select>
                         <Accordion defaultActiveKey="0" className="mt-3" alwaysOpen>
                             <Accordion.Item eventKey="0">
                                 <Accordion.Header>Usage</Accordion.Header>
                                 <Accordion.Body>
+
                                     {productUse.map((u) =>(
-                                        // <Form.Check inline key={u[0]} label={u[1]} name="use" value={u[0]} checked={useSearch.includes(u[0])} onChange={updateUsage} />
-                                        <Form.Check inline key={u[0]} label={u[1]} name="use" value={u[0]} checked={useSearch.includes(u[0])} onChange={updateUsage} />
+                                        <Form.Check inline key={u[0]} label={u[1]} name="use" value={u[0]} onChange={updateUsage} />
                                     ))}
+
                                 </Accordion.Body>
                             </Accordion.Item>
                             <Accordion.Item eventKey="1">

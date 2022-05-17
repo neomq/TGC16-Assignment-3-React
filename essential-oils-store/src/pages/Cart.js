@@ -15,29 +15,38 @@ export default function Cart() {
     useEffect(() => {
         // check if user is logged in
         if (localStorage.getItem("id") !== null) {
-            setLoggedIn(true)
+            // setLoggedIn(true)
 
             // get all cart items
-            let user_id = localStorage.getItem("id")
-            const fetch = async () => {
-                const response = await axios.get(BASE_URL + "/api/cart/" + user_id)
-                setCartItems(response.data)
-                console.log("CART:",response.data)
-            }
+            // let user_id = localStorage.getItem("id")
             fetch()
+
+           
         } else {
             setLoggedIn(false)
         }
-    }, [cartItems])
+    }, [])
 
-    useEffect(() => {
+    const fetch = async () => {
+        let user_id = localStorage.getItem("id")
+        const response = await axios.get(BASE_URL + "/api/cart/" + user_id)
+        let orderSubTotal = 0;
+        for (let i of response.data) {
+            orderSubTotal += (i.sub_total_sgd * i.item_quantity)
+        }
+        setOrderTotal(orderSubTotal.toFixed(2))
+        setCartItems(response.data)
+
+        console.log("CART:",response.data)
+    }
+
+    const updatePrice = () => {
         let orderSubTotal = 0;
         for (let i of cartItems) {
             orderSubTotal += (i.sub_total_sgd * i.item_quantity)
         }
         setOrderTotal(orderSubTotal.toFixed(2))
-    }, [cartItems])
-
+    }
 
     const deleteCartItem = async (product_id) => {
         let user_id = localStorage.getItem("id")
@@ -46,6 +55,8 @@ export default function Cart() {
         // refresh cart items
         let response = await axios.get(BASE_URL + "/api/cart/" + user_id)
         setCartItems(response.data)
+
+        fetch()
     }
 
     const decreaseItemQty = async (product_id) => {
@@ -66,6 +77,8 @@ export default function Cart() {
         await axios.post(BASE_URL + "/api/cart/" + user_id + "/updateQuantity/" + product_id, {
             'newQuantity': cloned[index].item_quantity
         })
+        
+        fetch()
     }
 
     const increaseItemQty = async (product_id) => {
@@ -85,6 +98,8 @@ export default function Cart() {
         await axios.post(BASE_URL + "/api/cart/" + user_id + "/updateQuantity/" + product_id, {
             'newQuantity': cloned[index].item_quantity
         })
+
+        fetch()
     }
 
     return (
