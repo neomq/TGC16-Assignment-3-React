@@ -65,16 +65,19 @@ export default function Product() {
                     </div>
                     
                     <div className="col-6 px-4 product">
-                        <h1 className="mt-3 header-text">{currentEssentialOil.name}</h1>
-                        <p className="header-small">({currentSize.size})</p>
-                        <h3 className="subheader-text">${currentPrice}</h3>
-
-                        <p className="mt-4 mb-0 body-text"><strong>Use:</strong> {currentUse.map( (u) => (u.type)).join(", ")}</p>
-                        <p className="m-0 body-text"><strong>Scent Profile:</strong> {currentScent.map( (s) => (s.type)).join(", ")}</p>
-                        <p className="mt-4 body-text">{currentEssentialOil.description}</p>
+                        <div className="pt-3 pb-5">
+                            <h1 className="header-text">{currentEssentialOil.name}</h1>
+                            <p className="header-small">({currentSize.size})</p>
+                            <h3 className="subheader-text">${currentPrice}</h3>
+                            <p className="mt-4 mb-0 body-text"><strong>Use:</strong> {currentUse.map( (u) => (u.type)).join(", ")}</p>
+                            <p className="m-0 body-text"><strong>Scent Profile:</strong> {currentScent.map( (s) => (s.type)).join(", ")}</p>
+                            <div className="mt-4">
+                                <button className="btn rounded-0 p-2 px-5 addtocart-btn" onClick={addToCart}>Add To Cart</button>
+                            </div>
+                        </div>
                         
-                        <div className="mt-4">
-                            <button className="btn rounded-0 p-2 px-5 addtocart-btn" onClick={addToCart}>Add To Cart</button>
+                        <div className="pt-5 border-top">
+                            <p className="body-text">{currentEssentialOil.description}</p>
                         </div>
                     </div>
             </div>
@@ -82,19 +85,19 @@ export default function Product() {
             <div className="px-5 py-4">
                 <Accordion defaultActiveKey="0">
                     <Accordion.Item eventKey="0">
-                        <Accordion.Header><strong>Application</strong></Accordion.Header>
+                        <Accordion.Header>Application</Accordion.Header>
                         <Accordion.Body className="body-text">
                             <p className="mt-2 body-text">{currentEssentialOil.application}</p>
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="1">
-                        <Accordion.Header><strong>Directions</strong></Accordion.Header>
+                        <Accordion.Header>Directions</Accordion.Header>
                         <Accordion.Body>
                             <p className="mt-2 body-text">{currentEssentialOil.directions}</p>
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="2">
-                        <Accordion.Header><strong>Benefits</strong></Accordion.Header>
+                        <Accordion.Header>Benefits</Accordion.Header>
                         <Accordion.Body>
                             <p className="mt-2 body-text"><strong>Beauty</strong><br/>{currentEssentialOil.beauty_benefits}</p>
                             <p className="body-text"><strong>Health</strong><br/>{currentEssentialOil.body_benefits}</p>

@@ -8,13 +8,15 @@ const BASE_URL = "https://essential-oils-store.herokuapp.com"
 
 
 export default function Cart() {
-    const [loggedIn, setLoggedIn] = useState([])
+    const [loggedIn, setLoggedIn] = useState(true)
     const [cartItems, setCartItems] = useState([])
+    const [orderTotal, setOrderTotal] = useState(0)
 
     useEffect(() => {
         // check if user is logged in
         if (localStorage.getItem("id") !== null) {
             setLoggedIn(true)
+
             // get all cart items
             let user_id = localStorage.getItem("id")
             const fetch = async () => {
@@ -25,15 +27,22 @@ export default function Cart() {
             fetch()
         } else {
             setLoggedIn(false)
-            // direct user to login
         }
-    }, [])
+    }, [cartItems])
+
+    useEffect(() => {
+        let orderSubTotal = 0;
+        for (let i of cartItems) {
+            orderSubTotal += (i.sub_total_sgd * i.item_quantity)
+        }
+        setOrderTotal(orderSubTotal.toFixed(2))
+    }, [cartItems])
+
 
     const deleteCartItem = async (product_id) => {
         let user_id = localStorage.getItem("id")
         await axios.get(BASE_URL + "/api/cart/" + user_id + /remove/ + product_id)
         
-        alert("cart item deleted!!")
         // refresh cart items
         let response = await axios.get(BASE_URL + "/api/cart/" + user_id)
         setCartItems(response.data)
@@ -71,8 +80,6 @@ export default function Cart() {
         
         // replace the state
         setCartItems(cloned)
-
-        alert("1 qty added!")
         
         let user_id = localStorage.getItem("id")
         await axios.post(BASE_URL + "/api/cart/" + user_id + "/updateQuantity/" + product_id, {
@@ -84,109 +91,121 @@ export default function Cart() {
         <React.Fragment>
 
             <div className="page-container">
-                <h1 class="text-center">My Shopping Cart</h1>
+                <div className="row px-md-2">
+                    <h1 className="mt-4 mb-0 text-center page-title-large">My Shopping Cart</h1>
+                    {loggedIn === true ?
+                        <>
+                            {cartItems.length !== 0 ?
+                                <div className="cart row mt-5">
 
-                {loggedIn === true ?
-                    <>
-                        {cartItems.length !== 0 ?
-                            <div>
-                                <div className="cart-heading text-center bg-light py-3">
-                                    <div className="row">
-                                        <div className="col-md-5">Item</div>
-                                        <div className="d-none d-md-block col">
+                                    <div className="col-12 col-md-8">
+                                        <div className="cart-heading text-center py-3">
                                             <div className="row">
-                                                <div className="col-md-4">Quantity</div>
-                                                <div className="col-md-3">Total</div>
-                                                <div className="col-md-2"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="cart-body">
-                                    {cartItems.map((c, idx) => (
-                                        <div className="cart-item">
-                                            <div className=" d-flex align-items-center text-start text-md-center row">
-                                                <div className="col-md-5 col-12">
-                                                    <div className="d-flex justify-content-between align-items-center">
-                                                        <div className="d-flex align-items-center col-10">
-                                                            <img src={c.products.image} width="80px" alt="..." />
-                                                            <div className="text-start">
-                                                                <strong>{c.products.essentialoil.name}</strong>
-                                                                <div className="text-muted text-sm">{c.products.size.size}</div>
-                                                            </div>
-                                                        </div>
-
-
-                                                        <div className="d-md-none text-center col-2" onClick={() => { deleteCartItem(c.product_id) }}>
-                                                            <Button variant="link"><AiOutlineClose /></Button>
-                                                        </div>
+                                                <div className="col-md-5 table-header">Item</div>
+                                                <div className="d-none d-md-block col-7">
+                                                    <div className="row">
+                                                        <div className="col-md-5 table-header">Quantity</div>
+                                                        <div className="col-md-4 table-header">Total</div>
+                                                        <div className="col-md-3"></div>
                                                     </div>
                                                 </div>
+                                            </div>
+                                        </div>
 
-                                                <div className="mt-2 mt-md-0 col-md-7 col-12">
-                                                    <div className="align-items-center row">
-                                                        <div className="col-md-4">
-                                                            <div className="row">
-                                                                <div className="d-md-none text-muted col-6">Quantity</div>
-                                                                <div className="text-end text-md-center col-md-12 col-6">
-                                                                    <div className="row d-flex align-items-center justify-content-end justify-content-md-center">
-                                                                        <button class="col-2 btn btn-sm" onClick={() => { decreaseItemQty(c.product_id) }}><AiOutlineMinus /></button>
-                                                                        <div className="col-3 p-1 border text-center">{c.item_quantity}</div>
-                                                                        <button class="col-2 btn btn-sm" onClick={() => { increaseItemQty(c.product_id) }}><AiOutlinePlus /></button>
+                                        <div className="mt-3 cart-body">
+                                            {cartItems.map((c, idx) => (
+                                                <div className="cart-item">
+                                                    <div className=" d-flex align-items-center text-start text-md-center row">
+                                                        <div className="col-md-5 col-12">
+                                                            <div className="d-flex justify-content-between align-items-center">
+                                                                <div className="d-flex align-items-center col-10">
+                                                                    <img src={c.products.image} width="100px" alt="..." />
+                                                                    <div className="text-start">
+                                                                        <strong>{c.products.essentialoil.name}</strong>
+                                                                        <div className="text-muted text-sm">{c.products.size.size}</div>
                                                                     </div>
+                                                                </div>
+
+
+                                                                <div className="d-md-none text-center col-2" onClick={() => { deleteCartItem(c.product_id) }}>
+                                                                    <Button variant="link"><AiOutlineClose /></Button>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="col-md-3">
-                                                            <div className="row">
-                                                                <div className="d-md-none text-muted col-6">Sub total</div>
-                                                                <div className="text-end text-md-center col-md-12 col-6">{c.sub_total}</div>
+
+                                                        <div className="mt-2 mt-md-0 col-md-7 col-12">
+                                                            <div className="align-items-center row">
+                                                                <div className="col-md-5">
+                                                                    <div className="row">
+                                                                        <div className="d-md-none text-muted col-6">Quantity</div>
+                                                                        <div className="text-end text-md-center col-md-12 col-6">
+                                                                            <div className="row d-flex align-items-center justify-content-end justify-content-md-center">
+                                                                                <button class="col-2 btn btn-sm" onClick={() => { decreaseItemQty(c.product_id) }}><AiOutlineMinus /></button>
+                                                                                <div className="col-3 p-1 border text-center">{c.item_quantity}</div>
+                                                                                <button class="col-2 btn btn-sm" onClick={() => { increaseItemQty(c.product_id) }}><AiOutlinePlus /></button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="col-md-4">
+                                                                    <div className="row">
+                                                                        <div className="d-md-none text-muted col-6">Sub total</div>
+                                                                        <div className="text-end text-md-center col-md-12 col-6">${c.sub_total_sgd}</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="d-none d-md-block text-center col-3" onClick={() => { deleteCartItem(c.product_id) }}>
+                                                                    <Button variant="link"><AiOutlineClose /></Button>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <div className="d-none d-md-block text-center col-2" onClick={() => { deleteCartItem(c.product_id) }}>
-                                                            <Button variant="link"><AiOutlineClose /></Button>
-                                                        </div>
+                                                    </div>
+                                                    <hr />
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <div className="col-12 col-md-4">
+                                        {/* Order Summary Section */}
+                                        <div className="order-section p-4">
+                                            <div>
+                                                <div>
+                                                    <h3 className="section-title">Order Summary</h3>
+                                                </div>
+                                                <div className="mt-4">
+                                                    <div class="d-flex flex-row justify-content-between py-3 border-bottom">
+                                                        <span>Order Subtotal </span>
+                                                        <span>${orderTotal}</span>
+                                                    </div>
+                                                    <div class="d-flex flex-row justify-content-between py-3 border-bottom">
+                                                        <span>Shipping & Handling</span>
+                                                        <span>FREE</span>
+                                                    </div>
+                                                    <div class="d-flex flex-row justify-content-between py-3 border-bottom">
+                                                        <span>Grand Total </span>
+                                                        <span>${orderTotal}</span>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <hr />
                                         </div>
-                                    ))}
-                                </div>
 
-                                {/* Order Summary Section */}
-                                <div className="bg-light">
-                                    <div>
-                                        <div>
-                                            <h6>Order Summary</h6>
-                                        </div>
-                                        <div className="pt-1">
-                                            <ul className="mb-0">
-                                                <li><span>Order Subtotal </span><span>$</span></li>
-                                                <li><span>Shipping and handling </span><span>FREE</span></li>
-                                                <li><span>Order Total </span><strong>$</strong></li>
-                                            </ul>
-                                        </div>
+                                        {/* Checkout Button */}
+                                        <a class="btn btn-primary" role="button" href={BASE_URL + "/api/checkout/" + localStorage.getItem("id")}>Proceed to Checkout</a>
                                     </div>
+
                                 </div>
-
-                                {/* Checkout Button */}
-                                <a class="btn btn-primary" role="button" href={BASE_URL + "/api/checkout/" + localStorage.getItem("id")}>Checkout</a>
-
-                            </div>
-                            :
-                            <div>
-                                <p className="lead text-center">There are no items in your shopping cart.</p>
-                            </div>
-                        }
-                    </>
-                    :
-                    <div>
-                        <p className="lead text-center">Please log in to view or add items to your shopping cart.</p>
-                    </div>
-                }
-
+                                :
+                                <div>
+                                    <p className="lead text-center">There are no items in your shopping cart.</p>
+                                </div>
+                            }
+                        </>
+                        :
+                        <div>
+                            <p className="lead text-center">Please log in to view or add items to your shopping cart.</p>
+                        </div>
+                    }
+                </div>
             </div>
             
 

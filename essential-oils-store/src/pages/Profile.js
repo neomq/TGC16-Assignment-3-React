@@ -12,20 +12,23 @@ export default function Profile() {
     const [address, setAddress] = useState("")
 
     useEffect(() => {
-        const fetchProfile = async () => {
-            let response = await axios.get(BASE_URL + "/api/users/profile", {
-                headers: {
-                    authorization: "Bearer " + localStorage.getItem('accessToken')
-                }
-            })
-            
-            setName(response.data.name)
-            setEmail(response.data.email)
-            setAddress(response.data.address)
-
-            console.log("USER PROFILE", response.data)
+        // check if user is logged in
+        if (localStorage.getItem("id") !== null) {
+            const fetchProfile = async () => {
+                let response = await axios.get(BASE_URL + "/api/users/profile", {
+                    headers: {
+                        authorization: "Bearer " + localStorage.getItem('accessToken')
+                    }
+                })
+                
+                setName(response.data.name)
+                setEmail(response.data.email)
+                setAddress(response.data.address)
+    
+                console.log("USER PROFILE", response.data)
+            }
+            fetchProfile();
         }
-        fetchProfile();
     }, [])
 
     // logout
