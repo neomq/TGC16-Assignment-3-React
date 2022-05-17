@@ -40,13 +40,13 @@ export default function Cart() {
         console.log("CART:",response.data)
     }
 
-    const updatePrice = () => {
-        let orderSubTotal = 0;
-        for (let i of cartItems) {
-            orderSubTotal += (i.sub_total_sgd * i.item_quantity)
-        }
-        setOrderTotal(orderSubTotal.toFixed(2))
-    }
+    // const updatePrice = () => {
+    //     let orderSubTotal = 0;
+    //     for (let i of cartItems) {
+    //         orderSubTotal += (i.sub_total_sgd * i.item_quantity)
+    //     }
+    //     setOrderTotal(orderSubTotal.toFixed(2))
+    // }
 
     const deleteCartItem = async (product_id) => {
         let user_id = localStorage.getItem("id")

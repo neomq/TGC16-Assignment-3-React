@@ -145,10 +145,12 @@ export default function ProductListing() {
                             <Accordion.Item eventKey="1">
                                 <Accordion.Header>Scent Profile</Accordion.Header>
                                 <Accordion.Body>
+
                                     <select className="form-select bg-transparent border-0" multiple aria-label="multiple select example">
                                         <option>Option 1</option>
                                         <option>Option 2</option>
                                     </select>
+
                                 </Accordion.Body>
                             </Accordion.Item>
                             <Accordion.Item eventKey="2">
