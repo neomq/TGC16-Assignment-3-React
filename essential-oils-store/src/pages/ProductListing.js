@@ -11,11 +11,15 @@ export default function ProductListing() {
     const [products, setProducts] = useState([])
     const [productType, setProductType] = useState([])
     const [productUse, setProductUse] = useState([])
+    const [productScent, setProductScent] = useState([])
+    const [productBenefits, setProductBenefits] = useState([])
 
     //search
     const [nameSearch, setNameSearch] = useState("")
     const [typeSearch, setTypeSearch] = useState("")
     const [useSearch, setUseSearch] = useState([])
+    const [scentSearch, setScentSearch] = useState([])
+    const [benefitsSearch, setBenefitsSearch] = useState([])
 
     const navigate = useNavigate();
 
@@ -49,6 +53,26 @@ export default function ProductListing() {
         fetch()
     }, [])
 
+    useEffect(() => {
+        const fetch = async () => {
+            let response = await axios.get(BASE_URL + "/api/products/scents");
+
+            console.log("setProductScent", response.data)
+            setProductScent(response.data)
+        }
+        fetch()
+    }, [])
+
+    useEffect(() => {
+        const fetch = async () => {
+            let response = await axios.get(BASE_URL + "/api/products/benefits");
+
+            console.log("setProductBenefits", response.data)
+            setProductBenefits(response.data)
+        }
+        fetch()
+    }, [])
+
     const updateUsage = (e) => {
         // if the value is in the array,
         if (useSearch.includes(e.target.value)) {
@@ -67,6 +91,48 @@ export default function ProductListing() {
             clone.push(e.target.value); // add the value to the array
             // replace
             setUseSearch(clone)
+        }
+    }
+
+    const updateScent = (e) => {
+        // if the value is in the array,
+        if (scentSearch.includes(e.target.value)) {
+            // clone
+            let clone = scentSearch.slice();
+            // modify
+            let indexToRemove = scentSearch.findIndex(i => i === e.target.value);
+            clone.splice(indexToRemove, 1) // remove the value from the array
+            // replace
+            setScentSearch(clone)
+        } else {
+            // the array don't have the value
+            // clone
+            let clone = scentSearch.slice();
+            // modify
+            clone.push(e.target.value); // add the value to the array
+            // replace
+            setScentSearch(clone)
+        }
+    }
+
+    const updateBenefits = (e) => {
+        // if the value is in the array,
+        if (benefitsSearch.includes(e.target.value)) {
+            // clone
+            let clone = benefitsSearch.slice();
+            // modify
+            let indexToRemove = benefitsSearch.findIndex(i => i === e.target.value);
+            clone.splice(indexToRemove, 1) // remove the value from the array
+            // replace
+            setBenefitsSearch(clone)
+        } else {
+            // the array don't have the value
+            // clone
+            let clone = benefitsSearch.slice();
+            // modify
+            clone.push(e.target.value); // add the value to the array
+            // replace
+            setBenefitsSearch(clone)
         }
     }
 
@@ -97,14 +163,28 @@ export default function ProductListing() {
         if (useSearch && useSearch.length !== 0) {
             getSearch.use = useSearch
         }
+        if (scentSearch && scentSearch.length !== 0) {
+            getSearch.scent = scentSearch
+        }
+        if (benefitsSearch && benefitsSearch.length !== 0) {
+            getSearch.benefits = benefitsSearch
+        }
 
         console.log("getSearch", getSearch)
+        
         const response = await axios.post(BASE_URL + "/api/products/search", getSearch)
         console.log("search results:", response.data)
+
         setProducts(response.data)
     }
 
-    const resetSearch = async () => {
+    const resetSearch = async (e) => {
+
+        setNameSearch("")
+        setTypeSearch("")
+        setUseSearch([])
+        setScentSearch([])
+
         const response = await axios.get(BASE_URL + "/api/products")
 
         setProducts(response.data)
@@ -146,20 +226,20 @@ export default function ProductListing() {
                                 <Accordion.Header>Scent Profile</Accordion.Header>
                                 <Accordion.Body>
 
-                                    <select className="form-select bg-transparent border-0" multiple aria-label="multiple select example">
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                    </select>
+                                    {productScent.map((s) =>(
+                                        <Form.Check key={s[0]} label={s[1]} name="use" value={s[0]} onChange={updateScent} />
+                                    ))}
 
                                 </Accordion.Body>
                             </Accordion.Item>
                             <Accordion.Item eventKey="2">
                                 <Accordion.Header>Health Benefits</Accordion.Header>
                                 <Accordion.Body>
-                                    <select className="form-select bg-transparent border-0" multiple aria-label="multiple select example">
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                    </select>
+
+                                    {productBenefits.map((b) => (
+                                        <Form.Check key={b[0]} label={b[1]} name="use" value={b[0]} onChange={updateBenefits} />
+                                    ))}
+                                   
                                 </Accordion.Body>
                             </Accordion.Item>
                         </Accordion>
