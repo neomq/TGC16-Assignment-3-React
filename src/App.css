@@ -83,6 +83,17 @@ body {
     background-color: #dfdfdcc2;
 }
 
+.page-header .b-crumb li,
+.page-header-2 .b-crumb li {
+    color: #5F4027;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    letter-spacing: 1.2px;
+    font-weight: 400;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
 .page-title {
     color: #5F4027;
     font-family: 'Prata', serif;
@@ -98,14 +109,35 @@ body {
     font-weight: 300;
 }
 
-.page-body {
-    margin-top: 40px;
+.filter-btn span,
+.filter-btn i {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 0.4px;
+    color: #5F4027;
 }
+
+/* .filter-btn {
+    border: 1px solid #5F4027;
+} */
+
+
+/* .page-body {
+    margin-top: 40px;
+} */
 
 .product-title {
     font-family: 'Prata', serif;
     letter-spacing: 0.5px;
     font-size: 16px;
+    color: #5F4027;
+}
+
+.product-title span {
+    font-family: 'Prata', serif;
+    letter-spacing: 0.5px;
+    font-size: 14px;
     color: #5F4027;
 }
 
@@ -137,6 +169,7 @@ body {
 .search select,
 .search select option,
 .search .accordion-header,
+.accordion-button,
 .search .accordion-button,
 .search .accordion-body,
 input,
@@ -147,6 +180,12 @@ input::-webkit-input-placeholder
     font-size: 14px !important;
     letter-spacing: 0.4px;
     font-weight: 300;
+}
+
+.accordion-button::after,
+.search .accordion-button::after {
+    background-image: url("/public/chevron-down.svg") !important;
+    opacity: 0.5;
 }
 
 .search select,
@@ -177,6 +216,8 @@ input
 input:focus,
 input:hover,
 input:active,
+button:active,
+button:focus,
 .accordion:focus,
 .accordion:active,
 .accordion:hover,
@@ -186,23 +227,32 @@ select:focus
     box-shadow: none !important;
 }
 
+input.form-check-input:checked{
+    background-color: #5F4027 !important;
+}
+
 .search-btn-pri,
-.signin-btn {
+.signin-btn,
+.checkout-btn,
+.shop-btn
+{
     border: 1px solid #5F4027;
     background-color: #5F4027;
     color: #F1F1EE;
     font-family: 'Poppins', sans-serif;
-    letter-spacing: 0.6px;
+    letter-spacing: 0.8px;
     font-size: 14px;
     font-weight: 300;
 }
 
-.search-btn-pri:hover {
+.search-btn-pri:hover,
+.signin-btn:hover,
+.shop-btn:hover {
     border: 1px solid #412b19;
     background-color: #412b19;
     color: #F1F1EE;
     font-family: 'Poppins', sans-serif;
-    letter-spacing: 0.6px;
+    letter-spacing: 0.8px;
     font-size: 14px;
     font-weight: 300;
 }
@@ -231,12 +281,44 @@ select:focus
 .profile-section .section-title {
     color: #5F4027;
     font-family: 'Poppins', sans-serif;
-    letter-spacing: 0.3px;
-    font-size: 20px;
+    font-size: 13px;
+    letter-spacing: 1.2px;
+    font-weight: 400;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+.profile-section .body-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 300px;
+    letter-spacing: 0.4px;
+    color: #5F4027;
+}
+
+.profile-section .profile-details-name {
+    color: #5F4027;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    letter-spacing: 0.4px;
+    font-weight: 500px;
+}
+
+.profile-section .profile-details {
+    color: #5F4027;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.8px;
     font-weight: 300;
 }
 
 /* -- Individual Product Page -- */
+.page-header-2 {
+    /* background-color: #dfdfdcc2; */
+    border-bottom: 1px solid #dfdfdcc2;
+    border-top: 1px solid #dfdfdcc2;
+}
+
 .product .header-text {
     font-family: 'Prata', serif;
     letter-spacing: 0.5px;
@@ -260,15 +342,23 @@ select:focus
 
 .product .body-text {
     font-family: 'Poppins', sans-serif;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 300px;
     letter-spacing: 0.4px;
     color: #5F4027;
 }
 
+.product-info {
+    background-color: #dfdfdcc2;
+}
+
+.description {
+    border-top: 1px solid #dfdfdcc2;
+}
+
 .accordion-body .body-text {
     font-family: 'Poppins', sans-serif;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 300px;
     letter-spacing: 0.4px;
     color: #5F4027;
@@ -290,17 +380,75 @@ select:focus
 
 .section-title {
     color: #5F4027;
-    font-family: 'Prata', serif;
-    font-size: 20px;
-    letter-spacing: 0.3px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    letter-spacing: 1px;
+    font-weight: 400;
+    /* text-transform: uppercase; */
+}
+
+.order-section span {
+    color: #5F4027;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.4px;
+    font-weight: 300;
+}
+
+.order-section .order-total {
+    color: #5F4027;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.4px;
+    font-weight: 300;
+}
+
+.order-list {
+    border-bottom: 1px solid #5f402719;
+}
+
+.order-section .order-total {
+    color: #5F4027;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    letter-spacing: 0.4px;
+    font-weight: 500;
 }
 
 .cart .table-header {
     color: #5F4027;
     font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    letter-spacing: 1px;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+.cart-body .item-title {
+    font-family: 'Prata', serif;
+    letter-spacing: 0.5px;
     font-size: 16px;
-    font-weight: 300px;
+    color: #5F4027;
+}
+
+.cart-body .item-subtitle {
+    color: #5F4027;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
     letter-spacing: 0.4px;
+    font-weight: 300;
+}
+
+.cart-body .item-body {
+    color: #5F4027;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    letter-spacing: 1px;
+    font-weight: 400;
+}
+
+.cart-body .qty-box {
+    border: 1px solid #5f402743;
 }
 
 

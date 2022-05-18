@@ -10,6 +10,7 @@ export default function Profile() {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [address, setAddress] = useState("")
+    const [loggedIn, setLoggedIn] = useState(false)
 
     useEffect(() => {
         // check if user is logged in
@@ -28,6 +29,7 @@ export default function Profile() {
                 console.log("USER PROFILE", response.data)
             }
             fetchProfile();
+            setLoggedIn(true)
         }
     }, [])
 
@@ -44,27 +46,31 @@ export default function Profile() {
 
     return (
         <React.Fragment>
-
+            {loggedIn === true ?
             <div className="page-container">
+                <div className="row">
 
-            <div className="row">
-                <div className="mx-auto col-md-5 mt-4">
-                <h1 className="text-center page-title-large">Welcome, {name}!</h1>
+                    <div className="mx-auto col-md-4 mt-4">
+                        <h1 className="text-center page-title-large">Welcome,<br/>{name}!</h1>
 
-                    <div className="profile-section mt-3">
-                        <p className="section-title text-center">Account Information</p>
-                        <p className="m-0 text-center">{name}</p>
-                        <p className="m-0 text-center">{email}</p>
-                        <p className="m-0 text-center">{address}</p>
-                        <p></p>
+                        <div className="profile-section mt-3">
+                            <p className="section-title text-center">Account Information</p>
+                            <div className="mt-5">
+                                <p className="m-0 text-center profile-details-name">{name}</p>
+                                <p className="m-0 text-center profile-details">{email}</p>
+                                <p className="m-0 text-center profile-details">{address}</p>
+                            </div>
+                        </div>
+
+                        <div class="d-grid mt-5 mx-auto">
+                            <button class="btn shop-btn rounded-0" type="button">START SHOPPING</button>
+                        </div>
+                        <p className="mt-3 text-center page-subtitle">or <Link onClick={logout} to="/">Log out</Link></p>
                     </div>
-                    
-                    <Link onClick={logout} to="/"><button type="button" class="btn btn-dark">Log Out</button></Link>
+
                 </div>
             </div>
-                
-            </div>
-            
+            : null}
         </React.Fragment>
 
     )

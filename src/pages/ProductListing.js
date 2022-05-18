@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Card, Form, CardGroup, Accordion } from 'react-bootstrap';
-import { FiSearch } from "react-icons/fi";
+import { Form, Accordion, Breadcrumb } from 'react-bootstrap';
+import { FiSearch, FiFilter } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios'
 
@@ -74,6 +74,8 @@ export default function ProductListing() {
     }, [])
 
     const updateUsage = (e) => {
+        // console.log(e.target.value)
+        // console.log(useSearch)
         // if the value is in the array,
         if (useSearch.includes(e.target.value)) {
             // clone
@@ -178,12 +180,13 @@ export default function ProductListing() {
         setProducts(response.data)
     }
 
-    const resetSearch = async (e) => {
+    const resetSearch = async () => {
 
         setNameSearch("")
         setTypeSearch("")
         setUseSearch([])
         setScentSearch([])
+        setBenefitsSearch([])
 
         const response = await axios.get(BASE_URL + "/api/products")
 
@@ -194,14 +197,80 @@ export default function ProductListing() {
         <React.Fragment>
             <div className="page-container">
 
-                <div className="page-header py-5 my-2">
-                    <p className="mb-0 page-title text-center">Shop Essential Oils</p>
-                    <p className="mt-2 mb-0 page-subtitle text-center mx-auto w-50">Improve your everyday life with 100% pure natural essential oils extracted from nature, all around the world.</p>
+                <div className="page-header py-5 my-2 mb-0 mx-auto">
+                    
+                        <Breadcrumb className="b-crumb mb-2 d-flex justify-content-center">
+                            {/* <Breadcrumb.Item href="#">Home</Breadcrumb.Item> */}
+                            <Breadcrumb.Item active>Products</Breadcrumb.Item>
+                        </Breadcrumb>
+                    
+                    <p className="mb-0 px-3 page-title text-center">Shop Essential Oils</p>
+                    <p className="mt-2 mb-0 page-subtitle text-center mx-auto w-75">Improve your everyday life with 100% pure natural essential oils extracted from nature, all around the world.</p>
                 </div>
                 
-                <div className="page-body row">
+                <div className="page-body mt-md-5 row">
+                    
+                    <div className="px-3 py-0 d-flex my-3 d-md-none">
+                        <button className="btn filter-btn d-flex align-items-center py-0 rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            <i className="bi bi-funnel px-0 py-2"></i><span className="p-2 px-1 mb-0">Filter</span>
+                        </button>
+                    </div>
+                    
+                    
+                    <div className="collapse d-md-none" id="collapseExample">
+                        {/* Search Filter */}
+                        <div className="search col-12 col-md-3 mb-5">
+                            <div className="input-box d-flex flex-row align-items-center ps-3">
+                                <FiSearch /><Form.Control type="text" name="nameSearch" value={nameSearch} onChange={(e) => setNameSearch(e.target.value)} placeholder="Search Product" className="py-2 bg-transparent border-0 rounded-0" />
+                            </div>
+                            <Form.Select name="typeSearch" value={typeSearch} onChange={(e) => setTypeSearch(e.target.value)} className="rounded-0 bg-transparent mt-3 py-2">
+                                <option>-- Collection --</option>
+                                {productType.map((t) =>
+                                    <option key={t[1]} value={t[1]}>{t[1]}</option>
+                                )}
+                            </Form.Select>
+                            <Accordion defaultActiveKey="0" className="mt-3" alwaysOpen>
+                                <Accordion.Item eventKey="0">
+                                    <Accordion.Header>Usage</Accordion.Header>
+                                    <Accordion.Body>
 
-                    <div className="search col-3">
+                                        {productUse.map((u) => (
+                                            <Form.Check inline key={u[0]} checked={useSearch.includes(u[0].toString())} label={u[1]} name="use" value={u[0]} onChange={updateUsage} />
+                                        ))}
+
+                                    </Accordion.Body>
+                                </Accordion.Item>
+                                <Accordion.Item eventKey="1">
+                                    <Accordion.Header>Scent Profile</Accordion.Header>
+                                    <Accordion.Body>
+
+                                        {productScent.map((s) => (
+                                            <Form.Check key={s[0]} checked={scentSearch.includes(s[0].toString())} label={s[1]} name="use" value={s[0]} onChange={updateScent} />
+                                        ))}
+
+                                    </Accordion.Body>
+                                </Accordion.Item>
+                                <Accordion.Item eventKey="2">
+                                    <Accordion.Header>Health Benefits</Accordion.Header>
+                                    <Accordion.Body>
+
+                                        {productBenefits.map((b) => (
+                                            <Form.Check key={b[0]} checked={benefitsSearch.includes(b[0].toString())} label={b[1]} name="use" value={b[0]} onChange={updateBenefits} />
+                                        ))}
+
+                                    </Accordion.Body>
+                                </Accordion.Item>
+                            </Accordion>
+
+                            <div className="mt-4 d-grid gap-2">
+                                <button className="btn search-btn-pri rounded-0 p-2" onClick={search}>Search</button>
+                                <button className="btn search-btn-sec rounded-0 p-2" onClick={resetSearch}>Clear All Filters</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Search Filter */}
+                    <div className="search d-none d-md-block col-12 col-md-3 mb-5">
                         <div className="input-box d-flex flex-row align-items-center ps-3">
                             <FiSearch/><Form.Control type="text" name="nameSearch" value={nameSearch} onChange={(e) => setNameSearch(e.target.value)} placeholder="Search Product" className="py-2 bg-transparent border-0 rounded-0"/>
                         </div>
@@ -217,7 +286,7 @@ export default function ProductListing() {
                                 <Accordion.Body>
 
                                     {productUse.map((u) =>(
-                                        <Form.Check inline key={u[0]} label={u[1]} name="use" value={u[0]} onChange={updateUsage} />
+                                        <Form.Check inline key={u[0]} checked={useSearch.includes(u[0].toString())} label={u[1]} name="use" value={u[0]} onChange={updateUsage} />
                                     ))}
 
                                 </Accordion.Body>
@@ -227,7 +296,7 @@ export default function ProductListing() {
                                 <Accordion.Body>
 
                                     {productScent.map((s) =>(
-                                        <Form.Check key={s[0]} label={s[1]} name="use" value={s[0]} onChange={updateScent} />
+                                        <Form.Check key={s[0]} checked={scentSearch.includes(s[0].toString())} label={s[1]} name="use" value={s[0]} onChange={updateScent} />
                                     ))}
 
                                 </Accordion.Body>
@@ -237,7 +306,7 @@ export default function ProductListing() {
                                 <Accordion.Body>
 
                                     {productBenefits.map((b) => (
-                                        <Form.Check key={b[0]} label={b[1]} name="use" value={b[0]} onChange={updateBenefits} />
+                                        <Form.Check key={b[0]} checked={benefitsSearch.includes(b[0].toString())} label={b[1]} name="use" value={b[0]} onChange={updateBenefits} />
                                     ))}
                                    
                                 </Accordion.Body>
@@ -249,36 +318,44 @@ export default function ProductListing() {
                             <button className="btn search-btn-sec rounded-0 p-2" onClick={resetSearch}>Clear All Filters</button>
                         </div>
                     </div>
-
-                    <div className="products col-9">
-                        <CardGroup>
-                            <Row xs={1} md={3} className="g-4">
-                                {products.map((p, idx) => (
-                                    <Col key={p.id}>
-                                        <Card className="rounded-0 h-100 border-0 bg-transparent">
+                    
+                    {/* Product Listing */}
+                    <div className="products col-12 col-md-9">
+                        <div className="pb-3 row row-cols-2 row-cols-md-2 row-cols-lg-3 g-3 g-md-4">
+                            {products.map((p) => (
+                                <div className="col" key={p._id}>
+                                    {/* Card */}
+                                    <div className="card d-flex flex-column justify-content-between border-0 rounded-0 h-100 bg-transparent">
+                                        {/* Card Header */}
+                                        <div class="wrapper">
                                             <Link to={"/products/" + p.id} className="text-decoration-none text-reset">
-                                                <Card.Img className="rounded-0" variant="top" src={p.image} />
-                                                <Card.Body className="d-flex justify-content-between p-0 py-4">
-                                                    <Card.Text className="product-title pe-2 mb-0">
-                                                        {p.essentialoil.name}<br/><span className="small-text">({p.size.size})</span> {' '}
-                                                    </Card.Text>
-                                                    <Card.Text className="product-title ps-2" >
-                                                        <span>${p.price_sgd}</span>
-                                                    </Card.Text>
-                                                </Card.Body>
-                                            </Link>
-                                            <Card.Footer className="p-0 bg-transparent border-0 rounded-0">
-                                                <div className="d-grid">
-                                                    <button className="btn rounded-0 p-2 addtocart-btn" onClick={() => { addToCart(p.id) }}>
-                                                        Add To Cart
-                                                    </button>
+                                                {/* Card Img */}
+                                                <div className="img">
+                                                    <img src={p.image} className="card-img-top rounded-0" alt="..." />
                                                 </div>
-                                            </Card.Footer>
-                                        </Card>
-                                    </Col>
-                                ))}
-                            </Row>
-                        </CardGroup>
+                                                {/* Card Body */}
+                                                <div className="d-flex row justify-content-between mt-3 mx-1">
+                                                    <div className="col-12 col-md-7">
+                                                        <p className="product-title">{p.essentialoil.name} <span className="small-text">({p.size.size})</span></p>
+                                                    </div>
+                                                    <div className="col-12 col-md-5">
+                                                        <p className="product-title text-md-end text-start"><span>S${p.price_sgd}</span></p>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        </div>
+                                        {/* Card Footer */}
+                                        <div className="p-0 bg-transparent border-0 rounded-0">
+                                            <div className="d-grid">
+                                                <button className="btn rounded-0 p-2 addtocart-btn" onClick={() => { addToCart(p.id) }}>
+                                                    Add To Cart
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,5 @@
 import './App.css';
+import { useEffect } from "react";
 import ProductListing from './pages/ProductListing';
 import Product from './pages/Product';
 import Cart from './pages/Cart';
@@ -20,18 +21,28 @@ const BASE_URL = "https://essential-oils-store.herokuapp.com"
 function App() {
 
   const [loggedIn, setLoggedIn] = useState(false)
-  // const [userName, setUserName] = useState("")
 
-  // check for access token
+  // useEffect(() => {
+  //   //Set interval for refresh token
+  //   setInterval(async () => {
+  //     const response = await axios.post(BASE_URL + "/api/users/refresh", {
+  //       "refreshToken": localStorage.getItem("refreshToken"),
+  //     })
+  //     localStorage.setItem("accessToken", response.data.accessToken)
+  //   }, 10 * 60 * 1000)
+  // }, [])
+
+
+  // check for existing token
   const accessToken = localStorage.getItem('accessToken') 
   if (accessToken) {
+    console.log(accessToken)
     const checkAccesssToken = async () => {
       const response = await axios.get(BASE_URL + "/api/users/profile", {
         headers: {
           authorization: "Bearer " + accessToken
         }
       })
-      
       console.log(response.data)
       console.log(response.data.id)
  
@@ -47,7 +58,7 @@ function App() {
   return (
     <Router>
 
-      <nav className="navbar navbar-expand-lg fixed-top p-3">
+      <nav className="navbar navbar-expand-lg fixed-top py-3 px-4">
         <div className="container-fluid">
           <a className="navbar-brand" href="/">Aroma.</a>
           <button className="navbar-toggler navbar-item border-0" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
