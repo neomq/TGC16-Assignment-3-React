@@ -1,8 +1,11 @@
 # **Essential Oils Online Store**
 
-**Access the site [here](https://6285c53c8abb231de08e477a--endearing-sfogliatella-c26b89.netlify.app/).**
+**Access the site for customers [here](https://6285c53c8abb231de08e477a--endearing-sfogliatella-c26b89.netlify.app/).**
+**Access the site for shop owners (Admin) [here](https://essential-oils-store.herokuapp.com/).**
 <br/>
-(Deployed using [Netlify](https://www.netlify.com/))
+Test Account for Shop Owner
+Login: Admin@email.com
+Password: admin123
 
 **Credits:**
 1. FLO (https://floaroma.sg/) for all product images, information and content used in this project.
@@ -19,9 +22,7 @@ An online e-commerce store specialising in the sale of aromatherapy oils (also k
 * Thus the main goal of the site is to raise awareness of the types of health benefits that essential oils can provide and promote physical and mental health through the use of essential oil products.
 
 ### **Logical Schema Diagram**
-
-![This is an image](images/logicalschema.png)
-
+![This is an image](files/logicalschema.png)
 <br />
 
 ## 2. UI/UX
@@ -62,14 +63,28 @@ An online e-commerce store specialising in the sale of aromatherapy oils (also k
     - delete an order
     - search orders
 3. **Non-Functional Requirements (for customers):**
-- Mobile responsiveness
+    - Mobile responsiveness
 
 ### 3. Structure
-[insert image]
+![This is an image](files/Structure.jpg)
+
+1. Nav Bar: Allows user to navigate to products listing, profile page / login page / account registration page, and shopping cart.
+2. Home Page: Has a CTA button to direct user to product listings
+3. Shopping Cart: displays summary of selected products that the user has chosen to purchase.
+4. User Login/Register/Profile: Upon clicking on the 'user' icon, user will first be directed to the login page to log in. If user do not have an account, user can register for a new account via the login page. If the user has already logged into the site, user will be directed to their profile page.
 
 ### 4. Skeleton
-(Initial draft)
-(Final)
+(Draft Wireframe)
+Refer to [this link](https://www.figma.com/file/7GpYn05kCnyLd2KHTWCKP5/DWAD-Assignment-3-(Wireframe-Draft-v1)?node-id=4%3A5) for the wireframe of the following pages:
+1. Home Page
+2. Product Listings
+3. Product Page
+4. Shopping Cart
+5. User Login
+
+### 5. Visual Design
+Use of neoclassical serif and minimal light-weight sans serif with simple icons, and muted colour palette to provide an overall clean and elegant UI.
+![This is an image](files/colours.png)
 
 ## 3. Features
 **For customers:**
@@ -80,12 +95,27 @@ An online e-commerce store specialising in the sale of aromatherapy oils (also k
 5. Customers are also able to navigate from each of their shopping cart item back to it's product page to review the product description again before confirming purchase.
 6. Inline updating of shopping cart item quantity. The subtotal and order summary will also be updated instantaneously to reflect any changes in the total amount.
 
-**Limitations and future implementations**
+**For shop owners / administrators:**
+1. Owners can view their profile upon login, and register a new shop owner or administrator
+2. Owners / administrators can view all products and search for products
+3. Owners / administrators can create and update a product.
+4. Owners / administrators can upload product images for each product.
+5. Owners / administrators can delete a product (that does not exist in customer's shopping cart or is not being purchased)
+5. Owners / administrators can view all customers orders and their order details.
+6. Owners / administrators can update order statuses and customer shipping address
+7. Owners / administrators can delete an order.
+
+**Limitations and future implementations (for customer site)**
 1. Allow customers to edit/update their profile details (i.e. contact information and address), as currently customers can only view their profile created upon registration.
 2. Allow customers to reset their password or registered email.
 2. Allow customers to view their order history, order statuses and details of their purchases in their account.
 3. Enable sorting of products / product search by alphabetical order, lowest to highest price etc.
 4. Implement product variation in a single product page (i.e. bottle size), instead of having separate product pages and requiring the customer to search through all the listings for their preferred product attribute. This would also help to improve customer experience.
+
+**Limitations and future implementations (for owner / admin site)**
+1. Allow owners / administrators to also view user accounts and create, edit and delete a user.
+2. Product search can be made more efficient by allowing owners / administrators to perform keyword search of products besides filtering.
+3. Site owners / administrators can also create, update and delete product categories.
 
 ## 4. Technologies Used / Credits
 - Built using HTML / CSS / Express / ReactJS
