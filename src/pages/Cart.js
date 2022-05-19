@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from 'react-bootstrap';
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 
 const BASE_URL = "https://essential-oils-store.herokuapp.com"
@@ -125,15 +126,15 @@ export default function Cart() {
                                                     <div className=" d-flex align-items-center text-start text-md-center row">
                                                         <div className="col-md-5 col-12">
                                                             <div className="d-flex justify-content-between align-items-center">
-                                                                <div className="d-flex align-items-center col-10">
-                                                                    <img src={c.products.image} width="100px" alt="..." />
-                                                                    <div className="ps-3 text-start">
-                                                                        <p className="mb-1 item-title">{c.products.essentialoil.name}</p>
-                                                                        <div className="item-subtitle">{c.products.size.size}</div>
+                                                                <Link to={"/products/" + c.products.id} className="text-decoration-none text-reset">
+                                                                    <div className="d-flex align-items-center col-10">
+                                                                            <img src={c.products.image} width="100px" alt="..." />
+                                                                            <div className="ps-3 text-start">
+                                                                                <p className="mb-1 item-title">{c.products.essentialoil.name}</p>
+                                                                                <div className="item-subtitle">{c.products.size.size}</div>
+                                                                            </div>
                                                                     </div>
-                                                                </div>
-
-
+                                                                </Link>
                                                                 <div className="d-md-none align-self-start text-center col-2" onClick={() => { deleteCartItem(c.product_id) }}>
                                                                     <Button variant="link" className="text-reset"><i class="text-reset bi bi-x-lg"></i></Button>
                                                                 </div>

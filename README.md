@@ -14,7 +14,7 @@ An online e-commerce store specialising in the sale of aromatherapy oils (also k
 
 ### **Organisational Goals & Project Justification**
 * Essential oils have been popular for its use in Aromatherapy and diverse benefits in physical, mental and spiritual health.
-* The negative impact on work-life balance has created anxiety and stress problems among the working-population. Many people are turning to natural therapies as an alternative to conventional drugs.
+* The negative impact on work-life balance has also created anxiety and stress problems among the working-population. Many people are turning to natural therapies as an alternative to conventional drugs.
 * Essential oils are well-known to have properties that can aid in a variety of health conditions such as indigestion, cardiovascular disorders, respiratory problems, healing of wounds, relieving stress, alleviating pain, motion sickness etc.
 * Thus the main goal of the site is to raise awareness of the types of health benefits that essential oils can provide and promote physical and mental health through the use of essential oil products.
 
@@ -72,9 +72,9 @@ An online e-commerce store specialising in the sale of aromatherapy oils (also k
 
 ## 3. Features
 **For customers:**
-    1. Customers can view their profile upon login / registration
-    2. Search filters allows users to search for products based on it's properties and benefits, improving customer experience when browsing for products with the intent of making a purchase.
-    3. Shopping cart page shows product image, product details and selected quantity - providing customers a clear summary of their selected items to be purcahsed.
+1. Customers can view their profile upon login / registration
+2. Search filters allows users to search for products based on it's properties and benefits, improving customer experience when browsing for products with the intent of making a purchase.
+3. Shopping cart page shows product image, product details and selected quantity - providing customers a clear summary of their selected items to be purcahsed.
 
 
 
