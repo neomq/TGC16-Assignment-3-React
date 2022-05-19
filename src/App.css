@@ -479,6 +479,9 @@ input.form-check-input:checked{
     /* font-weight: 300; */
 }
 
+.cart-toast .toast-div {
+    border-left: 2px solid #5F4027;
+}
 
 /* --- Media Query --- */
 @media screen and (min-width: 768px) {

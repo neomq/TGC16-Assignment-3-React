@@ -1,11 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import { Accordion, Breadcrumb, Toast } from 'react-bootstrap';
+import { Accordion, Toast } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios'
 
 
 const BASE_URL = "https://essential-oils-store.herokuapp.com"
-// const BASE_URL = "https://8080-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
 
 export default function Product() {
     
@@ -85,8 +84,8 @@ export default function Product() {
                             <div className="mt-4">
                                 <button className="btn rounded-0 p-2 px-5 addtocart-btn" onClick={addToCart}>Add To Cart</button>
                                 {/* alert */}
-                                <Toast className="cart-toast border-0 position-absolute mt-3" onClose={() => setShow(false)} show={show} delay={3000} autohide>
-                                    <div class="d-flex">
+                                <Toast className="cart-toast box rounded-0 border-0 position-absolute mt-3" onClose={() => setShow(false)} show={show} delay={3000} autohide>
+                                    <div class="toast-div d-flex">
                                         <Toast.Body><i className="bi bi-check-circle"></i> Item added to shopping cart!</Toast.Body>
                                         <button type="button" className="btn cart-toast me-2 m-auto" data-bs-dismiss="toast"><i class="bi bi-x-lg"></i></button>
                                     </div>

@@ -106,6 +106,9 @@ Use of neoclassical serif and minimal light-weight sans serif with simple icons,
 6. Owners / administrators can update order statuses and customer shipping address
 7. Owners / administrators can delete an order.
 
+**Known Bug (for customer site)**
+- Shopping cart order summary does not reflect the correct total. However the amount is correct on the stripe checkout page.
+
 **Limitations and future implementations (for customer site)**
 1. Allow customers to edit/update their profile details (i.e. contact information and address), as currently customers can only view their profile created upon registration.
 2. Allow customers to reset their password or registered email.

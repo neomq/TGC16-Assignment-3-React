@@ -17,12 +17,9 @@ export default function Cart() {
         // check if user is logged in
         if (localStorage.getItem("id") !== null) {
             // setLoggedIn(true)
-
             // get all cart items
             // let user_id = localStorage.getItem("id")
-            fetch()
-
-           
+            fetch() 
         } else {
             setLoggedIn(false)
         }
@@ -31,6 +28,7 @@ export default function Cart() {
     const fetch = async () => {
         let user_id = localStorage.getItem("id")
         const response = await axios.get(BASE_URL + "/api/cart/" + user_id)
+        
         let orderSubTotal = 0;
         for (let i of response.data) {
             orderSubTotal += (i.sub_total_sgd * i.item_quantity)
