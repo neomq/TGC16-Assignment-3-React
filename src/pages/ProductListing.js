@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, Accordion, Breadcrumb } from 'react-bootstrap';
 import { FiSearch } from "react-icons/fi";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from 'axios'
 
 const BASE_URL = "https://essential-oils-store.herokuapp.com"
@@ -21,8 +21,7 @@ export default function ProductListing() {
     const [scentSearch, setScentSearch] = useState([])
     const [benefitsSearch, setBenefitsSearch] = useState([])
 
-
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -139,19 +138,19 @@ export default function ProductListing() {
         }
     }
 
-    const addToCart = async (product_id) => {
-        // check if user is logged in
-        if (localStorage.getItem("id") !== null) {
+    // const addToCart = async (product_id) => {
+    //     // check if user is logged in
+    //     if (localStorage.getItem("id") !== null) {
 
-            // add item to cart
-            let user_id = localStorage.getItem("id")
-            await axios.get(BASE_URL + "/api/cart/" + user_id + "/add/" + product_id)
-            // alert("item added to cart!")
-        } else {
-            // direct user to login
-            navigate('/login')
-        }
-    }
+    //         // add item to cart
+    //         let user_id = localStorage.getItem("id")
+    //         await axios.get(BASE_URL + "/api/cart/" + user_id + "/add/" + product_id)
+    //         // alert("item added to cart!")
+    //     } else {
+    //         // direct user to login
+    //         navigate('/login')
+    //     }
+    // }
 
     const search = async () => {
         // alert("start search")
@@ -211,6 +210,7 @@ export default function ProductListing() {
 
                 <div className="page-body mt-md-5 row">
 
+                    {/* Filter button */}
                     <div className="px-3 py-0 d-flex my-3 d-md-none">
                         <button className="btn filter-btn d-flex align-items-center py-0 rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                             <i className="bi bi-funnel px-0 py-2"></i><span className="p-2 px-1 mb-0">Filter</span>
@@ -324,7 +324,7 @@ export default function ProductListing() {
                     <div className="products mb-5 col-12 col-md-9">
                         <div className="pb-3 row row-cols-2 row-cols-md-2 row-cols-lg-3 g-3 g-md-4">
                             {products.map((p) => (
-                                <div className="col" key={p._id}>
+                                <div className="col" key={p.id}>
                                     {/* Card */}
                                     <div className="card d-flex flex-column justify-content-between border-0 rounded-0 h-100 bg-transparent">
                                         {/* Card Header */}
@@ -335,9 +335,9 @@ export default function ProductListing() {
                                                     <img src={p.image} className="card-img-top rounded-0" alt="..." />
                                                 </div>
                                                 {/* Card Body */}
-                                                <div className="d-flex row justify-content-between mt-3 mx-1">
+                                                <div className="d-flex row justify-content-between my-3 mx-1">
                                                     <div className="col-12 col-md-7">
-                                                        <p className="product-title">{p.essentialoil.name} <span className="small-text">({p.size.size})</span></p>
+                                                        <p className="product-title mb-2">{p.essentialoil.name} <span className="small-text">({p.size.size})</span></p>
                                                     </div>
                                                     <div className="col-12 col-md-5">
                                                         <p className="product-title text-md-end text-start"><span>S${p.price_sgd}</span></p>
@@ -346,13 +346,13 @@ export default function ProductListing() {
                                             </Link>
                                         </div>
                                         {/* Card Footer */}
-                                        <div className="p-0 bg-transparent border-0 rounded-0">
+                                        {/* <div className="p-0 bg-transparent border-0 rounded-0">
                                             <div className="d-grid">
                                                 <button className="btn rounded-0 p-2 addtocart-btn" onClick={() => { addToCart(p.id) }}>
-                                                    Add To Cart
+                                                    Add to Cart
                                                 </button>
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             ))}

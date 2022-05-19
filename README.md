@@ -3,9 +3,9 @@
 **Access the site for customers [here](https://6285c53c8abb231de08e477a--endearing-sfogliatella-c26b89.netlify.app/).**
 **Access the site for shop owners (Admin) [here](https://essential-oils-store.herokuapp.com/).**
 <br/>
-Test Account for Shop Owner
-Login: Admin@email.com
-Password: admin123
+**Test Account for Shop Owner**
+* Login: Admin@email.com
+* Password: admin123
 
 **Credits:**
 1. FLO (https://floaroma.sg/) for all product images, information and content used in this project.
@@ -75,6 +75,7 @@ An online e-commerce store specialising in the sale of aromatherapy oils (also k
 
 ### 4. Skeleton
 (Draft Wireframe)
+<br/>
 Refer to [this link](https://www.figma.com/file/7GpYn05kCnyLd2KHTWCKP5/DWAD-Assignment-3-(Wireframe-Draft-v1)?node-id=4%3A5) for the wireframe of the following pages:
 1. Home Page
 2. Product Listings
@@ -90,10 +91,9 @@ Use of neoclassical serif and minimal light-weight sans serif with simple icons,
 **For customers:**
 1. Customers can view their profile upon login / registration
 2. Search filters allows users to search for products based on it's properties and benefits, improving customer experience when browsing for products with the intent of making a purchase.
-3. Customers can quickly add a product to the shopping cart from the product listings without clicking to go into the product page.
-4. Shopping cart page shows product image, product details and selected quantity - providing customers a clear summary of their selected items to be purcahsed.
-5. Customers are also able to navigate from each of their shopping cart item back to it's product page to review the product description again before confirming purchase.
-6. Inline updating of shopping cart item quantity. The subtotal and order summary will also be updated instantaneously to reflect any changes in the total amount.
+3. Shopping cart page shows product image, product details and selected quantity - providing customers a clear summary of their selected items to be purcahsed.
+4. Customers are also able to navigate from each of their shopping cart item back to it's product page to review the product description again before confirming purchase.
+5. Inline updating of shopping cart item quantity. The subtotal and order summary will also be updated instantaneously to reflect any changes in the total amount.
 
 **For shop owners / administrators:**
 1. Owners can view their profile upon login, and register a new shop owner or administrator
@@ -139,6 +139,7 @@ Use of neoclassical serif and minimal light-weight sans serif with simple icons,
 - Netlify to deploy React application
 
 ## 5. Testing
+Refer to this [link](https://github.com/neomq/TGC16-Assignment-3-React/blob/main/files/Test%20cases.pdf) for test cases.
 
 
 

@@ -62,8 +62,8 @@ export default function Profile() {
                             </div>
                         </div>
 
-                        <div className="d-grid mt-5 mx-auto">
-                            <a className="btn shop-btn rounded-0" href="/products" type="button">Start Shopping</a>
+                        <div className="mt-5 d-flex justify-content-center">
+                            <a className="btn shop-btn px-5 rounded-0" href="/products" type="button">Start Shopping</a>
                         </div>
                         <p className="mt-3 text-center page-subtitle">or <Link onClick={logout} to="/">Log out</Link></p>
                     </div>

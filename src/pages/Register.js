@@ -80,7 +80,7 @@ export default function Register() {
                                 <Form.Control type="email" name="email" value={formState.email} onChange={updateFormField} className="form-input bg-transparent rounded-0 mt-3" placeholder="Enter email" />
                                 {invalidEmail === true ? <Form.Text style={{color: 'red'}}>Please enter a valid email</Form.Text>:null}
 
-                                <Form.Control type="text" name="address" value={formState.address} onChange={updateFormField} className="form-input bg-transparent rounded-0 mt-3" placeholder="Enter address" />
+                                <Form.Control type="text" name="address" value={formState.address} autocomplete="off" onChange={updateFormField} className="form-input bg-transparent rounded-0 mt-3" placeholder="Enter address" />
                                 {invalidAddress === true ? <Form.Text style={{color: 'red'}}>Please enter a valid address</Form.Text>:null}
 
                                 <Form.Control type="password" name="password" value={formState.password} onChange={updateFormField} className="form-input bg-transparent rounded-0 mt-3" placeholder="Password" />

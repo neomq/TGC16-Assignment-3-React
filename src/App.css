@@ -4,9 +4,12 @@ body {
 
 .navbar-toggler:focus,
 .navbar-toggler:active,
-.navbar-toggler-icon:focus {
-    outline: none;
-    box-shadow: none;
+.navbar-toggler-icon:focus
+.navbar-item:focus,
+.navbar-item:active
+{
+    outline: none !important;
+    box-shadow: none !important;
 }
 
 .navbar {

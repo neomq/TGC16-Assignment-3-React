@@ -29,7 +29,7 @@ export default function Login() {
             localStorage.setItem("accessToken", response.data.accessToken)
             localStorage.setItem('refreshToken', response.data.refreshToken)
             localStorage.setItem('id', response.data.user_id)
-            alert("logged in!")
+            // alert("logged in!")
             navigate('/profile') //re-direct to profile  
             
         } else if (response.status === 204) {
@@ -47,7 +47,7 @@ export default function Login() {
                         <p className="text-center page-subtitle">Sign in with your email and password.</p>
                         <Form className="my-4">
                             
-                            <Form.Control type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} className="form-input bg-transparent rounded-0" placeholder="Email" />
+                            <Form.Control type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} autocomplete="off" className="form-input bg-transparent rounded-0" placeholder="Email" />
                             <Form.Control type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} className="form-input bg-transparent rounded-0 mt-3" placeholder="Password" />
 
                             <Alert variant="danger"
