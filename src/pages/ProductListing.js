@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Form, Accordion, Breadcrumb } from 'react-bootstrap';
-import { FiSearch, FiFilter } from "react-icons/fi";
+import { FiSearch } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios'
 

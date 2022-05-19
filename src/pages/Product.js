@@ -10,7 +10,7 @@ const BASE_URL = "https://essential-oils-store.herokuapp.com"
 export default function Product() {
     
     const [currentEssentialOil, setCurrentEssentialOil] = useState("");
-    const [currentType, setCurrentType] = useState("");
+    // const [currentType, setCurrentType] = useState("");
     const [currentPrice, setCurrentPrice] = useState(0);
     const [currentSize, setCurrentSize] = useState("");
     const [currentImage, setCurrentImage] = useState("");
@@ -28,7 +28,7 @@ export default function Product() {
             
             // setCurrentProduct(response.data)
             setCurrentEssentialOil(response.data.essentialoil)
-            setCurrentType(response.data.itemtype.name)
+            // setCurrentType(response.data.itemtype.name)
             setCurrentSize(response.data.size)
             setCurrentPrice(response.data.price_sgd)
             setCurrentImage(response.data.image)

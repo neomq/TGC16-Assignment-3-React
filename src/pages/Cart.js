@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from 'react-bootstrap';
 import axios from "axios";
-import { AiOutlineClose, AiOutlineMinus, AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 
 const BASE_URL = "https://essential-oils-store.herokuapp.com"
 // const BASE_URL = "https://3000-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
@@ -203,13 +203,13 @@ export default function Cart() {
                                 </div>
                                 :
                                 <div>
-                                    <p className="lead text-center">There are no items in your shopping cart.</p>
+                                    <p className="cart-message py-4 lead text-center">There are no items in your shopping cart.</p>
                                 </div>
                             }
                         </>
                         :
                         <div>
-                            <p className="lead text-center">Please log in to view or add items to your shopping cart.</p>
+                            <p className="cart-message py-4 lead text-center">Please log in to view or add items to your shopping cart.</p>
                         </div>
                     }
                 </div>

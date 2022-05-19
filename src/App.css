@@ -10,7 +10,9 @@ body {
 }
 
 .navbar {
-    background-color: #f1f1ee;
+    background-color: #f1f1eec0;
+    backdrop-filter: blur(3px);
+    border-bottom: 1px solid #dfdfdc;
 }
 
 .navbar-item {
@@ -36,24 +38,29 @@ body {
     width: 100vw;
     background-image: url("/public/bg01.jpeg");
     background-position: 35% 50%;
-    /* background-color: rgba(57, 57, 57, 0.288);
-    background-blend-mode: overlay; */
+
+    background-color: rgba(57, 57, 57, 0.288);
+    background-blend-mode: overlay;
+
     background-size: cover;
 }
 
 .header-content .title {
     font-size: 48px;
     line-height: 1.2;
-    color: #5F4027;
+    color: #F1F1EE;
     font-family: 'Prata', serif;
 }
 
 .header-content .short-text {
-    font-size: 18px;
-    letter-spacing: 0.3px;
+    font-size: 14px;
+    letter-spacing: 1.5px;
     line-height: 1.2;
-    color: #5F4027;
+    color: #F1F1EE;
+    font-weight: 300;
     font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+
 }
 
 .header-content .cta-btn {
@@ -316,7 +323,7 @@ input.form-check-input:checked{
 .page-header-2 {
     /* background-color: #dfdfdcc2; */
     border-bottom: 1px solid #dfdfdcc2;
-    border-top: 1px solid #dfdfdcc2;
+    /* border-top: 1px solid #dfdfdcc2; */
 }
 
 .product .header-text {
@@ -449,6 +456,14 @@ input.form-check-input:checked{
 
 .cart-body .qty-box {
     border: 1px solid #5f402743;
+}
+
+.cart-message {
+    color: #5F4027;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    letter-spacing: 0.4px;
+    font-weight: 300;
 }
 
 

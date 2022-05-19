@@ -1,5 +1,4 @@
 import './App.css';
-import { useEffect } from "react";
 import ProductListing from './pages/ProductListing';
 import Product from './pages/Product';
 import Cart from './pages/Cart';
@@ -13,7 +12,7 @@ import axios from "axios"
 // import react router stuff
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React, { useState } from 'react';
-import { AiOutlineUser, AiOutlineShopping, AiOutlineMenu } from "react-icons/ai";
+import { AiOutlineMenu } from "react-icons/ai";
 
 const BASE_URL = "https://essential-oils-store.herokuapp.com"
 // const BASE_URL = "https://8080-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
@@ -21,17 +20,6 @@ const BASE_URL = "https://essential-oils-store.herokuapp.com"
 function App() {
 
   const [loggedIn, setLoggedIn] = useState(false)
-
-  // useEffect(() => {
-  //   //Set interval for refresh token
-  //   setInterval(async () => {
-  //     const response = await axios.post(BASE_URL + "/api/users/refresh", {
-  //       "refreshToken": localStorage.getItem("refreshToken"),
-  //     })
-  //     localStorage.setItem("accessToken", response.data.accessToken)
-  //   }, 10 * 60 * 1000)
-  // }, [])
-
 
   // check for existing token
   const accessToken = localStorage.getItem('accessToken') 
@@ -43,7 +31,7 @@ function App() {
           authorization: "Bearer " + accessToken
         }
       })
-      console.log(response.data)
+      console.log("RRRRRR", response.data)
       console.log(response.data.id)
  
       // see if the id and returning access token is the same
@@ -72,10 +60,10 @@ function App() {
 
               <div className="d-flex">
               {loggedIn === true ?
-                <a className="btn navbar-item fs-5" href="/profile" role="button"><AiOutlineUser/></a>
-                : <a className="btn navbar-item fs-5" href="/login" role="button"><AiOutlineUser/></a>
+                <a className="btn navbar-item fs-5" href="/profile" role="button"><i class="bi bi-person"></i></a>
+                : <a className="btn navbar-item fs-5" href="/login" role="button"><i class="bi bi-person"></i></a>
                 }
-                <a className="btn navbar-item fs-5" href="/cart" role="button"><AiOutlineShopping/></a>
+                <a className="btn navbar-item fs-5" href="/cart" role="button"><i class="bi bi-cart2"></i></a>
               </div>
             </div>
           </div>
