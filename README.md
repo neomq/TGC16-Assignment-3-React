@@ -1,6 +1,6 @@
 # **Essential Oils Online Store**
 
-Access the site for customers [here](https://6285c53c8abb231de08e477a--endearing-sfogliatella-c26b89.netlify.app/).
+Access the site for customers [here](https://endearing-sfogliatella-c26b89.netlify.app/).
 <br/>
 Access the site for shop owners (Admin) [here](https://essential-oils-store.herokuapp.com/).
 <br/><br/>
