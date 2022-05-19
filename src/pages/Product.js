@@ -92,7 +92,7 @@ export default function Product() {
 
             </div>
             
-            <div className="product-info mt-4 mt-md-0 px-3 px-md-5 py-4">
+            <div className="product-info mb-5 mt-4 mt-md-0 px-3 px-md-5 py-4">
                 <Accordion defaultActiveKey="0" className="p-2">
                     <Accordion.Item eventKey="0">
                         <Accordion.Header>Application</Accordion.Header>
@@ -107,7 +107,7 @@ export default function Product() {
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="2">
-                        <Accordion.Header>Benefits</Accordion.Header>
+                        <Accordion.Header className="mb-3">Benefits</Accordion.Header>
                         <Accordion.Body>
                             <p className="mt-2 body-text"><strong>Beauty</strong><br/>{currentEssentialOil.beauty_benefits}</p>
                             <p className="body-text"><strong>Body</strong><br/>{currentEssentialOil.body_benefits}</p>

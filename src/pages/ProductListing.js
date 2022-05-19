@@ -320,7 +320,7 @@ export default function ProductListing() {
                     </div>
                     
                     {/* Product Listing */}
-                    <div className="products col-12 col-md-9">
+                    <div className="products mb-5 col-12 col-md-9">
                         <div className="pb-3 row row-cols-2 row-cols-md-2 row-cols-lg-3 g-3 g-md-4">
                             {products.map((p) => (
                                 <div className="col" key={p._id}>

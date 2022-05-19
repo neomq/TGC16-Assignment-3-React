@@ -16,7 +16,7 @@ export default function CheckoutSuccess() {
                                     <p className="m-0 text-center page-subtitle">Thank you for shopping with us!</p>
                             </div>
                             <div class="d-grid mt-5 mx-auto">
-                                <button class="btn shop-btn rounded-0" href="/" type="button">Return to Home</button>
+                                <a class="btn shop-btn rounded-0" href="/" type="button">Return to Home</a>
                             </div>
                         </div>
 
