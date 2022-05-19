@@ -10,7 +10,8 @@ Access the site for shop owners (Admin) [here](https://essential-oils-store.hero
 
 **Credits:**
 1. FLO (https://floaroma.sg/) for all product images, information and content used in this project.
-2. Young Living (https://www.youngliving.com/en_sg) for all product information.
+2. Young Living (https://www.youngliving.com/en_sg) for all information on essential oils.
+3. Hyuuga (https://www.hyuuga.com.sg/) for all information on essential oils.
 
 ## 1. Project Summary
 ### **Background**
@@ -136,7 +137,7 @@ Use of neoclassical serif and minimal light-weight sans serif with simple icons,
 - Landing page image downloaded from Freepik ([Source](https://www.freepik.com/free-photo/essential-oil-aroma-diffuser-humidifier-diffusing-water-articles-air_17034921.htm#&position=2&from_view=collections))
 
 **Data Sources**
-- All product images, information and content from FLO (https://floaroma.sg/) and Young Living (https://www.youngliving.com/en_sg)
+- All product images, information and content from FLO (https://floaroma.sg/), Young Living (https://www.youngliving.com/en_sg) and Hyuuga (https://www.hyuuga.com.sg/)
 
 **Deployment**
 - Heroku to deploy express application
