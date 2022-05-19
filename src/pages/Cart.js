@@ -198,7 +198,8 @@ export default function Cart() {
                                         </div>
 
                                         {/* Checkout Button */}
-                                        <a class="btn checkout-btn rounded-0 p-2 px-3 w-100 my-4" role="button" href={BASE_URL + "/api/checkout/" + localStorage.getItem("id")}>PROCEED TO CHECKOUT</a>
+                                        <a className="btn checkout-btn rounded-0 p-2 px-3 w-100 my-4" role="button" href={BASE_URL + "/api/checkout/" + localStorage.getItem("id")}>PROCEED TO CHECKOUT <i class="bi bi-arrow-right"></i></a>
+                                        <a className="text-decoration-none" href="/products"><p className="pb-3 text-center text-decoration-underline page-subtitle">Continue Shopping</p></a>
                                     </div>
 
                                 </div>

@@ -4,7 +4,7 @@ body {
 
 .navbar-toggler:focus,
 .navbar-toggler:active,
-.navbar-toggler-icon:focus
+.navbar-toggler-icon:focus,
 .navbar-item:focus,
 .navbar-item:active
 {
@@ -49,15 +49,15 @@ body {
 }
 
 .header-content .title {
-    font-size: 48px;
-    line-height: 1.2;
+    font-size: 58px;
+    line-height: 1.1;
     color: #F1F1EE;
     font-family: 'Prata', serif;
 }
 
 .header-content .short-text {
     font-size: 14px;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.8px;
     line-height: 1.2;
     color: #F1F1EE;
     font-weight: 300;
@@ -257,7 +257,8 @@ input.form-check-input:checked{
 
 .search-btn-pri:hover,
 .signin-btn:hover,
-.shop-btn:hover {
+.shop-btn:hover,
+.checkout-btn:hover {
     border: 1px solid #412b19;
     background-color: #412b19;
     color: #F1F1EE;

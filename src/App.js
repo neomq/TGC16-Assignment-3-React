@@ -46,7 +46,7 @@ function App() {
   return (
     <Router>
 
-      <nav className="navbar navbar-expand-lg fixed-top py-3 px-4">
+      <nav className="navbar navbar-expand-lg fixed-top py-2 px-4">
         <div className="container-fluid">
           <a className="navbar-brand" href="/">Aroma.</a>
           <button className="navbar-toggler navbar-item border-0" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">

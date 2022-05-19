@@ -62,20 +62,19 @@ export default function Product() {
     return <React.Fragment>
 
         <div className="page-container">
-
             <div className="page-header-2 pt-5 pb-4 my-2 mx-auto">
-                <Breadcrumb className="b-crumb mb-2 d-flex justify-content-center">
-                    <Breadcrumb.Item href="/products">Products</Breadcrumb.Item>
-                    <Breadcrumb.Item active>{currentEssentialOil.name}</Breadcrumb.Item>
-                </Breadcrumb>
+                <nav aria-label="breadcrumb d-flex justify-content-center mb-2">
+                    <ol class="breadcrumb b-crumb d-flex justify-content-center">
+                        <li class="breadcrumb-item"><a href="/products">Products</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{currentEssentialOil.name}</li>
+                    </ol>
+                </nav>
             </div>
 
             <div className="row d-flex justify-content-center p-md-5">
-            
                     <div className="col-12 col-md-6 px-3 px-md-4 py-4 py-md-0">
                         <img src={currentImage} class="mx-auto d-block img-fluid" alt="..."/>
                     </div>
-                    
                     <div className="col-12 col-md-6 px-3 px-md-4 product">
                         <div className="pt-3 pb-5">
                             <h1 className="header-text">{currentEssentialOil.name}</h1>
