@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Form, Alert } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import axios from 'axios'
 
 const BASE_URL = "https://essential-oils-store.herokuapp.com"
@@ -16,25 +16,32 @@ export default function Login() {
     
     async function login() {
 
-        console.log(email)
-        console.log(password)
-        const response = await axios.post(BASE_URL + "/api/users/login/", {
-            'email': email,
-            'password': password
-        })
+        console.log("email", email)
+        console.log("password", password)
 
-        console.log(response.data)
-
-        if (response.status === 200) {
-            localStorage.setItem("accessToken", response.data.accessToken)
-            localStorage.setItem('refreshToken', response.data.refreshToken)
-            localStorage.setItem('id', response.data.user_id)
-            // alert("logged in!")
-            navigate('/profile') //re-direct to profile  
-            
-        } else if (response.status === 204) {
+        //validation
+        if (!email || !password){
             setUnableToLogin(true)
+        } else {
+            const response = await axios.post(BASE_URL + "/api/users/login/", {
+                'email': email,
+                'password': password
+            })
+
+            console.log("signing in", response.data)
+
+            if (response.status === 200) {
+                localStorage.setItem("accessToken", response.data.accessToken)
+                localStorage.setItem('refreshToken', response.data.refreshToken)
+                localStorage.setItem('id', response.data.user_id)
+                // alert("logged in!")
+                navigate('/profile') //re-direct to profile  
+                
+            } else if (response.status === 204) {
+                setUnableToLogin(true)
+            }
         }
+
     }
 
     return (
@@ -48,12 +55,9 @@ export default function Login() {
                         <Form className="my-4">
                             
                             <Form.Control type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} autocomplete="off" className="form-input bg-transparent rounded-0" placeholder="Email" />
+                            {unableToLogin === true ? <Form.Text style={{color: 'red'}}>Invalid email. Please try again.</Form.Text>:null}
                             <Form.Control type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} className="form-input bg-transparent rounded-0 mt-3" placeholder="Password" />
-
-                            <Alert variant="danger"
-                                style={{ display: unableToLogin === true ? "block" : "none" }}>
-                                Your password is incorrect or this account doesn't exist. Please try again.
-                            </Alert>
+                            {unableToLogin === true ? <Form.Text style={{color: 'red'}}>Invalid password. Please try again.</Form.Text>:null}
                             
                             <div className="d-grid mt-4">
                                 <button className="rounded-0 py-2 signin-btn" type="button" onClick={login}>SIGN IN</button>
