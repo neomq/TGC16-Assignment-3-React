@@ -82,14 +82,14 @@ An online e-commerce store specialising in the sale of aromatherapy oils (also k
 
 **Limitations and future implementations**
 1. Allow customers to edit/update their profile details (i.e. contact information and address), as currently customers can only view their profile created upon registration.
+2. Allow customers to reset their password or registered email.
 2. Allow customers to view their order history, order statuses and details of their purchases in their account.
 3. Enable sorting of products / product search by alphabetical order, lowest to highest price etc.
 4. Implement product variation in a single product page (i.e. bottle size), instead of having separate product pages and requiring the customer to search through all the listings for their preferred product attribute. This would also help to improve customer experience.
 
 ## 4. Technologies Used / Credits
-
 - Built using HTML / CSS / Express / ReactJS
-- Database created with MySQL
+- Database created with MySQL & PostgreSQL
 - Knex.js (http://knexjs.org/) & Bookshelf.js (https://bookshelfjs.org/) for building of MySQL query
 - Caolan forms (https://github.com/caolan/forms) for creation of forms in admin site
 - db-migrate (https://db-migrate.readthedocs.io/en/latest/) for MySQL database migration
@@ -109,6 +109,7 @@ An online e-commerce store specialising in the sale of aromatherapy oils (also k
 - Netlify to deploy React application
 
 ## 5. Testing
+
 
 
 

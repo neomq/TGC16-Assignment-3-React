@@ -21,6 +21,7 @@ export default function ProductListing() {
     const [scentSearch, setScentSearch] = useState([])
     const [benefitsSearch, setBenefitsSearch] = useState([])
 
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -145,7 +146,7 @@ export default function ProductListing() {
             // add item to cart
             let user_id = localStorage.getItem("id")
             await axios.get(BASE_URL + "/api/cart/" + user_id + "/add/" + product_id)
-            alert("item added to cart!")
+            // alert("item added to cart!")
         } else {
             // direct user to login
             navigate('/login')
@@ -173,7 +174,7 @@ export default function ProductListing() {
         }
 
         console.log("getSearch", getSearch)
-        
+
         const response = await axios.post(BASE_URL + "/api/products/search", getSearch)
         console.log("search results:", response.data)
 
@@ -198,25 +199,25 @@ export default function ProductListing() {
             <div className="page-container">
 
                 <div className="page-header py-5 my-2 mb-0 mx-auto">
-                    
-                        <Breadcrumb className="b-crumb mb-2 d-flex justify-content-center">
-                            {/* <Breadcrumb.Item href="#">Home</Breadcrumb.Item> */}
-                            <Breadcrumb.Item active>Products</Breadcrumb.Item>
-                        </Breadcrumb>
-                    
+
+                    <Breadcrumb className="b-crumb mb-2 d-flex justify-content-center">
+                        {/* <Breadcrumb.Item href="#">Home</Breadcrumb.Item> */}
+                        <Breadcrumb.Item active>Products</Breadcrumb.Item>
+                    </Breadcrumb>
+
                     <p className="mb-0 px-3 page-title text-center">Shop Essential Oils</p>
                     <p className="mt-2 mb-0 page-subtitle text-center mx-auto w-75">Improve your everyday life with 100% pure natural essential oils extracted from nature, all around the world.</p>
                 </div>
-                
+
                 <div className="page-body mt-md-5 row">
-                    
+
                     <div className="px-3 py-0 d-flex my-3 d-md-none">
                         <button className="btn filter-btn d-flex align-items-center py-0 rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                             <i className="bi bi-funnel px-0 py-2"></i><span className="p-2 px-1 mb-0">Filter</span>
                         </button>
                     </div>
-                    
-                    
+
+
                     <div className="collapse d-md-none" id="collapseExample">
                         {/* Search Filter */}
                         <div className="search col-12 col-md-3 mb-5">
@@ -272,7 +273,7 @@ export default function ProductListing() {
                     {/* Search Filter */}
                     <div className="search d-none d-md-block col-12 col-md-3 mb-5">
                         <div className="input-box d-flex flex-row align-items-center ps-3">
-                            <FiSearch/><Form.Control type="text" name="nameSearch" value={nameSearch} onChange={(e) => setNameSearch(e.target.value)} placeholder="Search Product" className="py-2 bg-transparent border-0 rounded-0"/>
+                            <FiSearch /><Form.Control type="text" name="nameSearch" value={nameSearch} onChange={(e) => setNameSearch(e.target.value)} placeholder="Search Product" className="py-2 bg-transparent border-0 rounded-0" />
                         </div>
                         <Form.Select name="typeSearch" value={typeSearch} onChange={(e) => setTypeSearch(e.target.value)} className="rounded-0 bg-transparent mt-3 py-2">
                             <option>-- Collection --</option>
@@ -285,7 +286,7 @@ export default function ProductListing() {
                                 <Accordion.Header>Usage</Accordion.Header>
                                 <Accordion.Body>
 
-                                    {productUse.map((u) =>(
+                                    {productUse.map((u) => (
                                         <Form.Check inline key={u[0]} checked={useSearch.includes(u[0].toString())} label={u[1]} name="use" value={u[0]} onChange={updateUsage} />
                                     ))}
 
@@ -295,7 +296,7 @@ export default function ProductListing() {
                                 <Accordion.Header>Scent Profile</Accordion.Header>
                                 <Accordion.Body>
 
-                                    {productScent.map((s) =>(
+                                    {productScent.map((s) => (
                                         <Form.Check key={s[0]} checked={scentSearch.includes(s[0].toString())} label={s[1]} name="use" value={s[0]} onChange={updateScent} />
                                     ))}
 
@@ -308,17 +309,17 @@ export default function ProductListing() {
                                     {productBenefits.map((b) => (
                                         <Form.Check key={b[0]} checked={benefitsSearch.includes(b[0].toString())} label={b[1]} name="use" value={b[0]} onChange={updateBenefits} />
                                     ))}
-                                   
+
                                 </Accordion.Body>
                             </Accordion.Item>
                         </Accordion>
-                        
+
                         <div className="mt-4 d-grid gap-2">
                             <button className="btn search-btn-pri rounded-0 p-2" onClick={search}>Search</button>
                             <button className="btn search-btn-sec rounded-0 p-2" onClick={resetSearch}>Clear All Filters</button>
                         </div>
                     </div>
-                    
+
                     {/* Product Listing */}
                     <div className="products mb-5 col-12 col-md-9">
                         <div className="pb-3 row row-cols-2 row-cols-md-2 row-cols-lg-3 g-3 g-md-4">

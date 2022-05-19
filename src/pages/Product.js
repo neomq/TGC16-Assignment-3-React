@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Accordion, Breadcrumb } from 'react-bootstrap';
+import { Accordion, Breadcrumb, Toast } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios'
 
@@ -16,6 +16,8 @@ export default function Product() {
     const [currentImage, setCurrentImage] = useState("");
     const [currentUse, setCurrentUse] = useState([]);
     const [currentScent, setCurrentScent] = useState([]);
+
+    const [show, setShow] = useState(false);
 
     const navigate = useNavigate();
 
@@ -49,7 +51,8 @@ export default function Product() {
             // add item to cart
             let user_id = localStorage.getItem("id")
             await axios.get(BASE_URL + "/api/cart/" + user_id + "/add/" + product_id)
-            alert("item added to cart!")
+            // alert("item added to cart!")
+            setShow(true) // display toast notification
         } else {
             // redirect user to login
             navigate('/login')
@@ -82,6 +85,13 @@ export default function Product() {
                             <p className="m-0 body-text"><strong>Scent Profile:</strong> {currentScent.map( (s) => (s.type)).join(", ")}</p>
                             <div className="mt-4">
                                 <button className="btn rounded-0 p-2 px-5 addtocart-btn" onClick={addToCart}>Add To Cart</button>
+                                {/* alert */}
+                                <Toast className="cart-toast border-0 position-absolute mt-3" onClose={() => setShow(false)} show={show} delay={3000} autohide>
+                                    <div class="d-flex">
+                                        <Toast.Body><i className="bi bi-check-circle"></i> Item added to shopping cart!</Toast.Body>
+                                        <button type="button" className="btn cart-toast me-2 m-auto" data-bs-dismiss="toast"><i class="bi bi-x-lg"></i></button>
+                                    </div>
+                                </Toast>
                             </div>
                         </div>
                         
