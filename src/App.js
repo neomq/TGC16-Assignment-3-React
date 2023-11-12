@@ -14,7 +14,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React, { useState } from 'react';
 import { AiOutlineMenu } from "react-icons/ai";
 
-const BASE_URL = "https://essential-oils-store.herokuapp.com"
+const BASE_URL = process.env.API_BASE_URL
 // const BASE_URL = "https://8080-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
 
 function App() {

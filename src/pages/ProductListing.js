@@ -4,7 +4,7 @@ import { FiSearch } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import axios from 'axios'
 
-const BASE_URL = "https://essential-oils-store.herokuapp.com"
+const BASE_URL = process.env.API_BASE_URL
 // const BASE_URL = "https://8080-neomq-tgc16assignment3-9unf8jw59sc.ws-us45.gitpod.io"
 
 export default function ProductListing() {

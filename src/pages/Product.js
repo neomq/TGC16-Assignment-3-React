@@ -3,8 +3,7 @@ import { Accordion, Toast } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios'
 
-
-const BASE_URL = "https://essential-oils-store.herokuapp.com"
+const BASE_URL = process.env.API_BASE_URL
 
 export default function Product() {
     
