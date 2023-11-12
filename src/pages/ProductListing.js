@@ -4,7 +4,7 @@ import { FiSearch } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import axios from 'axios'
 
-const BASE_URL = "https://essential-oils-store.herokuapp.com"
+const BASE_URL = process.env.REACT_APP_API_BASE_URL
 // const BASE_URL = "https://8080-neomq-tgc16assignment3-9unf8jw59sc.ws-us45.gitpod.io"
 
 export default function ProductListing() {
@@ -328,7 +328,7 @@ export default function ProductListing() {
                                     {/* Card */}
                                     <div className="card d-flex flex-column justify-content-between border-0 rounded-0 h-100 bg-transparent">
                                         {/* Card Header */}
-                                        <div class="wrapper">
+                                        <div className="wrapper">
                                             <Link to={"/products/" + p.id} className="text-decoration-none text-reset">
                                                 {/* Card Img */}
                                                 <div className="img">

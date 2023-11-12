@@ -14,7 +14,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React, { useState } from 'react';
 import { AiOutlineMenu } from "react-icons/ai";
 
-const BASE_URL = "https://essential-oils-store.herokuapp.com"
+const BASE_URL = process.env.REACT_APP_API_BASE_URL
 // const BASE_URL = "https://8080-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
 
 function App() {
@@ -60,10 +60,10 @@ function App() {
 
               <div className="d-flex">
               {loggedIn === true ?
-                <a className="btn navbar-item fs-5" href="/profile" role="button"><i class="bi bi-person"></i></a>
-                : <a className="btn navbar-item fs-5" href="/login" role="button"><i class="bi bi-person"></i></a>
+                <a className="btn navbar-item fs-5" href="/profile" role="button"><i className="bi bi-person"></i></a>
+                : <a className="btn navbar-item fs-5" href="/login" role="button"><i className="bi bi-person"></i></a>
                 }
-                <a className="btn navbar-item fs-5" href="/cart" role="button"><i class="bi bi-cart2"></i></a>
+                <a className="btn navbar-item fs-5" href="/cart" role="button"><i className="bi bi-cart2"></i></a>
               </div>
             </div>
           </div>

@@ -4,7 +4,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 
-const BASE_URL = "https://essential-oils-store.herokuapp.com"
+const BASE_URL = process.env.REACT_APP_API_BASE_URL
 // const BASE_URL = "https://3000-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
 
 
@@ -134,7 +134,7 @@ export default function Cart() {
                                                                     </div>
                                                                 </Link>
                                                                 <div className="d-md-none align-self-start text-center col-2" onClick={() => { deleteCartItem(c.product_id) }}>
-                                                                    <Button variant="link" className="text-reset"><i class="text-reset bi bi-x-lg"></i></Button>
+                                                                    <Button variant="link" className="text-reset"><i className="text-reset bi bi-x-lg"></i></Button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -146,9 +146,9 @@ export default function Cart() {
                                                                         <div className="d-md-none col-6 table-header">Quantity</div>
                                                                         <div className="text-end text-md-center col-md-12 col-6">
                                                                             <div className="row d-flex align-items-center justify-content-end justify-content-md-center">
-                                                                                <button class="col-3 btn btn-sm px-0 item-body" onClick={() => { decreaseItemQty(c.product_id) }}><AiOutlineMinus /></button>
+                                                                                <button className="col-3 btn btn-sm px-0 item-body" onClick={() => { decreaseItemQty(c.product_id) }}><AiOutlineMinus /></button>
                                                                                 <div className="col-4 p-1 item-body qty-box text-center">{c.item_quantity}</div>
-                                                                                <button class="col-3 btn btn-sm px-0 item-body" onClick={() => { increaseItemQty(c.product_id) }}><AiOutlinePlus /></button>
+                                                                                <button className="col-3 btn btn-sm px-0 item-body" onClick={() => { increaseItemQty(c.product_id) }}><AiOutlinePlus /></button>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -160,7 +160,7 @@ export default function Cart() {
                                                                     </div>
                                                                 </div>
                                                                 <div className="d-none d-md-block text-center col-3" onClick={() => { deleteCartItem(c.product_id) }}>
-                                                                    <Button variant="link" className="text-reset"><i class="text-reset bi bi-x-lg"></i></Button>
+                                                                    <Button variant="link" className="text-reset"><i className="text-reset bi bi-x-lg"></i></Button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -179,15 +179,15 @@ export default function Cart() {
                                                     <h3 className="section-title">Order Summary</h3>
                                                 </div>
                                                 <div className="mt-4">
-                                                    <div class="d-flex flex-row justify-content-between py-3 order-list">
+                                                    <div className="d-flex flex-row justify-content-between py-3 order-list">
                                                         <span className="pe-2">Order Subtotal </span>
                                                         <span className="ps-2">${orderTotal}</span>
                                                     </div>
-                                                    <div class="d-flex flex-row justify-content-between py-3 order-list">
+                                                    <div className="d-flex flex-row justify-content-between py-3 order-list">
                                                         <span className="pe-2">Shipping & Handling</span>
                                                         <span className="ps-2">FREE</span>
                                                     </div>
-                                                    <div class="d-flex flex-row justify-content-between pt-3 pb-0">
+                                                    <div className="d-flex flex-row justify-content-between pt-3 pb-0">
                                                         <span className="pe-2 order-total">Grand Total </span>
                                                         <span className="ps-2 order-total">${orderTotal}</span>
                                                     </div>

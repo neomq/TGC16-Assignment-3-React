@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios'
 
 
-const BASE_URL = "https://essential-oils-store.herokuapp.com"
+const BASE_URL = process.env.REACT_APP_API_BASE_URL
 
 export default function Product() {
     
@@ -63,16 +63,16 @@ export default function Product() {
         <div className="page-container">
             <div className="page-header-2 pt-5 pb-4 my-2 mx-auto">
                 <nav aria-label="breadcrumb d-flex justify-content-center mb-2">
-                    <ol class="breadcrumb b-crumb d-flex justify-content-center">
-                        <li class="breadcrumb-item"><a href="/products">Products</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">{currentEssentialOil.name}</li>
+                    <ol className="breadcrumb b-crumb d-flex justify-content-center">
+                        <li className="breadcrumb-item"><a href="/products">Products</a></li>
+                        <li className="breadcrumb-item active" aria-current="page">{currentEssentialOil.name}</li>
                     </ol>
                 </nav>
             </div>
 
             <div className="row d-flex justify-content-center p-md-5">
                     <div className="col-12 col-md-6 px-3 px-md-4 py-4 py-md-0">
-                        <img src={currentImage} class="mx-auto d-block img-fluid" alt="..."/>
+                        <img src={currentImage} className="mx-auto d-block img-fluid" alt="..."/>
                     </div>
                     <div className="col-12 col-md-6 px-3 px-md-4 product">
                         <div className="pt-3 pb-5">
@@ -85,9 +85,9 @@ export default function Product() {
                                 <button className="btn rounded-0 p-2 px-5 addtocart-btn" onClick={addToCart}>Add To Cart</button>
                                 {/* alert */}
                                 <Toast className="cart-toast box rounded-0 border-0 position-absolute mt-3" onClose={() => setShow(false)} show={show} delay={3000} autohide>
-                                    <div class="toast-div d-flex">
+                                    <div className="toast-div d-flex">
                                         <Toast.Body><i className="bi bi-check-circle"></i> Item added to shopping cart!</Toast.Body>
-                                        <button type="button" className="btn cart-toast me-2 m-auto" data-bs-dismiss="toast"><i class="bi bi-x-lg"></i></button>
+                                        <button type="button" className="btn cart-toast me-2 m-auto" data-bs-dismiss="toast"><i className="bi bi-x-lg"></i></button>
                                     </div>
                                 </Toast>
                             </div>
