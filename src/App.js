@@ -60,10 +60,10 @@ function App() {
 
               <div className="d-flex">
               {loggedIn === true ?
-                <a className="btn navbar-item fs-5" href="/profile" role="button"><i class="bi bi-person"></i></a>
-                : <a className="btn navbar-item fs-5" href="/login" role="button"><i class="bi bi-person"></i></a>
+                <a className="btn navbar-item fs-5" href="/profile" role="button"><i className="bi bi-person"></i></a>
+                : <a className="btn navbar-item fs-5" href="/login" role="button"><i className="bi bi-person"></i></a>
                 }
-                <a className="btn navbar-item fs-5" href="/cart" role="button"><i class="bi bi-cart2"></i></a>
+                <a className="btn navbar-item fs-5" href="/cart" role="button"><i className="bi bi-cart2"></i></a>
               </div>
             </div>
           </div>

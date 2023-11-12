@@ -328,7 +328,7 @@ export default function ProductListing() {
                                     {/* Card */}
                                     <div className="card d-flex flex-column justify-content-between border-0 rounded-0 h-100 bg-transparent">
                                         {/* Card Header */}
-                                        <div class="wrapper">
+                                        <div className="wrapper">
                                             <Link to={"/products/" + p.id} className="text-decoration-none text-reset">
                                                 {/* Card Img */}
                                                 <div className="img">
