@@ -17,7 +17,6 @@ const BASE_URL = process.env.API_BASE_URL
 function App() {
 
   const [loggedIn, setLoggedIn] = useState(false)
-  const [showMenu, setShowMenu] = useState(false)
 
   // check for existing token
   const accessToken = localStorage.getItem('accessToken') 
@@ -41,11 +40,7 @@ function App() {
   
   return (
     <Fragment>
-      <Navbar
-        showMenu={showMenu}
-        setShowMenu={setShowMenu}
-        loggedIn={loggedIn}
-      />
+      <Navbar loggedIn={loggedIn} />
 
       <Router>
         <Routes>

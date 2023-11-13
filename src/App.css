@@ -13,8 +13,8 @@ body {
 }
 
 .navbar {
-    border-top: 14px solid #28411F;
-    padding: 22px 0;
+    border-top: 10px solid #28411F;
+    padding: 24px 0;
 }
 
 .navbar.show-menu {
@@ -55,6 +55,10 @@ body {
 
 .navbar-brand:hover {
     color: inherit;
+}
+
+.mobile-menu-item {
+    border-bottom: 1px solid #A39A8A40;
 }
 
 .bg {
@@ -282,7 +286,7 @@ input.form-check-input:checked{
     background-color: #28411F;
     color: #F1F1EE;
     font-family: 'Poppins', sans-serif;
-    letter-spacing: 0.8px;
+    letter-spacing: 1px;
     font-size: 14px;
     font-weight: 400;
     padding: 20px 50px;
