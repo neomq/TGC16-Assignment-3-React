@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios'
 
-const BASE_URL = process.env.API_BASE_URL
+const BASE_URL = process.env.REACT_APP_API_BASE_URL
 // const BASE_URL = "https://8080-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
 
 export default function Profile() {
