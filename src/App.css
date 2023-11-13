@@ -22,16 +22,13 @@ body {
 }
 
 .navbar-toggler {
-    color: #FFFFFF;
-}
-
-.navbar-toggler.open {
     color: #3B3530;
 }
 
 .navbar-item {
     padding: 0;
-    color: #FFFFFF;
+    /* color: #FFFFFF; */
+    color: #3B3530;
     font-family: 'Poppins', sans-serif;
     font-weight: 300;
 }
@@ -75,7 +72,7 @@ body {
 }
 
 .header-content .title {
-    font-size: 58px;
+    font-size: 52px;
     line-height: 1.1;
     color: #F1F1EE;
     font-family: 'Prata', serif;
@@ -90,6 +87,11 @@ body {
     font-family: 'Poppins', sans-serif;
     text-transform: uppercase;
 
+}
+
+.header-content .cta {
+    max-width: 340px;
+    line-height: 1.2;
 }
 
 .header-content .cta-btn {
@@ -272,26 +274,23 @@ input.form-check-input:checked{
 .checkout-btn,
 .shop-btn
 {
-    border: 1px solid #5F4027;
-    background-color: #5F4027;
+    border: 1px solid #28411F;
+    background-color: #28411F;
     color: #F1F1EE;
     font-family: 'Poppins', sans-serif;
     letter-spacing: 0.8px;
     font-size: 14px;
-    font-weight: 300;
+    font-weight: 400;
+    padding: 20px 50px;
 }
 
 .search-btn-pri:hover,
 .signin-btn:hover,
 .shop-btn:hover,
 .checkout-btn:hover {
-    border: 1px solid #412b19;
-    background-color: #412b19;
+    border: 1px solid #22371A;
+    background-color: #22371A;
     color: #F1F1EE;
-    font-family: 'Poppins', sans-serif;
-    letter-spacing: 0.8px;
-    font-size: 14px;
-    font-weight: 300;
 }
 
 .search-btn-sec {
