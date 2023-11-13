@@ -53,6 +53,10 @@ body {
     letter-spacing: 0.84px;
 }
 
+.navbar-brand:hover {
+    color: inherit;
+}
+
 .bg {
     background-color: #f1f1ee;
     height: 100vh;
