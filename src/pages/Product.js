@@ -8,7 +8,7 @@ const BASE_URL = process.env.API_BASE_URL
 export default function Product() {
     
     const [currentEssentialOil, setCurrentEssentialOil] = useState("");
-    // const [currentType, setCurrentType] = useState("");
+    const [currentType, setCurrentType] = useState("");
     const [currentPrice, setCurrentPrice] = useState(0);
     const [currentSize, setCurrentSize] = useState("");
     const [currentImage, setCurrentImage] = useState("");
@@ -28,7 +28,7 @@ export default function Product() {
             
             // setCurrentProduct(response.data)
             setCurrentEssentialOil(response.data.essentialoil)
-            // setCurrentType(response.data.itemtype.name)
+            setCurrentType(response.data.itemtype.name)
             setCurrentSize(response.data.size)
             setCurrentPrice(response.data.price_sgd)
             setCurrentImage(response.data.image)
@@ -62,9 +62,9 @@ export default function Product() {
         <div className="page-container">
             <div className="page-header-2 pt-5 pb-4 my-2 mx-auto">
                 <nav aria-label="breadcrumb d-flex justify-content-center mb-2">
-                    <ol className="breadcrumb b-crumb d-flex justify-content-center">
-                        <li className="breadcrumb-item"><a href="/products">Products</a></li>
-                        <li className="breadcrumb-item active" aria-current="page">{currentEssentialOil.name}</li>
+                    <ol class="breadcrumb b-crumb d-flex justify-content-center">
+                        <li class="breadcrumb-item"><a href="/products">Products</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{currentEssentialOil.name} {currentType}</li>
                     </ol>
                 </nav>
             </div>
@@ -75,8 +75,8 @@ export default function Product() {
                     </div>
                     <div className="col-12 col-md-6 px-3 px-md-4 product">
                         <div className="pt-3 pb-5">
-                            <h1 className="header-text">{currentEssentialOil.name}</h1>
-                            <p className="header-small">({currentSize.size})</p>
+                            <h1 className="header-text">{currentEssentialOil.name} {currentType}</h1>
+                            <p className="header-small">({currentSize.size}ml)</p>
                             <h3 className="subheader-text">${currentPrice}</h3>
                             <p className="mt-4 mb-0 body-text"><strong>Use:</strong> {currentUse.map( (u) => (u.type)).join(", ")}</p>
                             <p className="m-0 body-text"><strong>Scent Profile:</strong> {currentScent.map( (s) => (s.type)).join(", ")}</p>

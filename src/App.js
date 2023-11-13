@@ -1,4 +1,6 @@
 import './App.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { Fragment, useState } from 'react';
 import ProductListing from './pages/ProductListing';
 import Product from './pages/Product';
 import Cart from './pages/Cart';
@@ -7,19 +9,15 @@ import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
 import CheckoutSuccess from './pages/CheckoutSuccess';
+import Navbar from './components/Navbar';
 import axios from "axios"
 
-// import react router stuff
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import React, { useState } from 'react';
-import { AiOutlineMenu } from "react-icons/ai";
-
 const BASE_URL = process.env.API_BASE_URL
-// const BASE_URL = "https://8080-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
 
 function App() {
 
   const [loggedIn, setLoggedIn] = useState(false)
+  const [showMenu, setShowMenu] = useState(false)
 
   // check for existing token
   const accessToken = localStorage.getItem('accessToken') 
@@ -31,8 +29,6 @@ function App() {
           authorization: "Bearer " + accessToken
         }
       })
-      console.log("RRRRRR", response.data)
-      console.log(response.data.id)
  
       // see if the id and returning access token is the same
       if (response.data.id === parseInt(localStorage.getItem('id'))) {
@@ -42,63 +38,43 @@ function App() {
     }
     checkAccesssToken()
   }
-
+  
   return (
-    <Router>
+    <Fragment>
+      <Navbar
+        showMenu={showMenu}
+        setShowMenu={setShowMenu}
+        loggedIn={loggedIn}
+      />
 
-      <nav className="navbar navbar-expand-lg fixed-top py-2 px-4">
-        <div className="container-fluid">
-          <a className="navbar-brand" href="/">Aroma.</a>
-          <button className="navbar-toggler navbar-item border-0" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
-            <AiOutlineMenu/>
-          </button>
-          <div className="collapse navbar-collapse" id="nav">
-            <div className="d-flex flex-fill justify-content-between">
-              <div className="d-flex align-items-center">
-                <a className="navbar-item btn fs-6" href="/products" role="button">Products</a>
-              </div>
+      <Router>
+        <Routes>
+          {/* Home route */}
+          <Route path="/" element={<Home/>} />
 
-              <div className="d-flex">
-              {loggedIn === true ?
-                <a className="btn navbar-item fs-5" href="/profile" role="button"><i className="bi bi-person"></i></a>
-                : <a className="btn navbar-item fs-5" href="/login" role="button"><i className="bi bi-person"></i></a>
-                }
-                <a className="btn navbar-item fs-5" href="/cart" role="button"><i className="bi bi-cart2"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
+          {/* Product Listing route */}
+          <Route path="/products" element={<ProductListing/>} />
 
-      <Routes>
+          {/* Individual product route */}
+          <Route path="/products/:product_id" element={<Product/>} />
 
-        {/* Home route */}
-        <Route path="/" element={<Home/>} />
+          {/* Cart route */}
+          <Route path="/cart" element={<Cart/>} />
 
-        {/* Product Listing route */}
-        <Route path="/products" element={<ProductListing/>} />
+          {/* Login route */}
+          <Route path="/login" element={<Login/>} />
 
-        {/* Individual product route */}
-        <Route path="/products/:product_id" element={<Product/>} />
+          {/* Profile route */}
+          <Route path="/profile" element={<Profile/>} />
 
-        {/* Cart route */}
-        <Route path="/cart" element={<Cart/>} />
+          {/* Register route */}
+          <Route path="/register" element={<Register/>} />
 
-        {/* Login route */}
-        <Route path="/login" element={<Login/>} />
-
-        {/* Profile route */}
-        <Route path="/profile" element={<Profile/>} />
-
-        {/* Register route */}
-        <Route path="/register" element={<Register/>} />
-
-        {/* Checkout success route */}
-        <Route path="/paymentsuccess" element={<CheckoutSuccess/>} />
-
-      </Routes>
-
-    </Router>
+          {/* Checkout success route */}
+          <Route path="/paymentsuccess" element={<CheckoutSuccess/>} />
+        </Routes>
+      </Router>
+    </Fragment>
   );
 }
 

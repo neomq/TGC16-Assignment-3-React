@@ -337,7 +337,7 @@ export default function ProductListing() {
                                                 {/* Card Body */}
                                                 <div className="d-flex row justify-content-between my-3 mx-1">
                                                     <div className="col-12 col-md-7">
-                                                        <p className="product-title mb-2">{p.essentialoil.name} <span className="small-text">({p.size.size})</span></p>
+                                                        <p className="product-title mb-2">{p.essentialoil.name} {p.itemtype.name} <span className="small-text">({p.size.size}ml)</span></p>
                                                     </div>
                                                     <div className="col-12 col-md-5">
                                                         <p className="product-title text-md-end text-start"><span>S${p.price_sgd}</span></p>
