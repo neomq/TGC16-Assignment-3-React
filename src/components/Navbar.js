@@ -90,8 +90,8 @@ export default function Navbar({ loggedIn }) {
 				{/* Desktop Menu */}
 				<div className="d-flex flex-fill px-5 justify-content-between d-lg-flex d-none">
 					<div className="d-flex px-4">
-						{leftNavMenu.map((item) => (
-							<a className={NavItemClassName} href={item.link} role="button">
+						{leftNavMenu.map((item, index) => (
+							<a className={NavItemClassName} href={item.link} key={index} role="button">
 								<span className="text-uppercase">{item.name}</span>
 							</a>
 						))}
@@ -100,8 +100,8 @@ export default function Navbar({ loggedIn }) {
 						<ProductLogo />
 					</div>
 					<div className="d-flex px-4">
-						{rightNavMenuItems.map((item) => (
-							<a className={NavItemClassName} href={item.link} role="button">
+						{rightNavMenuItems.map((item, index) => (
+							<a className={NavItemClassName} href={item.link} key={index} role="button">
 								<span className="text-uppercase">{item.name}</span>
 							</a>
 						))}
@@ -113,8 +113,8 @@ export default function Navbar({ loggedIn }) {
 					<div className="collapse navbar-collapse" id="nav">
 						<div className={MobileMenuClassName}>
 							<div className="d-flex flex-column w-100">
-								{mobileMenuItems.map((item) => (
-									<div className="mobile-menu-item">
+								{mobileMenuItems.map((item, index) => (
+									<div className="mobile-menu-item" key={index}>
 										<a className="navbar-item mobile my-4 border-0 btn text-start" href={item.link} role="button">
 											<span className="text-uppercase">{item.name}</span>
 										</a>
