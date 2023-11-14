@@ -23,6 +23,12 @@ body {
     background-color: #EFEEEB;
 }
 
+.navbar.blur {
+    backdrop-filter: blur(80px);
+    border-bottom: 1px solid #EFEEEB40;
+    /* background-color: #EFEEEB40; */
+}
+
 .navbar-toggler {
     color: #3B3530;
 }

@@ -1,12 +1,16 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useRef } from "react";
 import { featuredContent } from "../constants"
 
-export default function Home() {
+export default function Home({ setBannerHeight }) {
+    const mainBanner = useRef(null)
     
-   
+    useEffect(() => {
+        setBannerHeight(mainBanner.current.clientHeight)
+    })
+    
     return (
         <Fragment>
-            <div className="bg position-relative">
+            <div className="bg position-relative" ref={mainBanner}>
                     <div className="header-content position-absolute">
                         <div className="cta d-flex flex-column position-absolute top-50 start-50 translate-middle">
                             <h1 className="cta m-0 title text-center">Essential Oils for Your Mind & Body</h1>
@@ -24,13 +28,13 @@ export default function Home() {
                     <div className="section-body row row-cols-1 row-cols-md-3 g-4 mt-4 m-auto">
                         {/* card */}
                         {featuredContent.map((item, index) => (
-                            <div class="col">
-                                <div className="card h-100" key={index}>
+                            <div className="col" key={index}>
+                                <div className="card h-100">
                                     <div className="card-body">
                                         <p className="card-label m-0">{item.label}</p>
                                         <h5 className="card-title mt-2 mb-0">{item.title}</h5>
                                     </div>
-                                    <img src={item.image} class="card-img-top rounded-0" alt="..." />
+                                    <img src={item.image} className="card-img-top rounded-0" alt="..." />
                                     <div className="card-body">
                                         <p className="card-text mt-0 mb-4 pb-2">{item.description}</p>
                                         <button type="button" className="btn card-btn text-uppercase">{item.button}</button>

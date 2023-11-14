@@ -17,6 +17,7 @@ const BASE_URL = process.env.REACT_APP_API_BASE_URL
 function App() {
 
   const [loggedIn, setLoggedIn] = useState(false)
+  const [mainBannerHeight, setBannerHeight] = useState(0)
 
   // check for existing token
   const accessToken = localStorage.getItem('accessToken') 
@@ -40,12 +41,15 @@ function App() {
   
   return (
     <Fragment>
-      <Navbar loggedIn={loggedIn} />
+      <Navbar
+        loggedIn={loggedIn}
+        mainBannerHeight={mainBannerHeight}
+      />
 
       <Router>
         <Routes>
           {/* Home route */}
-          <Route path="/" element={<Home/>} />
+          <Route path="/" element={<Home setBannerHeight={setBannerHeight}/>}/>
 
           {/* Product Listing route */}
           <Route path="/products" element={<ProductListing/>} />

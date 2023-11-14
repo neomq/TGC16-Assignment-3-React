@@ -2,32 +2,63 @@ import React, { useEffect, useState, useRef } from 'react';
 import { AiOutlineMenu } from "react-icons/ai";
 import { leftNavMenu, rightNavMenu, mobileMenu } from "../constants";
 
-export default function Navbar({ loggedIn }) {
+export default function Navbar({ loggedIn, mainBannerHeight }) {
 
-	const [width, setWidth] = useState(window.innerWidth);
-	const [showMenu, setShowMenu] = useState(false)
+	// For navbar states
 	const isHomePage = window.location.pathname === '/'
+	const [showMenu, setShowMenu] = useState(false)
+	const [blur, setBlur] = useState(false)
+	const [darkText, setDarkText] = useState(false)
+	
+	// For responsive screen
+	const [width, setWidth] = useState(window.innerWidth)
 	const isDesktop = width >= 992
-	const togglerRef = useRef(null)
 
+	// refs
+	const togglerRef = useRef(null)
+	const bannerHeightRef = useRef(0)
+	
+	useEffect(() => {
+		bannerHeightRef.current = mainBannerHeight
+	})
+
+	// Navbar menu items
 	const loginMenuItem = { 
         name: loggedIn ? "Profile" : "Login",
         link: loggedIn ? "/profile" : "/login",
     }
-
+	
 	const rightNavMenuItems = [...rightNavMenu, loginMenuItem]
 	const mobileMenuItems = [...mobileMenu, loginMenuItem]
+
+	// Handle events
+	const handleWindowResize = () => {
+		setWidth(window.innerWidth);
+	}
+	
+	const handleScrollEvent = () => {
+		if (window.scrollY > 0 && window.scrollY < bannerHeightRef.current) {
+			setBlur(true)
+			setDarkText(false)
+		} else if (window.scrollY >= bannerHeightRef.current) {
+			setBlur(true)
+			setDarkText(true)
+		} else {
+			setBlur(false)
+		}
+	}
 	
 	useEffect(() => {
-		const handleWindowResize = () => {
-			setWidth(window.innerWidth);
-		}
-		window.addEventListener('resize', handleWindowResize);
+		window.addEventListener('resize', handleWindowResize)
+		window.addEventListener("scroll", handleScrollEvent)
+
 		return () => {
-			window.removeEventListener('resize', handleWindowResize);
+			window.removeEventListener('resize', handleWindowResize)
+			window.removeEventListener("scroll", handleScrollEvent)
 		};
 	}, []);
 
+	// Close mobile menu automatically when screen size is Desktop
 	useEffect(() => {
 		if (isDesktop && showMenu){
 			// close Mobile Menu
@@ -38,13 +69,13 @@ export default function Navbar({ loggedIn }) {
 
 	const NavbarClassName = showMenu
 		? "navbar navbar-expand-lg fixed-top shadow-lg show-menu"
-		: "navbar navbar-expand-lg fixed-top"
+		: blur 
+			? "navbar navbar-expand-lg fixed-top blur"
+			: "navbar navbar-expand-lg fixed-top"
 
-	const LogoClassName = showMenu
-		? "navbar-brand"
-		: isHomePage 
-			? "navbar-brand text-white"
-			: "navbar-brand"
+	const LogoClassName = "navbar-brand" + (
+		!showMenu && isHomePage && !darkText ? " text-white" : ""
+	)
 
 	const TogglerClassName = showMenu
 		? "navbar-toggler p-0 border-0"
@@ -57,7 +88,9 @@ export default function Navbar({ loggedIn }) {
 		: "d-flex flex-fill my-3 justify-content-start d-sm-flex d-md-flex d-lg-none invisible"
 
 	const NavItemClassName = isHomePage
-		? "navbar-item px-5 border-0 btn text-white"
+		? darkText 
+			? "navbar-item px-5 border-0 btn"
+			: "navbar-item px-5 border-0 btn text-white"
 		: "navbar-item px-5 border-0 btn"
 
 	const ProductLogo = () => (
