@@ -21,18 +21,18 @@ export default function Home({ setBannerHeight }) {
             </div>
             <div className="section">
                 <div className="section-content m-auto">
-                    <div className="section-header mt-5">
+                    <div className="section-header mt-5 px-2">
                         <p className="section-title mb-1 text-center">Explore Essential Oils</p>
-                        <p className="section-subtitle pb-2 text-center">&#x2022; Indulge Your Senses, Elevate Your Well-being &#x2022;</p>
+                        <p className="section-subtitle pb-2 text-center">Transform your home into a sanctuary of serenity with our premium essential oils, crafted to enhance both mental clarity and physical vitality.</p>
                     </div>
-                    <div className="section-body row row-cols-1 row-cols-md-3 g-4 mt-4 m-auto">
+                    <div className="section-body row row-cols-1 row-cols-md-3 g-3 mt-4 m-auto">
                         {/* card */}
                         {featuredContent.map((item, index) => (
                             <div className="col" key={index}>
                                 <div className="card h-100">
                                     <div className="card-body">
-                                        <p className="card-label m-0">{item.label}</p>
-                                        <h5 className="card-title mt-2 mb-0">{item.title}</h5>
+                                        <p className="card-label m-0 text-uppercase">{item.label}</p>
+                                        <h5 className="card-title mt-3 mb-0">{item.title}</h5>
                                     </div>
                                     <img src={item.image} className="card-img-top rounded-0" alt="..." />
                                     <div className="card-body">
