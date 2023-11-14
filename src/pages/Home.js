@@ -2,15 +2,15 @@ import React, { Fragment, useEffect, useRef } from "react";
 import { featuredContent } from "../constants"
 
 export default function Home({ setBannerHeight }) {
-    const mainBanner = useRef(null)
+    const mainBannerRef = useRef(null)
     
     useEffect(() => {
-        setBannerHeight(mainBanner.current.clientHeight)
+        setBannerHeight(mainBannerRef.current.clientHeight)
     })
     
     return (
         <Fragment>
-            <div className="bg position-relative" ref={mainBanner}>
+            <div className="bg position-relative" ref={mainBannerRef}>
                     <div className="header-content position-absolute">
                         <div className="cta d-flex flex-column position-absolute top-50 start-50 translate-middle">
                             <h1 className="cta m-0 title text-center">Essential Oils for Your Mind & Body</h1>

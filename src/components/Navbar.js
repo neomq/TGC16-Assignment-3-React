@@ -9,6 +9,7 @@ export default function Navbar({ loggedIn, mainBannerHeight }) {
 	const [showMenu, setShowMenu] = useState(false)
 	const [blur, setBlur] = useState(false)
 	const [darkText, setDarkText] = useState(false)
+	const [navbarHeight, setNavbarHeight] = useState(0)
 	
 	// For responsive screen
 	const [width, setWidth] = useState(window.innerWidth)
@@ -16,10 +17,12 @@ export default function Navbar({ loggedIn, mainBannerHeight }) {
 
 	// refs
 	const togglerRef = useRef(null)
+	const navbarRef = useRef(null)
 	const bannerHeightRef = useRef(0)
 	
 	useEffect(() => {
 		bannerHeightRef.current = mainBannerHeight
+		setNavbarHeight(navbarRef.current.clientHeight)
 	})
 
 	// Navbar menu items
@@ -37,10 +40,12 @@ export default function Navbar({ loggedIn, mainBannerHeight }) {
 	}
 	
 	const handleScrollEvent = () => {
-		if (window.scrollY > 0 && window.scrollY < bannerHeightRef.current) {
+		const breakpoint = bannerHeightRef.current - navbarHeight
+
+		if (window.scrollY > 0 && window.scrollY < breakpoint) {
 			setBlur(true)
 			setDarkText(false)
-		} else if (window.scrollY >= bannerHeightRef.current) {
+		} else if (window.scrollY >= breakpoint) {
 			setBlur(true)
 			setDarkText(true)
 		} else {
@@ -77,11 +82,9 @@ export default function Navbar({ loggedIn, mainBannerHeight }) {
 		!showMenu && isHomePage && !darkText ? " text-white" : ""
 	)
 
-	const TogglerClassName = showMenu
-		? "navbar-toggler p-0 border-0"
-		: isHomePage
-			? "navbar-toggler p-0 border-0 text-white"
-			: "navbar-toggler p-0 border-0"
+	const TogglerClassName = "navbar-toggler p-0 border-0" + (
+		!showMenu && isHomePage && !darkText ? " text-white" : ""
+	)
 
 	const MobileMenuClassName = showMenu
 		? "d-flex flex-fill my-3 justify-content-start d-sm-flex d-md-flex d-lg-none"
@@ -98,7 +101,7 @@ export default function Navbar({ loggedIn, mainBannerHeight }) {
 	)
 
 	return (
-		<nav className={NavbarClassName}>
+		<nav className={NavbarClassName} ref={navbarRef}>
 			<div className="container-fluid px-5">
 				<div className="logo flex-fill m-auto d-lg-none d-sm-block d-md-block">
 					<ProductLogo />
