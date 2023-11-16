@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { AiOutlineMenu } from "react-icons/ai";
-import { leftNavMenu, rightNavMenu, mobileMenu } from "../constants";
+import { leftNavMenu, rightNavMenu, mobileMenu } from "../constants/constants";
 
 export default function Navbar({ loggedIn, mainBannerHeight }) {
 

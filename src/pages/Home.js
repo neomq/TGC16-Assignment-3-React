@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useRef } from "react";
-import { featuredContent } from "../constants"
+import { featuredContent } from "../constants/constants"
 
 export default function Home({ setBannerHeight }) {
     const mainBannerRef = useRef(null)
