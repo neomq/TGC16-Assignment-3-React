@@ -49,6 +49,5 @@ export default function Home({ setBannerHeight }) {
                 </div>
             </div>
         </Fragment>
-
     )
 }
