@@ -56,7 +56,7 @@ body {
     height: 22px;
     color: #3B3530;
     font-family: 'Prata', serif;
-    font-size: 28px;
+    font-size: 24px;
     line-height: 1;
     letter-spacing: 0.84px;
 }
@@ -85,8 +85,8 @@ body {
 }
 
 .header-content .title {
-    font-size: 52px;
-    line-height: 1.1;
+    font-size: 46px;
+    line-height: 1.2;
     color: #F1F1EE;
     font-family: 'Prata', serif;
 }
@@ -99,11 +99,7 @@ body {
 }
 
 .header-content .cta {
-    max-width: 340px;
-}
-
-.header-content .cta>h1 {
-    line-height: 1.2;
+    max-width: 320px;
 }
 
 .header-content .cta-btn {
@@ -125,6 +121,7 @@ body {
 
 .section-content {
     width: 88%;
+    margin: 60px auto !important;
 }
 
 .section .section-title {
@@ -144,19 +141,24 @@ body {
 
 .card {
     border: none;
-    background-color: #E7E4DE;;
+    background-color: #E7E4DE;
 }
 
 .card-body {
     padding: 40px 40px;
     color: #3B3530;
+    background-size: 130%;
+    background-position: 0% 50%;
 }
 
-.card-body > p.card-label {
+.card-body > div > p.card-label {
     font-family: 'Poppins', sans-serif;
     font-size: 14px;
-    font-weight: 300;
     letter-spacing: 1.68px;
+}
+
+.card-body.header {
+    height: 190px;
 }
 
 .card-body > p {
