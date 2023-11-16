@@ -32,7 +32,6 @@ export default function Navbar({ loggedIn, mainBannerHeight }) {
     }
 	
 	const rightNavMenuItems = [...rightNavMenu, loginMenuItem]
-	const mobileMenuItems = [...mobileMenu, loginMenuItem]
 
 	// Handle events
 	const handleWindowResize = () => {
@@ -149,13 +148,14 @@ export default function Navbar({ loggedIn, mainBannerHeight }) {
 					<div className="collapse navbar-collapse" id="nav">
 						<div className={MobileMenuClassName}>
 							<div className="d-flex flex-column w-100">
-								{mobileMenuItems.map((item, index) => (
+								{mobileMenu.map((item, index) => (
 									<div className="mobile-menu-item" key={index}>
 										<a className="navbar-item mobile my-4 border-0 btn text-start" href={item.link} role="button">
 											<span className="text-uppercase">{item.name}</span>
 										</a>
 									</div>
 								))}
+								{!loggedIn && <button type="button" className="mobilelogin-btn mt-5 text-uppercase">Login</button>}
 							</div>
 						</div>
 					</div>}

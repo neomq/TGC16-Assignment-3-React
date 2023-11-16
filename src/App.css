@@ -336,9 +336,11 @@ input.form-check-input:checked{
 .search-btn-pri,
 .signin-btn,
 .checkout-btn,
-.shop-btn
+.shop-btn,
+.mobilelogin-btn
 {
     background-color: #28411F;
+    border: none;
     color: #F1F1EE;
     font-family: 'Poppins', sans-serif;
     letter-spacing: 1.2px;
