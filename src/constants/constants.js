@@ -19,21 +19,21 @@ const featuredContent = [
         label: "Beauty Range",
         title: "Youthful Skin",
         image: "https://res.cloudinary.com/dnxbnmoyc/image/upload/v1699989340/kndov52cdc40iebnpocc.jpg",
-        description: "Some quick example text to build on the card title and make up the bulk of the card's content.",
+        description: "Unveil the secret to timeless beauty. Each drop is a whisper of nature's elegance, meticulously curated to nourish and rejuvenate your skin. Immerse yourself in the luxury of youthfulness, embracing a vibrant and radiant complexion.",
         button: "Shop Range"
     },
     {
         label: "Body Range",
         title: "Immunity Boost",
         image: "https://res.cloudinary.com/dnxbnmoyc/image/upload/v1700065249/eo_collection1_mtbd7s.webp",
-        description: "Some quick example text to build on the card title and make up the bulk of the card's content.",
+        description: "Empower your body's fortress. Specially formulated blends that go beyond fragrance, delivering a powerful shield of nature's immunity boosters. Fortify your well-being daily, embracing a robust and resilient vitality.",
         button: "Shop Range"
     },
     {
         label: "Senses Range",
         title: "Emotional Healing",
         image: "https://res.cloudinary.com/dnxbnmoyc/image/upload/v1700065249/eo_collection3_r0heua.webp",
-        description: "Some quick example text to build on the card title and make up the bulk of the card's content.",
+        description: "Step into a realm of emotional wellness. Crafted to elevate your senses, each essence is a symphony of tranquility and joy. Immerse yourself in a world where emotional balance and positivity converge, enhancing your daily journey with a renewed sense of well-being.",
         button: "Shop Range"
     }
 ]

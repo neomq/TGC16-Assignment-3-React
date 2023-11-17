@@ -39,7 +39,9 @@ export default function Home({ setBannerHeight }) {
                                         </div>
                                     </div>
                                     <div className="card-body">
-                                        <p className="card-text m-0 pb-4">{item.description}</p>
+                                        <p className="card-text m-0">{item.description}</p>
+                                    </div>
+                                    <div class="card-footer border-0 bg-transparent">
                                         <button type="button" className="btn card-btn text-uppercase">{item.button}</button>
                                     </div>
                                 </div>
