@@ -6,7 +6,7 @@ import axios from 'axios'
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL
 
-export default function Navbar({ loggedIn }) {
+export default function Navbar({ loggedIn, setLoggedIn }) {
 
 	const navigate = useNavigate();
 
@@ -76,6 +76,7 @@ export default function Navbar({ loggedIn }) {
 		})
 		if (response.data) {
 			localStorage.clear()
+			setLoggedIn(false)
 			navigate('/')
 		}
 	}

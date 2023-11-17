@@ -6,7 +6,7 @@ import axios from 'axios'
 const BASE_URL = process.env.REACT_APP_API_BASE_URL
 // const BASE_URL = "https://8080-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
 
-export default function Login() {
+export default function Login({ setLoggedIn }) {
     
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -35,6 +35,7 @@ export default function Login() {
                 localStorage.setItem('refreshToken', response.data.refreshToken)
                 localStorage.setItem('id', response.data.user_id)
                 // alert("logged in!")
+                setLoggedIn(true)
                 navigate('/profile') //re-direct to profile  
                 
             } else if (response.status === 204) {
