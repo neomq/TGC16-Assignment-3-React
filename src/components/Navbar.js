@@ -1,33 +1,31 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AiOutlineMenu } from "react-icons/ai";
 import { leftNavMenu, rightNavMenu, mobileMenu } from "../constants/constants";
+import axios from 'axios'
 
-export default function Navbar({ loggedIn, mainBannerHeight }) {
+const BASE_URL = process.env.REACT_APP_API_BASE_URL
+
+export default function Navbar({ loggedIn }) {
+
+	const navigate = useNavigate();
 
 	// For navbar states
 	const isHomePage = window.location.pathname === '/'
 	const [showMenu, setShowMenu] = useState(false)
-	const [blur, setBlur] = useState(false)
+	const [colour, setColour] = useState(false)
 	const [darkText, setDarkText] = useState(false)
-	const [navbarHeight, setNavbarHeight] = useState(0)
-	
+
 	// For responsive screen
 	const [width, setWidth] = useState(window.innerWidth)
 	const isDesktop = width >= 992
 
 	// refs
 	const togglerRef = useRef(null)
-	const navbarRef = useRef(null)
-	const bannerHeightRef = useRef(0)
-	
-	useEffect(() => {
-		bannerHeightRef.current = mainBannerHeight
-		setNavbarHeight(navbarRef.current.clientHeight)
-	})
 
 	// Navbar menu items
 	const loginMenuItem = { 
-        name: loggedIn ? "Profile" : "Login",
+        name: loggedIn ? "Account" : "Login",
         link: loggedIn ? "/profile" : "/login",
     }
 	
@@ -37,18 +35,14 @@ export default function Navbar({ loggedIn, mainBannerHeight }) {
 	const handleWindowResize = () => {
 		setWidth(window.innerWidth);
 	}
-	
-	const handleScrollEvent = () => {
-		const breakpoint = bannerHeightRef.current - navbarHeight
 
-		if (window.scrollY > 0 && window.scrollY < breakpoint) {
-			setBlur(true)
-			setDarkText(false)
-		} else if (window.scrollY >= breakpoint) {
-			setBlur(true)
+	const handleScrollEvent = () => {
+		if (window.scrollY > 0) {
+			setColour(true)
 			setDarkText(true)
 		} else {
-			setBlur(false)
+			setColour(false)
+			setDarkText(false)
 		}
 	}
 	
@@ -62,19 +56,39 @@ export default function Navbar({ loggedIn, mainBannerHeight }) {
 		};
 	}, []);
 
+	const closeMobileMenu = () => {
+		setShowMenu(false) 
+		togglerRef.current.click()
+	}
+
 	// Close mobile menu automatically when screen size is Desktop
 	useEffect(() => {
 		if (isDesktop && showMenu){
-			// close Mobile Menu
-			setShowMenu(false) 
-			togglerRef.current.click()
+			closeMobileMenu()
 		}
 	}, [width])
 
+	// call logout
+	const logout = async () => {
+		closeMobileMenu()
+		const response = await axios.post(BASE_URL + "/api/users/logout", {
+			'refreshToken': localStorage.getItem('refreshToken')
+		})
+		if (response.data) {
+			localStorage.clear()
+			navigate('/')
+		}
+	}
+
+	const navigateToLogin = () => {
+		closeMobileMenu()
+		navigate('/login')
+	}
+
 	const NavbarClassName = showMenu
 		? "navbar navbar-expand-lg fixed-top shadow-lg show-menu"
-		: blur 
-			? "navbar navbar-expand-lg fixed-top blur"
+		: colour 
+			? "navbar navbar-expand-lg fixed-top colour shadow"
 			: "navbar navbar-expand-lg fixed-top"
 
 	const LogoClassName = "navbar-brand" + (
@@ -86,8 +100,8 @@ export default function Navbar({ loggedIn, mainBannerHeight }) {
 	)
 
 	const MobileMenuClassName = showMenu
-		? "d-flex flex-fill my-3 justify-content-start d-sm-flex d-md-flex d-lg-none"
-		: "d-flex flex-fill my-3 justify-content-start d-sm-flex d-md-flex d-lg-none invisible"
+		? "d-flex flex-fill mt-4 mb-3 justify-content-start d-sm-flex d-md-flex d-lg-none"
+		: "d-flex flex-fill mt-4 mb-3 justify-content-start d-sm-flex d-md-flex d-lg-none invisible"
 
 	const NavItemClassName = isHomePage
 		? darkText 
@@ -100,7 +114,7 @@ export default function Navbar({ loggedIn, mainBannerHeight }) {
 	)
 
 	return (
-		<nav className={NavbarClassName} ref={navbarRef}>
+		<nav className={NavbarClassName}>
 			<div className="container-fluid px-5">
 				<div className="logo flex-fill m-auto d-lg-none d-sm-block d-md-block">
 					<ProductLogo />
@@ -155,7 +169,15 @@ export default function Navbar({ loggedIn, mainBannerHeight }) {
 										</a>
 									</div>
 								))}
-								{!loggedIn && <button type="button" className="mobilelogin-btn mt-5 text-uppercase">Login</button>}
+								{loggedIn &&
+									<div className="mobile-menu-item">
+										<a className="navbar-item mobile my-4 border-0 btn text-start" href={"/profile"} role="button">
+											<span className="text-uppercase">My Account</span>
+										</a>
+									</div>}
+								{loggedIn ?
+									<button type="button" className="mobilelogin-btn mt-5 text-uppercase" onClick={logout}>Logout</button>
+									: <button type="button" className="mobilelogin-btn mt-5 text-uppercase" onClick={navigateToLogin}>Login</button>}
 							</div>
 						</div>
 					</div>}
