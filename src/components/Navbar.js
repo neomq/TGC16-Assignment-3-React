@@ -87,11 +87,11 @@ export default function Navbar({ loggedIn, setLoggedIn, user }) {
 		navigate('/login')
 	}
 
-	const NavbarClassName = showMenu
-		? "navbar navbar-expand-lg fixed-top shadow-lg show-menu"
+	const NavbarClassName = showMenu && !isDesktop
+		? "navbar navbar-expand-lg py-0 h-100 d-flex flex-column fixed-top shadow-lg show-menu"
 		: colour 
-			? "navbar navbar-expand-lg fixed-top colour shadow"
-			: "navbar navbar-expand-lg fixed-top"
+			? "navbar navbar-expand-lg py-0 fixed-top colour shadow"
+			: "navbar navbar-expand-lg py-0 fixed-top"
 
 	const LogoClassName = "navbar-brand" + (
 		!showMenu && isLanding && !darkText ? " text-white" : ""
@@ -115,9 +115,13 @@ export default function Navbar({ loggedIn, setLoggedIn, user }) {
 		<a className={LogoClassName} href="/">Aroma.</a>
 	)
 
+	const NavContainerClassName = showMenu
+		? "container-fluid py-4 px-5 bg-solid shadow-lg"
+		: "container-fluid py-4 px-5"
+
 	return (
 		<nav className={NavbarClassName}>
-			<div className="container-fluid px-5">
+			<div className={NavContainerClassName}>
 				<div className="logo flex-fill m-auto d-lg-none d-sm-block d-md-block">
 					<ProductLogo />
 				</div>

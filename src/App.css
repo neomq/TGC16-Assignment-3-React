@@ -20,6 +20,11 @@ body {
 }
 
 .navbar.show-menu {
+    /* background-color: #EFEEEB; */
+    background-color: #3B353080;
+}
+
+.navbar .bg-solid {
     background-color: #EFEEEB;
 }
 
@@ -69,7 +74,7 @@ body {
 
 .mobile-menu-item .greeting-text {
     font-family: 'Prata', serif;
-    font-size: 20px;
+    font-size: 18px;
     letter-spacing: 0.8px;
     color: #3B3530;
 }
@@ -267,6 +272,7 @@ body {
     font-size: 14px;
     font-weight: 400;
     padding: 16px 35px;
+    background-color: #EFEEEB;
 }
 
 .addtocart-btn:hover,
