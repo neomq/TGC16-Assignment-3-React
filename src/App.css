@@ -67,6 +67,13 @@ body {
     border-bottom: 1px solid #A39A8A40;
 }
 
+.mobile-menu-item .greeting-text {
+    font-family: 'Prata', serif;
+    font-size: 20px;
+    letter-spacing: 0.8px;
+    color: #3B3530;
+}
+
 .bg {
     background-color: #EFEEEB;
     height: 100vh;
@@ -339,8 +346,7 @@ input.form-check-input:checked{
 .search-btn-pri,
 .signin-btn,
 .checkout-btn,
-.shop-btn,
-.mobilelogin-btn
+.shop-btn
 {
     background-color: #28411F;
     border: none;
@@ -368,6 +374,18 @@ input.form-check-input:checked{
     letter-spacing: 0.6px;
     font-size: 14px;
     font-weight: 300;
+}
+
+.mobilelogin-btn {
+    background-color: #28411F;
+    border: none;
+    color: #F1F1EE;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1.2px;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 16px 50px;
+    border-radius: 2px;
 }
 
 /* --- Sign In / Register / Profile Page --- */

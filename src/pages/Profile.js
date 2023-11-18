@@ -5,12 +5,11 @@ import axios from 'axios'
 const BASE_URL = process.env.REACT_APP_API_BASE_URL
 // const BASE_URL = "https://8080-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
 
-export default function Profile() {
+export default function Profile({ loggedIn, setLoggedIn, setUser }) {
 
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [address, setAddress] = useState("")
-    const [loggedIn, setLoggedIn] = useState(false)
 
     useEffect(() => {
         // check if user is logged in
@@ -25,10 +24,10 @@ export default function Profile() {
                 setName(response.data.name)
                 setEmail(response.data.email)
                 setAddress(response.data.address)
-    
+                setUser(response.data)
                 console.log("USER PROFILE", response.data)
             }
-            fetchProfile();
+            fetchProfile()
             setLoggedIn(true)
         }
     }, [])

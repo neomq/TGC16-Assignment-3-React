@@ -55,7 +55,7 @@ export default function Login({ setLoggedIn }) {
                         <p className="text-center page-subtitle">Sign in with your email and password.</p>
                         <Form className="my-4">
                             
-                            <Form.Control type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} autocomplete="off" className="form-input bg-transparent rounded-0" placeholder="Email" />
+                            <Form.Control type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="off" className="form-input bg-transparent rounded-0" placeholder="Email" />
                             {unableToLogin === true ? <Form.Text style={{color: 'red'}}>Invalid email. Please try again.</Form.Text>:null}
                             <Form.Control type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} className="form-input bg-transparent rounded-0 mt-3" placeholder="Password" />
                             {unableToLogin === true ? <Form.Text style={{color: 'red'}}>Invalid password. Please try again.</Form.Text>:null}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { Fragment, useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineMenu } from "react-icons/ai";
 import { leftNavMenu, rightNavMenu, mobileMenu } from "../constants/constants";
@@ -6,9 +6,10 @@ import axios from 'axios'
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL
 
-export default function Navbar({ loggedIn, setLoggedIn }) {
+export default function Navbar({ loggedIn, setLoggedIn, user }) {
 
 	const navigate = useNavigate();
+	const userSession = Object.keys(user).length > 0
 
 	// For navbar states
 	const isHomePage = window.location.pathname === '/'
@@ -163,6 +164,18 @@ export default function Navbar({ loggedIn, setLoggedIn }) {
 					<div className="collapse navbar-collapse" id="nav">
 						<div className={MobileMenuClassName}>
 							<div className="d-flex flex-column w-100">
+								{(loggedIn && userSession)  && 
+									<Fragment>
+										<div className="mobile-menu-item">
+											<p className="greeting-text my-4">Welcome, {user.name}</p>
+										</div>
+										<div className="mobile-menu-item">
+										<a className="navbar-item mobile my-4 border-0 btn text-start" href={"/profile"} role="button">
+											<span className="text-uppercase">Account</span>
+										</a>
+										</div>
+									</Fragment>
+								}
 								{mobileMenu.map((item, index) => (
 									<div className="mobile-menu-item" key={index}>
 										<a className="navbar-item mobile my-4 border-0 btn text-start" href={item.link} role="button">
@@ -170,14 +183,8 @@ export default function Navbar({ loggedIn, setLoggedIn }) {
 										</a>
 									</div>
 								))}
-								{loggedIn &&
-									<div className="mobile-menu-item">
-										<a className="navbar-item mobile my-4 border-0 btn text-start" href={"/profile"} role="button">
-											<span className="text-uppercase">My Account</span>
-										</a>
-									</div>}
 								{loggedIn ?
-									<button type="button" className="mobilelogin-btn mt-5 text-uppercase" onClick={logout}>Logout</button>
+									<button type="button" className="mobilelogin-btn mt-5 text-uppercase" onClick={logout}>Log Out</button>
 									: <button type="button" className="mobilelogin-btn mt-5 text-uppercase" onClick={navigateToLogin}>Login</button>}
 							</div>
 						</div>

@@ -17,10 +17,13 @@ const BASE_URL = process.env.REACT_APP_API_BASE_URL
 function App() {
 
   const [loggedIn, setLoggedIn] = useState(false)
+  const [user, setUser] = useState({})
 
   const AuthProps = {
     loggedIn: loggedIn,
     setLoggedIn: setLoggedIn,
+    user: user,
+    setUser: setUser,
   }
 
   useEffect(() => {
@@ -66,7 +69,7 @@ function App() {
           <Route path="/login" element={<Login {...AuthProps}/>} />
 
           {/* Profile route */}
-          <Route path="/profile" element={<Profile/>} />
+          <Route path="/profile" element={<Profile {...AuthProps}/>} />
 
           {/* Register route */}
           <Route path="/register" element={<Register/>} />
