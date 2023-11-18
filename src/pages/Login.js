@@ -64,7 +64,7 @@ export default function Login({ setLoggedIn }) {
                             <hr></hr>
                             <p className="mt-3 text-center page-subtitle">Not our registered customer?</p>
                             <div className="d-grid">
-                                <button className="card-btn text-uppercase" type="button" onClick={()=>{navigate('/register')}}>Register</button>
+                                <button className="card-btn btn text-uppercase" type="button" onClick={()=>{navigate('/register')}}>Register</button>
                             </div>
                         </div>
                     </div>
