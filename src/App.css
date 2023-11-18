@@ -389,10 +389,24 @@ input.form-check-input:checked{
 }
 
 /* --- Sign In / Register / Profile Page --- */
+
+.page-overlay {
+    height: inherit;
+    width: -webkit-fill-available;
+    background-color: #26221f50;
+    backdrop-filter: blur(2px);
+}
+
+.header-content .cta.login {
+    max-width: 400px;
+    padding: 54px;
+    background-color: #EFEEEB;
+}
+
 .page-title-large {
     color: #5F4027;
     font-family: 'Prata', serif;
-    font-size: 40px;
+    font-size: 34px;
     letter-spacing: 0.6px;
 }
 

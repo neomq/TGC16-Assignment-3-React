@@ -12,7 +12,7 @@ export default function Navbar({ loggedIn, setLoggedIn, user }) {
 	const userSession = Object.keys(user).length > 0
 
 	// For navbar states
-	const isHomePage = window.location.pathname === '/'
+	const isLanding = ['/', '/login'].includes(window.location.pathname)
 	const [showMenu, setShowMenu] = useState(false)
 	const [colour, setColour] = useState(false)
 	const [darkText, setDarkText] = useState(false)
@@ -94,18 +94,18 @@ export default function Navbar({ loggedIn, setLoggedIn, user }) {
 			: "navbar navbar-expand-lg fixed-top"
 
 	const LogoClassName = "navbar-brand" + (
-		!showMenu && isHomePage && !darkText ? " text-white" : ""
+		!showMenu && isLanding && !darkText ? " text-white" : ""
 	)
 
 	const TogglerClassName = "navbar-toggler p-0 border-0" + (
-		!showMenu && isHomePage && !darkText ? " text-white" : ""
+		!showMenu && isLanding && !darkText ? " text-white" : ""
 	)
 
 	const MobileMenuClassName = showMenu
 		? "d-flex flex-fill mt-4 mb-3 justify-content-start d-sm-flex d-md-flex d-lg-none"
 		: "d-flex flex-fill mt-4 mb-3 justify-content-start d-sm-flex d-md-flex d-lg-none invisible"
 
-	const NavItemClassName = isHomePage
+	const NavItemClassName = isLanding
 		? darkText 
 			? "navbar-item px-5 border-0 btn"
 			: "navbar-item px-5 border-0 btn text-white"
