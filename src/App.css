@@ -272,7 +272,7 @@ body {
     font-size: 14px;
     font-weight: 400;
     padding: 16px 35px;
-    background-color: #EFEEEB;
+    background-color: none;
 }
 
 .addtocart-btn:hover,
