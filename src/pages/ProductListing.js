@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Form, Accordion, Breadcrumb } from 'react-bootstrap';
 import { FiSearch } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import API from '../constants/API';
 import axios from 'axios'
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL
-// const BASE_URL = "https://8080-neomq-tgc16assignment3-9unf8jw59sc.ws-us45.gitpod.io"
 
 export default function ProductListing() {
     const [products, setProducts] = useState([])
@@ -25,7 +25,7 @@ export default function ProductListing() {
 
     useEffect(() => {
         const fetchProducts = async () => {
-            let response = await axios.get(BASE_URL + "/api/products");
+            let response = await axios.get(BASE_URL + API.PRODUCTS);
             setProducts(response.data)
             console.log("setProducts", response.data)
         }
@@ -34,20 +34,15 @@ export default function ProductListing() {
 
     useEffect(() => {
         const fetch = async () => {
-            let response = await axios.get(BASE_URL + "/api/products/types");
-
-            console.log("product type", response.data)
+            let response = await axios.get(BASE_URL + API.PRODUCT_TYPES);
             setProductType(response.data)
-            console.log("setProductType", response.data)
         }
         fetch()
     }, [])
 
     useEffect(() => {
         const fetch = async () => {
-            let response = await axios.get(BASE_URL + "/api/products/usages");
-
-            console.log("setProductUse", response.data)
+            let response = await axios.get(BASE_URL + API.PRODUCT_USAGE);
             setProductUse(response.data)
         }
         fetch()
@@ -55,9 +50,7 @@ export default function ProductListing() {
 
     useEffect(() => {
         const fetch = async () => {
-            let response = await axios.get(BASE_URL + "/api/products/scents");
-
-            console.log("setProductScent", response.data)
+            let response = await axios.get(BASE_URL + API.PRODUCT_SCENT);
             setProductScent(response.data)
         }
         fetch()
@@ -65,9 +58,7 @@ export default function ProductListing() {
 
     useEffect(() => {
         const fetch = async () => {
-            let response = await axios.get(BASE_URL + "/api/products/benefits");
-
-            console.log("setProductBenefits", response.data)
+            let response = await axios.get(BASE_URL + API.PRODUCT_BENEFITS);
             setProductBenefits(response.data)
         }
         fetch()
@@ -188,7 +179,7 @@ export default function ProductListing() {
         setScentSearch([])
         setBenefitsSearch([])
 
-        const response = await axios.get(BASE_URL + "/api/products")
+        const response = await axios.get(BASE_URL + API.PRODUCTS)
 
         setProducts(response.data)
     }

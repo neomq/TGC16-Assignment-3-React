@@ -10,6 +10,7 @@ import Profile from './pages/Profile';
 import Register from './pages/Register';
 import CheckoutSuccess from './pages/CheckoutSuccess';
 import Navbar from './components/Navbar';
+import API from './constants/API';
 import axios from "axios"
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL
@@ -32,7 +33,7 @@ function App() {
     if (accessToken) {
       console.log(accessToken)
       const checkAccesssToken = async () => {
-        const response = await axios.get(BASE_URL + "/api/users/profile", {
+        const response = await axios.get(BASE_URL + API.PROFILE, {
           headers: {
             authorization: "Bearer " + accessToken
           }

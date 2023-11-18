@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineMenu } from "react-icons/ai";
 import { leftNavMenu, rightNavMenu, mobileMenu } from "../constants/constants";
+import API from '../constants/API';
 import axios from 'axios'
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL
@@ -72,7 +73,7 @@ export default function Navbar({ loggedIn, setLoggedIn, user }) {
 	// call logout
 	const logout = async () => {
 		closeMobileMenu()
-		const response = await axios.post(BASE_URL + "/api/users/logout", {
+		const response = await axios.post(BASE_URL + API.LOGOUT, {
 			'refreshToken': localStorage.getItem('refreshToken')
 		})
 		if (response.data) {

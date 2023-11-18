@@ -2,10 +2,10 @@ import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Form } from 'react-bootstrap';
 import { useState } from "react"
+import API from '../constants/API';
 import axios from 'axios'
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL
-// const BASE_URL = "https://8080-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
 
 export default function Register() {
 
@@ -56,7 +56,7 @@ export default function Register() {
         }
 
         if (errorCount === 0){
-                const response = await axios.post(BASE_URL + '/api/users/register', formState)
+                const response = await axios.post(BASE_URL + API.REGISTER, formState)
                 console.log("New user created", response.data)
 
                 alert("account created!")

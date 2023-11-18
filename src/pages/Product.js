@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Accordion, Toast } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
+import API from '../constants/API';
 import axios from 'axios'
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL
@@ -24,7 +25,7 @@ export default function Product() {
 
     useEffect(()=>{
         const fetchProduct = async () => {
-            let response = await axios.get(BASE_URL + "/api/products/" + product_id)
+            let response = await axios.get(BASE_URL + API.PRODUCTS + product_id)
             
             // setCurrentProduct(response.data)
             setCurrentEssentialOil(response.data.essentialoil)
@@ -48,8 +49,7 @@ export default function Product() {
 
             // add item to cart
             let user_id = localStorage.getItem("id")
-            await axios.get(BASE_URL + "/api/cart/" + user_id + "/add/" + product_id)
-            // alert("item added to cart!")
+            await axios.get(BASE_URL + API.CART + user_id + "/add/" + product_id)
             setShow(true) // display toast notification
         } else {
             // redirect user to login

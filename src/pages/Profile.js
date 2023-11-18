@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import API from '../constants/API';
 import axios from 'axios'
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL
-// const BASE_URL = "https://8080-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
 
 export default function Profile({ loggedIn, setLoggedIn, setUser }) {
 
@@ -15,7 +15,7 @@ export default function Profile({ loggedIn, setLoggedIn, setUser }) {
         // check if user is logged in
         if (localStorage.getItem("id") !== null) {
             const fetchProfile = async () => {
-                let response = await axios.get(BASE_URL + "/api/users/profile", {
+                let response = await axios.get(BASE_URL + API.PROFILE, {
                     headers: {
                         authorization: "Bearer " + localStorage.getItem('accessToken')
                     }
@@ -34,7 +34,7 @@ export default function Profile({ loggedIn, setLoggedIn, setUser }) {
 
     // logout
     const logout = async () => {
-        const response = await axios.post(BASE_URL + "/api/users/logout", {
+        const response = await axios.post(BASE_URL + API.LOGOUT, {
             'refreshToken': localStorage.getItem('refreshToken')
         })
 
