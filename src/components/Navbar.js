@@ -13,7 +13,7 @@ export default function Navbar({ loggedIn, setLoggedIn, user }) {
 	const userSession = Object.keys(user).length > 0
 
 	// For navbar states
-	const isLanding = ['/', '/login'].includes(window.location.pathname)
+	const isLanding = ['/', '/login', '/register'].includes(window.location.pathname)
 	const [showMenu, setShowMenu] = useState(false)
 	const [colour, setColour] = useState(false)
 	const [darkText, setDarkText] = useState(false)

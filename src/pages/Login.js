@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Form } from 'react-bootstrap';
 import API from '../constants/API';
 import axios from 'axios'
@@ -40,21 +40,24 @@ export default function Login({ setLoggedIn }) {
 
     }
 
+    const inputClass = "form-input bg-transparent rounded-0 "
+    const errorClass = unableToLogin ? "error" : ""
+
     return (
         <React.Fragment>
-
             <div className="bg">
                 <div className="login header-content">
                     <div className="page-overlay d-flex justify-content-center align-items-center">
-                        <div className="cta mx-5 w-100 login d-flex flex-column shadow-lg">
+                        <div className="cta mx-4 w-100 login d-flex flex-column shadow-lg">
                             <h1 className="text-center page-title-large">Welcome</h1>
-                            <p className="text-center page-subtitle">Please login with your account details.</p>
+                            <p className="text-center page-subtitle m-0">Login with your account details.</p>
                             <Form className="my-4">
 
-                                <Form.Control type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="off" className="form-input bg-transparent rounded-0" placeholder="Email" />
-                                {unableToLogin === true ? <Form.Text style={{ color: 'red' }}>Invalid email. Please try again.</Form.Text> : null}
-                                <Form.Control type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} className="form-input bg-transparent rounded-0 mt-3" placeholder="Password" />
-                                {unableToLogin === true ? <Form.Text style={{ color: 'red' }}>Invalid password. Please try again.</Form.Text> : null}
+                                <Form.Control type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="off" className={inputClass + errorClass} placeholder="Email" />
+                                {unableToLogin && <Form.Text className="form-error" style={{ color: '#E91630' }}>An error has occured. Please try again.</Form.Text>}
+                                
+                                <Form.Control type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} className={"mt-3 " + inputClass + errorClass} placeholder="Password" />
+                                {unableToLogin && <Form.Text className="form-error" style={{ color: '#E91630' }}>An error has occured. Please try again.</Form.Text>}
 
                                 <div className="d-grid mt-4">
                                     <button className="signin-btn text-uppercase" type="button" onClick={login}>Login</button>
@@ -70,7 +73,6 @@ export default function Login({ setLoggedIn }) {
                     </div>
                 </div>
             </div>
-
         </React.Fragment>
 
     )
