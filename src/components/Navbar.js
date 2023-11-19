@@ -26,11 +26,11 @@ export default function Navbar({ loggedIn, setLoggedIn, user }) {
 	const togglerRef = useRef(null)
 
 	// Navbar menu items
-	const loginMenuItem = { 
-        name: loggedIn ? "Account" : "Login",
-        link: loggedIn ? "/profile" : "/login",
-    }
-	
+	const loginMenuItem = {
+		name: loggedIn ? "Account" : "Login",
+		link: loggedIn ? "/profile" : "/login",
+	}
+
 	const rightNavMenuItems = [...rightNavMenu, loginMenuItem]
 
 	// Handle events
@@ -47,7 +47,7 @@ export default function Navbar({ loggedIn, setLoggedIn, user }) {
 			setDarkText(false)
 		}
 	}
-	
+
 	useEffect(() => {
 		window.addEventListener('resize', handleWindowResize)
 		window.addEventListener("scroll", handleScrollEvent)
@@ -59,13 +59,13 @@ export default function Navbar({ loggedIn, setLoggedIn, user }) {
 	}, []);
 
 	const closeMobileMenu = () => {
-		setShowMenu(false) 
+		setShowMenu(false)
 		togglerRef.current.click()
 	}
 
 	// Close mobile menu automatically when screen size is Desktop
 	useEffect(() => {
-		if (isDesktop && showMenu){
+		if (isDesktop && showMenu) {
 			closeMobileMenu()
 		}
 	}, [width])
@@ -88,48 +88,45 @@ export default function Navbar({ loggedIn, setLoggedIn, user }) {
 		navigate('/login')
 	}
 
-	const NavbarClassName = showMenu && !isDesktop
-		? "navbar navbar-expand-lg py-0 h-100 d-flex flex-column fixed-top shadow-lg show-menu"
-		: colour 
-			? "navbar navbar-expand-lg py-0 fixed-top colour shadow"
-			: "navbar navbar-expand-lg py-0 fixed-top"
+	// Custom css classes
+	const NavbarCustomClass = showMenu && !isDesktop
+		? "h-100 d-flex flex-column fixed-top shadow-lg show-menu"
+		: colour
+			? "fixed-top colour shadow"
+			: "fixed-top"
+	const NavCustomClass = showMenu ? "bg-solid shadow-lg" : ""
+	const LogoCustomClass = (!showMenu && isLanding && !darkText) ? "text-white" : ""
+	const TogglerCustomClass = (!showMenu && isLanding && !darkText) ? "text-white" : ""
+	const NavItemCustomClass = isLanding ? darkText ? "" : "text-white" : ""
+	const MobileMenuCustomClass = showMenu ? "" : "invisible"
 
-	const LogoClassName = "navbar-brand" + (
-		!showMenu && isLanding && !darkText ? " text-white" : ""
-	)
-
-	const TogglerClassName = "navbar-toggler p-0 border-0" + (
-		!showMenu && isLanding && !darkText ? " text-white" : ""
-	)
-
-	const MobileMenuClassName = showMenu
-		? "d-flex flex-fill mt-4 mb-3 justify-content-start d-sm-flex d-md-flex d-lg-none"
-		: "d-flex flex-fill mt-4 mb-3 justify-content-start d-sm-flex d-md-flex d-lg-none invisible"
-
-	const NavItemClassName = isLanding
-		? darkText 
-			? "navbar-item px-5 border-0 btn"
-			: "navbar-item px-5 border-0 btn text-white"
-		: "navbar-item px-5 border-0 btn"
-
+	// Navbar components
 	const ProductLogo = () => (
-		<a className={LogoClassName} href="/">Aroma.</a>
+		<a className={"navbar-brand " + LogoCustomClass} href="/">Aroma.</a>
 	)
 
-	const NavContainerClassName = showMenu
-		? "container-fluid py-4 px-5 bg-solid shadow-lg"
-		: "container-fluid py-4 px-5"
+	const mobileMenuItem = (link, title, index = 0) => (
+		<div className="mobile-menu-item" key={index}>
+			<a className="navbar-item mobile my-4 border-0 btn text-start" href={link} role="button">
+				<span className="text-uppercase">{title}</span>
+			</a>
+		</div>
+	)
+
+	const mobileMenuBtn = (handleClick, label) => (
+		<button type="button" className="mobilelogin-btn mt-5 text-uppercase" onClick={handleClick}>{label}</button>
+	)
 
 	return (
-		<nav className={NavbarClassName}>
-			<div className={NavContainerClassName}>
+		<nav className={"navbar navbar-expand-lg py-0 " + NavbarCustomClass}>
+			<div className={"container-fluid py-4 px-5 " + NavCustomClass}>
 				<div className="logo flex-fill m-auto d-lg-none d-sm-block d-md-block">
 					<ProductLogo />
 				</div>
 
 				{/* Menu Toggler */}
 				<button
-					className={TogglerClassName}
+					className={"navbar-toggler p-0 border-0 " + TogglerCustomClass}
 					onClick={() => {
 						setShowMenu(!showMenu)
 					}}
@@ -147,7 +144,7 @@ export default function Navbar({ loggedIn, setLoggedIn, user }) {
 				<div className="d-flex flex-fill px-5 justify-content-between d-lg-flex d-none">
 					<div className="d-flex px-4">
 						{leftNavMenu.map((item, index) => (
-							<a className={NavItemClassName} href={item.link} key={index} role="button">
+							<a className={"navbar-item px-5 border-0 btn " + NavItemCustomClass} href={item.link} key={index} role="button">
 								<span className="text-uppercase">{item.name}</span>
 							</a>
 						))}
@@ -157,40 +154,30 @@ export default function Navbar({ loggedIn, setLoggedIn, user }) {
 					</div>
 					<div className="d-flex px-4">
 						{rightNavMenuItems.map((item, index) => (
-							<a className={NavItemClassName} href={item.link} key={index} role="button">
+							<a className={"navbar-item px-5 border-0 btn " + NavItemCustomClass} href={item.link} key={index} role="button">
 								<span className="text-uppercase">{item.name}</span>
 							</a>
 						))}
 					</div>
 				</div>
-				
+
 				{/* Mobile Menu */}
-				{!isDesktop && 
+				{!isDesktop &&
 					<div className="collapse navbar-collapse" id="nav">
-						<div className={MobileMenuClassName}>
+						<div className={"d-flex flex-fill mt-4 mb-3 justify-content-start d-sm-flex d-md-flex d-lg-none " + MobileMenuCustomClass}>
 							<div className="d-flex flex-column w-100">
-								{(loggedIn && userSession)  && 
+								{(loggedIn && userSession) &&
 									<Fragment>
 										<div className="mobile-menu-item">
 											<p className="greeting-text my-4">Welcome, {user.name}</p>
 										</div>
-										<div className="mobile-menu-item">
-										<a className="navbar-item mobile my-4 border-0 btn text-start" href={"/profile"} role="button">
-											<span className="text-uppercase">Account</span>
-										</a>
-										</div>
+										{mobileMenuItem("/profile", "Account")}
 									</Fragment>
 								}
 								{mobileMenu.map((item, index) => (
-									<div className="mobile-menu-item" key={index}>
-										<a className="navbar-item mobile my-4 border-0 btn text-start" href={item.link} role="button">
-											<span className="text-uppercase">{item.name}</span>
-										</a>
-									</div>
+									mobileMenuItem(item.link, item.name, index)
 								))}
-								{loggedIn ?
-									<button type="button" className="mobilelogin-btn mt-5 text-uppercase" onClick={logout}>Log Out</button>
-									: <button type="button" className="mobilelogin-btn mt-5 text-uppercase" onClick={navigateToLogin}>Login</button>}
+								{loggedIn ? mobileMenuBtn(logout, "Log Out") : mobileMenuBtn(navigateToLogin, "Login")}
 							</div>
 						</div>
 					</div>}
