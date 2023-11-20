@@ -41,6 +41,7 @@ export default function Profile({ loggedIn, setLoggedIn, setUser }) {
 
         if (response.data) {
             localStorage.clear()
+            window.location.pathname = '/'
         }
     }
 
@@ -64,7 +65,7 @@ export default function Profile({ loggedIn, setLoggedIn, setUser }) {
                         <div className="mt-5 d-flex justify-content-center">
                             <button className="btn shop-btn px-5 rounded-0" onClick={()=>navigate('/products')}>Start Shopping</button>
                         </div>
-                        <p className="mt-3 text-center page-subtitle">or <Link onClick={logout} to="/">Log out</Link></p>
+                        <p className="mt-3 text-center page-subtitle">or <Link onClick={logout}>Log out</Link></p>
                     </div>
 
                 </div>

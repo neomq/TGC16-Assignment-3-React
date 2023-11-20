@@ -3,10 +3,9 @@ import { Button } from 'react-bootstrap';
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+import API from '../constants/API';
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL
-// const BASE_URL = "https://3000-neomq-tgc16assignment3-9unf8jw59sc.ws-us44.gitpod.io"
-
 
 export default function Cart() {
     const [loggedIn, setLoggedIn] = useState(true)
@@ -28,9 +27,9 @@ export default function Cart() {
 
     const fetch = async () => {
         let user_id = localStorage.getItem("id")
-        const response = await axios.get(BASE_URL + "/api/cart/" + user_id)
+        const response = await axios.get(BASE_URL + API.CART + user_id)
         
-        let orderSubTotal = 0;
+        let orderSubTotal = 0
         for (let i of response.data) {
             orderSubTotal += (i.sub_total_sgd * i.item_quantity)
         }
@@ -42,10 +41,10 @@ export default function Cart() {
 
     const deleteCartItem = async (product_id) => {
         let user_id = localStorage.getItem("id")
-        await axios.get(BASE_URL + "/api/cart/" + user_id + /remove/ + product_id)
+        await axios.get(BASE_URL + API.CART + user_id + /remove/ + product_id)
         
         // refresh cart items
-        let response = await axios.get(BASE_URL + "/api/cart/" + user_id)
+        let response = await axios.get(BASE_URL + API.CART + user_id)
         setCartItems(response.data)
 
         fetch()
@@ -66,7 +65,7 @@ export default function Cart() {
         setCartItems(cloned)
         
         let user_id = localStorage.getItem("id")
-        await axios.post(BASE_URL + "/api/cart/" + user_id + "/updateQuantity/" + product_id, {
+        await axios.post(BASE_URL + API.CART + user_id + "/updateQuantity/" + product_id, {
             'newQuantity': cloned[index].item_quantity
         })
         
@@ -87,7 +86,7 @@ export default function Cart() {
         setCartItems(cloned)
         
         let user_id = localStorage.getItem("id")
-        await axios.post(BASE_URL + "/api/cart/" + user_id + "/updateQuantity/" + product_id, {
+        await axios.post(BASE_URL + API.CART + user_id + "/updateQuantity/" + product_id, {
             'newQuantity': cloned[index].item_quantity
         })
 
@@ -96,7 +95,7 @@ export default function Cart() {
 
     const checkout = () => {
         //redirect
-        window.location.href = BASE_URL + "/api/checkout/" + localStorage.getItem("id")
+        window.location.href = BASE_URL + API.CHECKOUT + localStorage.getItem("id")
     }
 
     return (
