@@ -54,10 +54,10 @@ export default function Login({ setLoggedIn }) {
                             <Form className="my-4">
 
                                 <Form.Control type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="off" className={inputClass + errorClass} placeholder="Email" />
-                                {unableToLogin && <Form.Text className="form-error" style={{ color: '#E91630' }}>An error has occured. Please try again.</Form.Text>}
+                                {unableToLogin && <Form.Text className="form-error">An error has occured. Please try again.</Form.Text>}
                                 
                                 <Form.Control type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} className={"mt-3 " + inputClass + errorClass} placeholder="Password" />
-                                {unableToLogin && <Form.Text className="form-error" style={{ color: '#E91630' }}>An error has occured. Please try again.</Form.Text>}
+                                {unableToLogin && <Form.Text className="form-error">An error has occured. Please try again.</Form.Text>}
 
                                 <div className="d-grid mt-4">
                                     <button className="signin-btn text-uppercase" type="button" onClick={login}>Login</button>

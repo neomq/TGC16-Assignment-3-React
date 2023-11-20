@@ -1,3 +1,4 @@
+// Navigation
 const leftNavMenu = [
     { name: "Shop", link: "/products" },
     { name: "About us", link: "/" },
@@ -14,6 +15,7 @@ const mobileMenu = [
     { name: "Cart", link: "/cart" },
 ]
 
+// Featured Section 
 const featuredContent = [
     {
         label: "Beauty Range",
@@ -38,9 +40,20 @@ const featuredContent = [
     }
 ]
 
+// Text input placeholders
+const placeholder = {
+    name: "Your Name",
+    password: "Your Password",
+    email: "Your Email",
+    address: "Your Address",
+    create_pw: "Create Password",
+    confirm_pw: "Confirm Password"
+}
+
 export {
     leftNavMenu,
     rightNavMenu,
     mobileMenu,
     featuredContent,
+    placeholder
 }
