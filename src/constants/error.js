@@ -1,6 +1,6 @@
 const LOGIN_ERROR = {
     LOGIN_FAIL: { 
-        errorMessage: "An error has occured. Please try again."
+        errorMessage: "Error. Please try again."
     }
 }
 

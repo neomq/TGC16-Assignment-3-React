@@ -119,7 +119,7 @@ export default function Navbar({ loggedIn, setLoggedIn, user }) {
 
 	return (
 		<nav className={"navbar navbar-expand-lg py-0 " + NavbarCustomClass}>
-			<div className={"container-fluid py-4 px-5 " + NavCustomClass}>
+			<div className={"container-fluid p-4 " + NavCustomClass}>
 				<div className="logo flex-fill m-auto d-lg-none d-sm-block d-md-block">
 					<ProductLogo />
 				</div>
@@ -141,12 +141,14 @@ export default function Navbar({ loggedIn, setLoggedIn, user }) {
 				</button>
 
 				{/* Desktop Menu */}
-				<div className="d-flex flex-fill px-5 justify-content-between d-lg-flex d-none">
+				<div className="d-flex flex-fill px-4 justify-content-between d-lg-flex d-none">
 					<div className="d-flex px-4">
 						{leftNavMenu.map((item, index) => (
-							<a className={"navbar-item px-5 border-0 btn " + NavItemCustomClass} href={item.link} key={index} role="button">
-								<span className="text-uppercase">{item.name}</span>
-							</a>
+							<div className="navbar-item-container" key={index}>
+								<a className={"navbar-item border-0 btn " + NavItemCustomClass} href={item.link} role="button">
+									<span className="text-uppercase">{item.name}</span>
+								</a>
+							</div>
 						))}
 					</div>
 					<div className="logo">
@@ -154,9 +156,11 @@ export default function Navbar({ loggedIn, setLoggedIn, user }) {
 					</div>
 					<div className="d-flex px-4">
 						{rightNavMenuItems.map((item, index) => (
-							<a className={"navbar-item px-5 border-0 btn " + NavItemCustomClass} href={item.link} key={index} role="button">
-								<span className="text-uppercase">{item.name}</span>
-							</a>
+							<div className="navbar-item-container" key={index}>
+								<a className={"navbar-item border-0 btn " + NavItemCustomClass} href={item.link} role="button">
+									<span className="text-uppercase">{item.name}</span>
+								</a>
+							</div>
 						))}
 					</div>
 				</div>
