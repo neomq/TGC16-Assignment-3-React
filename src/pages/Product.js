@@ -63,7 +63,7 @@ export default function Product() {
             <div className="page-header-2 pt-5 pb-4 my-2 mx-auto">
                 <nav aria-label="breadcrumb d-flex justify-content-center mb-2">
                     <ol class="breadcrumb b-crumb d-flex justify-content-center">
-                        <li class="breadcrumb-item"><a href="/products">Products</a></li>
+                        <li class="breadcrumb-item" onClick={()=>navigate('/products')}>Products</li>
                         <li class="breadcrumb-item active" aria-current="page">{currentEssentialOil.name} {currentType}</li>
                     </ol>
                 </nav>

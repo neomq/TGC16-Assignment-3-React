@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from 'react-bootstrap';
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL
@@ -12,6 +12,7 @@ export default function Cart() {
     const [loggedIn, setLoggedIn] = useState(true)
     const [cartItems, setCartItems] = useState([])
     const [orderTotal, setOrderTotal] = useState(0)
+    const navigate = useNavigate()
 
     useEffect(() => {
         // check if user is logged in
@@ -91,6 +92,11 @@ export default function Cart() {
         })
 
         fetch()
+    }
+
+    const checkout = () => {
+        //redirect
+        window.location.href = BASE_URL + "/api/checkout/" + localStorage.getItem("id")
     }
 
     return (
@@ -196,8 +202,8 @@ export default function Cart() {
                                         </div>
 
                                         {/* Checkout Button */}
-                                        <a className="btn checkout-btn rounded-0 p-2 px-3 w-100 my-4" role="button" href={BASE_URL + "/api/checkout/" + localStorage.getItem("id")}>PROCEED TO CHECKOUT <i class="bi bi-arrow-right"></i></a>
-                                        <a className="text-decoration-none" href="/products"><p className="pb-3 text-center text-decoration-underline page-subtitle">Continue Shopping</p></a>
+                                        <div className="btn checkout-btn rounded-0 p-2 px-3 w-100 my-4" onClick={checkout}>PROCEED TO CHECKOUT</div>
+                                        <div className="text-decoration-none" onClick={()=>navigate('/products')}><p className="pb-3 text-center text-decoration-underline page-subtitle">Continue Shopping</p></div>
                                     </div>
 
                                 </div>
