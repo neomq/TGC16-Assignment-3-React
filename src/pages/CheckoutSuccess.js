@@ -1,6 +1,8 @@
 import React from "react";
-// import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 export default function CheckoutSuccess() {
+
+    const navigate = useNavigate()
 
     return (
         <React.Fragment>
@@ -16,7 +18,7 @@ export default function CheckoutSuccess() {
                                     <p className="m-0 text-center page-subtitle">Thank you for shopping with us!</p>
                             </div>
                             <div className="d-grid mt-5 mx-auto">
-                                <a className="btn shop-btn rounded-0" href="/" type="button">Return to Home</a>
+                                <button className="btn shop-btn rounded-0" onClick={()=>navigate('/')}>Return to Home</button>
                             </div>
                         </div>
 

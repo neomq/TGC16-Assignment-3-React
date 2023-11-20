@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Form } from 'react-bootstrap';
+import { LOGIN_ERROR } from "../constants/error"
+import TextInput from "../components/TextInput"
 import API from '../constants/API';
 import axios from 'axios'
 
@@ -13,9 +15,9 @@ export default function Login({ setLoggedIn }) {
     const [unableToLogin, setUnableToLogin] = useState(false)
 
     const navigate = useNavigate();
+    const { LOGIN_FAIL } = LOGIN_ERROR
     
     async function login() {
-
         //validation
         if (!email || !password){
             setUnableToLogin(true)
@@ -37,29 +39,43 @@ export default function Login({ setLoggedIn }) {
                 setUnableToLogin(true)
             }
         }
-
     }
+
+    const inputClass = "form-input bg-transparent rounded-0 "
+    const errorClass = unableToLogin ? "error" : ""
 
     return (
         <React.Fragment>
-
             <div className="bg">
                 <div className="login header-content">
-                    <div className="page-overlay d-flex justify-content-center align-items-center">
-                        <div className="cta mx-5 w-100 login d-flex flex-column shadow-lg">
-                            <h1 className="text-center page-title-large">Welcome</h1>
-                            <p className="text-center page-subtitle">Please login with your account details.</p>
+                    <div className="page-overlay overflow-scroll d-flex justify-content-center">
+                        <div className="cta login mx-4 w-100 d-flex flex-column shadow-lg">
+                            <p className="text-center page-title-large mb-2">Welcome</p>
+                            <p className="text-center page-subtitle m-0">Login with your account details.</p>
                             <Form className="my-4">
-
-                                <Form.Control type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="off" className="form-input bg-transparent rounded-0" placeholder="Email" />
-                                {unableToLogin === true ? <Form.Text style={{ color: 'red' }}>Invalid email. Please try again.</Form.Text> : null}
-                                <Form.Control type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} className="form-input bg-transparent rounded-0 mt-3" placeholder="Password" />
-                                {unableToLogin === true ? <Form.Text style={{ color: 'red' }}>Invalid password. Please try again.</Form.Text> : null}
-
+                                <TextInput
+                                    type="email"
+                                    name="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    className={inputClass + errorClass}
+                                    placeholder="Email"
+                                    errorState={unableToLogin}
+                                    errorMessage={LOGIN_FAIL.errorMessage}
+                                />
+                                <TextInput
+                                    type="password"
+                                    name="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    className={"mt-2 " + inputClass + errorClass}
+                                    placeholder="Password"
+                                    errorState={unableToLogin}
+                                    errorMessage={LOGIN_FAIL.errorMessage}
+                                />
                                 <div className="d-grid mt-4">
                                     <button className="signin-btn text-uppercase" type="button" onClick={login}>Login</button>
                                 </div>
-
                             </Form>
                             <hr></hr>
                             <p className="mt-3 text-center page-subtitle">Not our registered customer?</p>
@@ -70,7 +86,6 @@ export default function Login({ setLoggedIn }) {
                     </div>
                 </div>
             </div>
-
         </React.Fragment>
 
     )

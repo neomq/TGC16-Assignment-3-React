@@ -165,7 +165,7 @@ export default function ProductListing() {
 
         console.log("getSearch", getSearch)
 
-        const response = await axios.post(BASE_URL + "/api/products/search", getSearch)
+        const response = await axios.post(BASE_URL + API.PRODUCT_SEARCH, getSearch)
         console.log("search results:", response.data)
 
         setProducts(response.data)

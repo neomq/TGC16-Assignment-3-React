@@ -15,7 +15,7 @@ body {
 }
 
 .navbar {
-    border-top: 10px solid #28411F;
+    border-top: 8px solid #28411F;
     padding: 24px 0;
 }
 
@@ -48,8 +48,15 @@ body {
     color: #3B3530;
 }
 
+.navbar-item-container {
+    min-width: 130px;
+    display: flex;
+    justify-content: center;
+}
+
 .navbar-item > span {
-    font-size: 14px;
+    font-size: 13px;
+    font-weight: 400;
     letter-spacing: 1.68px;
 }
 
@@ -59,13 +66,14 @@ body {
     height: 22px;
     color: #3B3530;
     font-family: 'Prata', serif;
-    font-size: 24px;
+    font-size: 22px;
     line-height: 1;
     letter-spacing: 0.84px;
 }
 
 .navbar-brand:hover {
     color: inherit;
+    cursor: pointer;
 }
 
 .mobile-menu-item {
@@ -74,7 +82,7 @@ body {
 
 .mobile-menu-item .greeting-text {
     font-family: 'Prata', serif;
-    font-size: 18px;
+    font-size: 17px;
     letter-spacing: 0.8px;
     color: #3B3530;
 }
@@ -269,7 +277,7 @@ body {
     color: #3B3530;
     font-family: 'Poppins', sans-serif;
     letter-spacing: 1.2px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 400;
     padding: 16px 35px;
     background-color: none;
@@ -359,7 +367,7 @@ input.form-check-input:checked{
     color: #F1F1EE;
     font-family: 'Poppins', sans-serif;
     letter-spacing: 1.2px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     padding: 16px 50px;
     border-radius: 2px;
@@ -404,20 +412,42 @@ input.form-check-input:checked{
 }
 
 .header-content .cta.login {
+    margin-top: 90px;
+    margin-bottom: 24px;
     max-width: 400px;
-    padding: 54px;
+    height: fit-content;
+    padding: 40px 48px 48px;
     background-color: #EFEEEB;
 }
+
+@media only screen and (max-width: 448px) {
+    .header-content .cta.login {
+        padding: 30px 28px 40px;
+    }
+  }
 
 .page-title-large {
     color: #5F4027;
     font-family: 'Prata', serif;
-    font-size: 34px;
+    font-size: 24px;
     letter-spacing: 0.6px;
 }
 
 .form-input {
     height: 43px;
+}
+
+.form-input.error {
+    height: 43px;
+    border: 1px solid #E91630 !important;
+}
+
+.form-error {
+    color: #E91630;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.4px;
+    font-weight: 300;
 }
 
 .profile-section .section-title {

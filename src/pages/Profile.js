@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import API from '../constants/API';
 import axios from 'axios'
 
@@ -10,6 +10,7 @@ export default function Profile({ loggedIn, setLoggedIn, setUser }) {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [address, setAddress] = useState("")
+    const navigate = useNavigate();
 
     useEffect(() => {
         // check if user is logged in
@@ -40,12 +41,12 @@ export default function Profile({ loggedIn, setLoggedIn, setUser }) {
 
         if (response.data) {
             localStorage.clear()
+            window.location.pathname = '/'
         }
     }
 
     return (
         <React.Fragment>
-            {loggedIn === true ?
             <div className="page-container">
                 <div className="row">
 
@@ -62,14 +63,13 @@ export default function Profile({ loggedIn, setLoggedIn, setUser }) {
                         </div>
 
                         <div className="mt-5 d-flex justify-content-center">
-                            <a className="btn shop-btn px-5 rounded-0" href="/products" type="button">Start Shopping</a>
+                            <button className="btn shop-btn px-5 rounded-0" onClick={()=>navigate('/products')}>Start Shopping</button>
                         </div>
-                        <p className="mt-3 text-center page-subtitle">or <Link onClick={logout} to="/">Log out</Link></p>
+                        <p className="mt-3 text-center page-subtitle">or <Link onClick={logout}>Log out</Link></p>
                     </div>
 
                 </div>
             </div>
-            : null}
         </React.Fragment>
 
     )

@@ -9,11 +9,11 @@ const BASE_URL = process.env.REACT_APP_API_BASE_URL
 
 export default function Navbar({ loggedIn, setLoggedIn, user }) {
 
-	const navigate = useNavigate();
+	const navigate = useNavigate()
 	const userSession = Object.keys(user).length > 0
 
 	// For navbar states
-	const isLanding = ['/', '/login'].includes(window.location.pathname)
+	const isLanding = ['/', '/login', '/register'].includes(window.location.pathname)
 	const [showMenu, setShowMenu] = useState(false)
 	const [colour, setColour] = useState(false)
 	const [darkText, setDarkText] = useState(false)
@@ -39,7 +39,7 @@ export default function Navbar({ loggedIn, setLoggedIn, user }) {
 	}
 
 	const handleScrollEvent = () => {
-		if (window.scrollY > 0) {
+		if (window.scrollY > 5) {
 			setColour(true)
 			setDarkText(true)
 		} else {
@@ -83,9 +83,11 @@ export default function Navbar({ loggedIn, setLoggedIn, user }) {
 		}
 	}
 
-	const navigateToLogin = () => {
-		closeMobileMenu()
-		navigate('/login')
+	const navigateToPage = (link) => {
+		if (!isDesktop) {
+			closeMobileMenu()
+		}
+		navigate(link)
 	}
 
 	// Custom css classes
@@ -102,14 +104,22 @@ export default function Navbar({ loggedIn, setLoggedIn, user }) {
 
 	// Navbar components
 	const ProductLogo = () => (
-		<a className={"navbar-brand " + LogoCustomClass} href="/">Aroma.</a>
+		<div className={"navbar-brand " + LogoCustomClass} onClick={()=>navigate('/')}>Aroma.</div>
+	)
+
+	const desktopMenuItem = (link, title, index = 0) => (
+		<div className="navbar-item-container" key={index}>
+			<div className={"navbar-item border-0 btn " + NavItemCustomClass} onClick={()=>navigateToPage(link)}>
+				<span className="text-uppercase">{title}</span>
+			</div>
+		</div>
 	)
 
 	const mobileMenuItem = (link, title, index = 0) => (
 		<div className="mobile-menu-item" key={index}>
-			<a className="navbar-item mobile my-4 border-0 btn text-start" href={link} role="button">
+			<div className="navbar-item mobile my-4 border-0 btn text-start" onClick={()=>navigateToPage(link)}>
 				<span className="text-uppercase">{title}</span>
-			</a>
+			</div>
 		</div>
 	)
 
@@ -119,7 +129,7 @@ export default function Navbar({ loggedIn, setLoggedIn, user }) {
 
 	return (
 		<nav className={"navbar navbar-expand-lg py-0 " + NavbarCustomClass}>
-			<div className={"container-fluid py-4 px-5 " + NavCustomClass}>
+			<div className={"container-fluid p-4 " + NavCustomClass}>
 				<div className="logo flex-fill m-auto d-lg-none d-sm-block d-md-block">
 					<ProductLogo />
 				</div>
@@ -141,12 +151,10 @@ export default function Navbar({ loggedIn, setLoggedIn, user }) {
 				</button>
 
 				{/* Desktop Menu */}
-				<div className="d-flex flex-fill px-5 justify-content-between d-lg-flex d-none">
+				<div className="d-flex flex-fill px-4 justify-content-between d-lg-flex d-none">
 					<div className="d-flex px-4">
 						{leftNavMenu.map((item, index) => (
-							<a className={"navbar-item px-5 border-0 btn " + NavItemCustomClass} href={item.link} key={index} role="button">
-								<span className="text-uppercase">{item.name}</span>
-							</a>
+							desktopMenuItem(item.link, item.name, index)
 						))}
 					</div>
 					<div className="logo">
@@ -154,9 +162,7 @@ export default function Navbar({ loggedIn, setLoggedIn, user }) {
 					</div>
 					<div className="d-flex px-4">
 						{rightNavMenuItems.map((item, index) => (
-							<a className={"navbar-item px-5 border-0 btn " + NavItemCustomClass} href={item.link} key={index} role="button">
-								<span className="text-uppercase">{item.name}</span>
-							</a>
+							desktopMenuItem(item.link, item.name, index)
 						))}
 					</div>
 				</div>
@@ -177,7 +183,7 @@ export default function Navbar({ loggedIn, setLoggedIn, user }) {
 								{mobileMenu.map((item, index) => (
 									mobileMenuItem(item.link, item.name, index)
 								))}
-								{loggedIn ? mobileMenuBtn(logout, "Log Out") : mobileMenuBtn(navigateToLogin, "Login")}
+								{loggedIn ? mobileMenuBtn(logout, "Log Out") : mobileMenuBtn(()=>{navigateToPage('/login')}, "Login")}
 							</div>
 						</div>
 					</div>}
