@@ -39,7 +39,7 @@ export default function Navbar({ loggedIn, setLoggedIn, user }) {
 	}
 
 	const handleScrollEvent = () => {
-		if (window.scrollY > 10) {
+		if (window.scrollY > 5) {
 			setColour(true)
 			setDarkText(true)
 		} else {
@@ -84,7 +84,9 @@ export default function Navbar({ loggedIn, setLoggedIn, user }) {
 	}
 
 	const navigateToPage = (link) => {
-		closeMobileMenu()
+		if (!isDesktop) {
+			closeMobileMenu()
+		}
 		navigate(link)
 	}
 

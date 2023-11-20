@@ -46,7 +46,6 @@ export default function Profile({ loggedIn, setLoggedIn, setUser }) {
 
     return (
         <React.Fragment>
-            {loggedIn === true ?
             <div className="page-container">
                 <div className="row">
 
@@ -70,7 +69,6 @@ export default function Profile({ loggedIn, setLoggedIn, setUser }) {
 
                 </div>
             </div>
-            : null}
         </React.Fragment>
 
     )
