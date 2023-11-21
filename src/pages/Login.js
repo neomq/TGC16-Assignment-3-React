@@ -46,12 +46,12 @@ export default function Login({ setLoggedIn }) {
 
     return (
         <React.Fragment>
-            <div className="bg">
+            <div className="login-page bg">
                 <div className="login header-content">
-                    <div className="page-overlay overflow-scroll d-flex justify-content-center">
+                    <div className="page-overlay d-flex justify-content-center">
                         <div className="cta login mx-4 w-100 d-flex flex-column shadow-lg">
                             <p className="text-center page-title-large mb-2">Welcome</p>
-                            <p className="text-center page-subtitle m-0">Login with your account details.</p>
+                            <p className="text-center page-subtitle mb-1">Login with your account details.</p>
                             <Form className="my-4">
                                 <TextInput
                                     type="email"
@@ -68,7 +68,7 @@ export default function Login({ setLoggedIn }) {
                                     name="password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className={"mt-2 " + inputClass + errorClass}
+                                    className={"mt-3 " + inputClass + errorClass}
                                     placeholder="Password"
                                     errorState={unableToLogin}
                                     errorMessage={LOGIN_FAIL.errorMessage}

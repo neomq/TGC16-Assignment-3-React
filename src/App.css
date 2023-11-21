@@ -403,6 +403,10 @@ input.form-check-input:checked{
 }
 
 /* --- Sign In / Register / Profile Page --- */
+.login-page.bg,
+.login.header-content {
+    height: fit-content;
+}
 
 .page-overlay {
     height: inherit;
@@ -413,7 +417,7 @@ input.form-check-input:checked{
 
 .header-content .cta.login {
     margin-top: 90px;
-    margin-bottom: 24px;
+    margin-bottom: 60px;
     max-width: 400px;
     height: fit-content;
     padding: 40px 48px 48px;
@@ -667,24 +671,43 @@ input.form-check-input:checked{
     cursor: pointer;
 }
 
+/* if width is 992px or smaller */
 @media only screen and (max-width: 992px) {
     .footer-section {
         width: 100%;
     }
+
     .footer-content {
         margin: 0 28px;
         padding: 60px 0 20px;
     }
 }
 
+/* if width is 768px or larger */
 @media screen and (min-width: 768px) {
     .header-content .short-text {
         background-position: 10% 90%;
     }
 }
 
+/* if width is 448px or smaller */
 @media only screen and (max-width: 448px) {
-.header-content .cta.login {
-    padding: 30px 28px 40px;
+    .header-content .cta.login {
+        padding: 30px 28px 40px;
+    }
 }
+
+/* if height is more than 768px */
+@media screen and (min-height: 768px) {
+    .login-page.bg,
+    .login.header-content {
+        height: 100vh;
+    }
+}
+
+/* if height is more than 1024px */
+@media only screen and (min-height: 1024px) {
+    .header-content .cta.login {
+        margin-top: 120px;
+    }
 }
