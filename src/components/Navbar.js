@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineMenu } from "react-icons/ai";
-import { leftNavMenu, rightNavMenu, mobileMenu } from "../constants/constants";
+import { leftNavMenu, rightNavMenu, mobileMenu, breakpoint } from "../constants/constants";
 import API from '../constants/API';
 import axios from 'axios'
 
@@ -20,7 +20,7 @@ export default function Navbar({ loggedIn, setLoggedIn, user }) {
 
 	// For responsive screen
 	const [width, setWidth] = useState(window.innerWidth)
-	const isDesktop = width >= 992
+	const isDesktop = width >= breakpoint.lg
 
 	// refs
 	const togglerRef = useRef(null)

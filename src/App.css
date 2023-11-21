@@ -420,12 +420,6 @@ input.form-check-input:checked{
     background-color: #EFEEEB;
 }
 
-@media only screen and (max-width: 448px) {
-    .header-content .cta.login {
-        padding: 30px 28px 40px;
-    }
-  }
-
 .page-title-large {
     color: #5F4027;
     font-family: 'Prata', serif;
@@ -655,9 +649,8 @@ input.form-check-input:checked{
     letter-spacing: 0.4px;
     line-height: 1.6;
     font-weight: 300;
-    width: 88%;
-    margin: 0 auto !important;
     padding: 80px 0;
+    margin: 0 80px;
 }
 
 .footer-title {
@@ -666,10 +659,32 @@ input.form-check-input:checked{
     letter-spacing: 1.4px;
 }
 
+.footer-section {
+    width: 70%;
+}
 
-/* --- Media Query --- */
+.footer-link:hover {
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 992px) {
+    .footer-section {
+        width: 100%;
+    }
+    .footer-content {
+        margin: 0 28px;
+        padding: 60px 0 20px;
+    }
+}
+
 @media screen and (min-width: 768px) {
     .header-content .short-text {
         background-position: 10% 90%;
     }
-  }
+}
+
+@media only screen and (max-width: 448px) {
+.header-content .cta.login {
+    padding: 30px 28px 40px;
+}
+}

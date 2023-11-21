@@ -1,18 +1,28 @@
+// Pages
+const pages = {
+    home: '/',
+    login: '/login',
+    register: '/register',
+    profile: '/profile',
+    products: '/products',
+    cart: '/cart'
+}
+
 // Navigation
 const leftNavMenu = [
-    { name: "Shop", link: "/products" },
-    { name: "About us", link: "/" },
+    { name: "Shop", link: pages.products },
+    { name: "About us", link: pages.home },
 ]
 
 const rightNavMenu = [
-    { name: "Cart", link: "/cart" },
+    { name: "Cart", link: pages.cart },
 ]
 
 const mobileMenu = [
-    { name: "Home", link: "/" },
-    { name: "Shop", link: "/products" },
-    { name: "About us", link: "/" },
-    { name: "Cart", link: "/cart" },
+    { name: "Home", link: pages.home },
+    { name: "Shop", link: pages.products },
+    { name: "About us", link: pages.home },
+    { name: "Cart", link: pages.cart },
 ]
 
 // Featured Section 
@@ -40,6 +50,22 @@ const featuredContent = [
     }
 ]
 
+// Footer links
+const footerLinks = {
+    shop: [
+        { title: "Our Products", link: pages.products },
+        { title: "Our Locations", link: pages.home },
+        { title: "Blog", link: pages.blog },
+        { title: "About Us", link: pages.home },
+    ],
+    services: [
+        { title: "Login", link: pages.login },
+        { title: "Register", link: pages.register },
+        { title: "Shipping Policy", link: pages.home },
+        { title: "Returns Policy", link: pages.home },
+    ]
+}
+
 // Text input placeholders
 const placeholder = {
     name: "Your Name",
@@ -50,10 +76,23 @@ const placeholder = {
     confirm_pw: "Confirm Password"
 }
 
+// Breakpoints from bootstrap
+const breakpoint = {
+    xs: 0,
+    sm: 576,
+    md: 768,
+    lg: 992,
+    xl: 1200,
+    xxl: 1400
+}
+
 export {
+    pages,
     leftNavMenu,
     rightNavMenu,
     mobileMenu,
     featuredContent,
-    placeholder
+    footerLinks,
+    placeholder,
+    breakpoint,
 }
