@@ -10,6 +10,7 @@ import Profile from './pages/Profile';
 import Register from './pages/Register';
 import CheckoutSuccess from './pages/CheckoutSuccess';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import API from './constants/API';
 import axios from "axios"
 
@@ -78,6 +79,7 @@ function App() {
           {/* Checkout success route */}
           <Route path="/paymentsuccess" element={<CheckoutSuccess/>} />
         </Routes>
+        <Footer />
       </Router>
     </Fragment>
   );
