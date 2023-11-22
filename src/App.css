@@ -139,11 +139,11 @@ body {
 
 .section-content {
     width: 88%;
-    margin: 60px auto !important;
+    margin: 80px auto !important;
 }
 
 .section .section-title {
-    font-size: 24px;
+    font-size: 28px;
     letter-spacing: 0.4px;
     color: #3B3530;
     font-family: 'Prata', serif;
