@@ -41,7 +41,6 @@ const productSearch = async (searchObj) => {
 
 export { 
     allProducts,
-    allEssentialOils,
     allTypes,
     allUsages,
     allScents,
