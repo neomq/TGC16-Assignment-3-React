@@ -11,7 +11,7 @@ import Register from './pages/Register';
 import CheckoutSuccess from './pages/CheckoutSuccess';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import API from './constants/API';
+import API from './constants/api';
 import axios from "axios"
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL

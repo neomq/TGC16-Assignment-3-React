@@ -197,17 +197,17 @@ body {
 
 /* --- Product Listing Page --- */
 .page-container {
-    margin-top: 100px;
-    padding: 0 30px;
+    width: 88%;
+    margin: 100px auto 80px !important;
 }
 
 .page-header {
-    background-color: #dfdfdcc2;
+    background-color: #E7E4DE;
 }
 
 .page-header .b-crumb li,
 .page-header-2 .b-crumb li {
-    color: #5F4027;
+    color: #3B3530;
     font-family: 'Poppins', sans-serif;
     font-size: 13px;
     letter-spacing: 1.2px;
@@ -216,17 +216,21 @@ body {
     opacity: 0.8;
 }
 
+.page-header-content {
+    max-width: 480px;
+}
+
 .page-title {
-    color: #5F4027;
+    color: #3B3530;
     font-family: 'Prata', serif;
     font-size: 25px;
     letter-spacing: 0.6px;
 }
 
 .page-subtitle {
-    color: #5F4027;
+    color: #3B3530;
     font-family: 'Poppins', sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     letter-spacing: 0.4px;
     font-weight: 300;
 }
@@ -298,12 +302,19 @@ body {
 .accordion-button,
 .search .accordion-button,
 .search .accordion-body,
-input,
-input::-webkit-input-placeholder
+input
 {
-    color: #5F4027 !important;
+    color: #3B3530 !important;
     font-family: 'Poppins', sans-serif !important;
-    font-size: 14px !important;
+    font-size: 13px !important;
+    letter-spacing: 0.4px;
+    font-weight: 300;
+}
+
+input::-webkit-input-placeholder {
+    color: #3B353080 !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 13px !important;
     letter-spacing: 0.4px;
     font-weight: 300;
 }
@@ -315,10 +326,37 @@ input::-webkit-input-placeholder
 }
 
 .search select,
-.search .input-box,
 input
 {
-    border: 1px solid #5f402743 !important;
+    border: 1px solid #3B353040 !important;
+    height: 50px;
+}
+
+input:focus {
+    border: 1px solid #3B353080 !important;
+}
+
+.search .input-box,
+.page-header .input-box {
+    border-bottom: 1px solid #3B353040 !important;
+    height: 50px;
+    width: -webkit-fill-available;
+    max-width: 500px;
+}
+
+.page-header .input-box.focus {
+    border-bottom: 1px solid #3B353080 !important;
+}
+
+.page-header .input-box input:focus {
+    border: none !important;
+}
+
+.page-header .input-box input,
+.page-header .input-box input::-webkit-input-placeholder{
+    font-family: 'Prata', serif !important;
+    font-size: 16px !important;
+    letter-spacing: 0.5px;
 }
 
 .accordion button,
@@ -431,10 +469,6 @@ input.form-check-input:checked{
     letter-spacing: 0.6px;
 }
 
-.form-input {
-    height: 43px;
-}
-
 .form-input.error {
     height: 43px;
     border: 1px solid #E91630 !important;
@@ -480,6 +514,10 @@ input.form-check-input:checked{
     font-size: 14px;
     letter-spacing: 0.8px;
     font-weight: 300;
+}
+
+.clear-search-btn:hover {
+    cursor: pointer;
 }
 
 /* -- Individual Product Page -- */

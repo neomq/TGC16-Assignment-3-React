@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
-import API from '../constants/API';
+import API from '../constants/api';
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL
 

@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineMenu } from "react-icons/ai";
 import { leftNavMenu, rightNavMenu, mobileMenu, breakpoint } from "../constants/constants";
-import API from '../constants/API';
+import API from '../constants/api';
 import axios from 'axios'
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL
