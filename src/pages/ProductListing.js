@@ -40,8 +40,7 @@ export default function ProductListing() {
 
     useEffect(() => {
         if (products.length > 0) {
-            const productsToDisplay = prepareProducts(products)
-            setDisplay(productsToDisplay)
+            renderProducts(products)
         }
     }, [products])
 
@@ -66,9 +65,10 @@ export default function ProductListing() {
         if (productArray && productArray.length > 0) {
             // prune products data
             const pruned = productArray.map(item => {
-                const { essentialoil, itemtype, image, size, price_sgd } = item
+                const { id, essentialoil, itemtype, image, size, price_sgd } = item
                 let productInfo = {
-                    id: essentialoil.id,
+                    pd_id: id,
+                    eo_id: essentialoil.id,
                     name: essentialoil.name,
                     type: itemtype.name,
                     image: image,
@@ -84,17 +84,29 @@ export default function ProductListing() {
                     if (Array.isArray(current.size)){
                         current.size.push(obj.size)
                         current.price.push(obj.price)
+                        current.pd_id.push(obj.pd_id)
                     } else {
                         current.size = [current.size, obj.size]
                         current.price = [current.price, obj.price]
+                        current.pd_id = [current.pd_id, obj.pd_id]
                     }
                 } else {
-                    acc.push({...obj, size: obj.size, price: obj.price})
+                    acc.push({
+                        ...obj,
+                        size: obj.size,
+                        price: obj.price,
+                        pd_id: obj.pd_id
+                    })
                 }
                 return acc
             }, [])
             return grouped
         }
+    }
+
+    const renderProducts = (products) => {
+        const productsToDisplay = prepareProducts(products)
+        setDisplay(productsToDisplay)
     }
 
     const updateUsage = (e) => {
@@ -136,20 +148,6 @@ export default function ProductListing() {
         }
     }
 
-    // const addToCart = async (product_id) => {
-    //     // check if user is logged in
-    //     if (localStorage.getItem("id") !== null) {
-
-    //         // add item to cart
-    //         let user_id = localStorage.getItem("id")
-    //         await axios.get(BASE_URL + "/api/cart/" + user_id + "/add/" + product_id)
-    //         // alert("item added to cart!")
-    //     } else {
-    //         // direct user to login
-    //         navigate('/login')
-    //     }
-    // }
-
     useEffect(()=> {
         searchProducts()
     }, [clearFilter])
@@ -177,7 +175,7 @@ export default function ProductListing() {
                 searchObj.benefits = benefitsSearch
             }
             const searchResults = await productSearch(searchObj)
-            setProducts(searchResults)
+            renderProducts(searchResults)
         }
         setClearFilter(false)
     }
@@ -185,8 +183,7 @@ export default function ProductListing() {
     const resetSearch = async () => {
         setNameSearch("")
         clearSearchFilters()
-        const productsData = await allProducts()
-        setProducts(productsData)
+        renderProducts(products)
     }
 
     const handleClearFilter = () => {
@@ -301,6 +298,32 @@ export default function ProductListing() {
         )
     }
 
+    // display product size
+    const displaySize = (sizeValue) => {
+        const isManySizes = Array.isArray(sizeValue)
+        let sizeArr = []
+        if (isManySizes) {
+            sizeValue.forEach(val => {
+                sizeArr.push(`${val.size}ml`)
+            })
+        }
+        const multiSizes = `(${sizeArr.join('/')})`
+        const singleSize = `(${sizeValue.size}ml)`
+        return <span className="small-text">{isManySizes ? multiSizes : singleSize}</span>
+    }
+
+    // display product price
+    const displayPrice = (priceValue) => {
+        const isManyPrice = Array.isArray(priceValue)
+        let lowestPrice = ""
+        const compare = (a, b) => { return a - b }
+        if (isManyPrice){
+            const sorted = priceValue.sort(compare)
+            lowestPrice = sorted[0]
+        }
+        return <span>from S${isManyPrice ? `${lowestPrice}` : priceValue}</span>
+    }
+
     return (
         <div className="page-container">
             <ProductsHeader>{searchBar()}</ProductsHeader>
@@ -329,36 +352,28 @@ export default function ProductListing() {
                 {/* Product Listing */}
                 <div className="products col-12 col-md-9">
                     <div className="pb-3 row row-cols-2 row-cols-md-2 row-cols-lg-3 g-3 g-md-4">
-                        {products && products.map((p) => (
-                            <div className="col" key={p.id}>
+                        {displayProducts && displayProducts.map((product, index) => (
+                            <div className="col" key={index}>
                                 {/* Card */}
                                 <div className="card d-flex flex-column justify-content-between border-0 rounded-0 h-100 bg-transparent">
                                     {/* Card Header */}
                                     <div className="wrapper">
-                                        <Link to={"/products/" + p.id} className="text-decoration-none text-reset">
+                                        <Link to={"/products/" + product.eo_id} className="text-decoration-none text-reset">
                                             {/* Card Img */}
                                             <div className="img">
-                                                <img src={p.image} className="card-img-top rounded-0" alt="..." />
+                                                <img src={product.image} className="card-img-top rounded-0" alt="..." />
                                             </div>
                                             {/* Card Body */}
                                             <div className="d-flex row justify-content-between my-3 mx-1">
                                                 <div className="col-12 col-md-7">
-                                                    <p className="product-title mb-2">{p.essentialoil.name} {p.itemtype.name} </p>
+                                                    <p className="product-title mb-2">{product.name} {product.type} {displaySize(product.size)}</p>
                                                 </div>
                                                 <div className="col-12 col-md-5">
-                                                    <p className="product-title text-md-end text-start"><span className="small-text">sizes</span></p>
+                                                    <p className="product-title text-md-end text-start">{displayPrice(product.price)}</p>
                                                 </div>
                                             </div>
                                         </Link>
                                     </div>
-                                    {/* Card Footer */}
-                                    {/* <div className="p-0 bg-transparent border-0 rounded-0">
-                                        <div className="d-grid">
-                                            <button className="btn rounded-0 p-2 addtocart-btn" onClick={() => { addToCart(p.id) }}>
-                                                Add to Cart
-                                            </button>
-                                        </div>
-                                    </div> */}
                                 </div>
                             </div>
                         ))}
