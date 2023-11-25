@@ -253,25 +253,47 @@ body {
     margin-top: 40px;
 } */
 
+.listing-title {
+    /* font-family: 'Prata', serif; */
+    font-family: 'Poppins', sans-serif;
+    color: #3B3530;
+    font-weight: 300;
+    font-size: 14px;
+    letter-spacing: 0.4px;
+}
+
+.listing-title > span {
+    font-family: 'Prata', serif !important;
+    font-size: 16px;
+}
+
 .product-title {
     font-family: 'Prata', serif;
     letter-spacing: 0.5px;
     font-size: 16px;
-    color: #5F4027;
+    color: #3B3530;
 }
 
-.product-title span {
+/* .product-title span {
     font-family: 'Prata', serif;
     letter-spacing: 0.5px;
     font-size: 14px;
-    color: #5F4027;
-}
+    color: #3B3530;
+} */
 
 .product-title .small-text {
     font-family: 'Poppins', sans-serif;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.4px;
     font-size: 14px;
-    color: #5F4027;
+    color: #3B3530;
+    font-weight: 300;
+}
+
+.product-label {
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1.2px;
+    font-size: 11px;
+    color: #3b3530c8;
     font-weight: 300;
 }
 
@@ -338,14 +360,14 @@ input:focus {
 
 .search .input-box,
 .page-header .input-box {
-    border-bottom: 1px solid #3B353040 !important;
+    border-bottom: 1px solid #A39A8A !important;
     height: 50px;
     width: -webkit-fill-available;
     max-width: 500px;
 }
 
 .page-header .input-box.focus {
-    border-bottom: 1px solid #3B353080 !important;
+    border-bottom: 1px solid #3b3530e2 !important;
 }
 
 .page-header .input-box input:focus {
@@ -353,10 +375,14 @@ input:focus {
 }
 
 .page-header .input-box input,
-.page-header .input-box input::-webkit-input-placeholder{
-    font-family: 'Prata', serif !important;
-    font-size: 16px !important;
-    letter-spacing: 0.5px;
+.page-header .input-box input::-webkit-input-placeholder {
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 14px !important;
+    letter-spacing: 0.6px;
+}
+
+.page-header .input-box input::-webkit-input-placeholder {
+    color: #A39A8A !important;
 }
 
 .accordion button,
@@ -391,7 +417,12 @@ select:focus
     box-shadow: none !important;
 }
 
-input.form-check-input:checked{
+input.form-check-input {
+    background-color: #EFEEEB !important;
+    border-color: #3B353080 !important;
+}
+
+input.form-check-input:checked {
     background-color: #5F4027 !important;
 }
 
@@ -438,6 +469,13 @@ input.form-check-input:checked{
     font-weight: 600;
     padding: 16px 50px;
     border-radius: 2px;
+}
+
+.search.filters {
+    width: -webkit-fill-available;
+    min-width: 220px;
+    max-width: 260px;
+    margin-right: 34px;
 }
 
 /* --- Sign In / Register / Profile Page --- */
@@ -567,15 +605,7 @@ input.form-check-input:checked{
 .accordion-body .body-text {
     font-family: 'Poppins', sans-serif;
     font-size: 14px;
-    font-weight: 300px;
-    letter-spacing: 0.4px;
-    color: #5F4027;
-}
-
-.accordion-header,
-.accordion-button {
-    font-family: 'Prata', serif;
-    font-size: 17px;
+    font-weight: 300;
     letter-spacing: 0.4px;
     color: #5F4027;
 }

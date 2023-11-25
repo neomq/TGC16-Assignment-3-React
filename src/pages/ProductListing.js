@@ -23,6 +23,7 @@ export default function ProductListing() {
     const [displayProducts, setDisplay] = useState([])
 
     //search
+    const [searchActive, setSearchActive] = useState(false)
     const [nameSearch, setNameSearch] = useState("")
     const [typeSearch, setTypeSearch] = useState("")
     const [useSearch, setUseSearch] = useState([])
@@ -153,6 +154,7 @@ export default function ProductListing() {
     }, [clearFilter])
 
     const searchProducts = async () => {
+        setSearchActive(true)
         let searchObj = {}
         if (clearFilter && nameSearch) {
             searchObj.name = nameSearch
@@ -179,6 +181,14 @@ export default function ProductListing() {
         }
         setClearFilter(false)
     }
+
+    // reset when no input in search field
+    useEffect(() => {
+        if (!nameSearch) {
+            resetSearch()
+            setSearchActive(false)
+        }
+    }, [nameSearch])
 
     const resetSearch = async () => {
         setNameSearch("")
@@ -243,7 +253,7 @@ export default function ProductListing() {
                         </option>
                     )}
                 </Form.Select>
-                <Accordion defaultActiveKey="0" className="mt-3" alwaysOpen>
+                <Accordion defaultActiveKey="0" className="mt-3">
                     <Accordion.Item eventKey="0">
                         <Accordion.Header>Usage</Accordion.Header>
                         <Accordion.Body>
@@ -259,6 +269,8 @@ export default function ProductListing() {
                             ))}
                         </Accordion.Body>
                     </Accordion.Item>
+                </Accordion>
+                <Accordion defaultActiveKey="1">
                     <Accordion.Item eventKey="1">
                         <Accordion.Header>Scent</Accordion.Header>
                         <Accordion.Body>
@@ -274,6 +286,8 @@ export default function ProductListing() {
                             ))}
                         </Accordion.Body>
                     </Accordion.Item>
+                </Accordion>
+                <Accordion defaultActiveKey="2">
                     <Accordion.Item eventKey="2">
                         <Accordion.Header>Benefits</Accordion.Header>
                         <Accordion.Body>
@@ -307,7 +321,7 @@ export default function ProductListing() {
                 sizeArr.push(`${val.size}ml`)
             })
         }
-        const multiSizes = `(${sizeArr.join('/')})`
+        const multiSizes = `(${sizeArr.join(' / ')})`
         const singleSize = `(${sizeValue.size}ml)`
         return <span className="small-text">{isManySizes ? multiSizes : singleSize}</span>
     }
@@ -321,7 +335,26 @@ export default function ProductListing() {
             const sorted = priceValue.sort(compare)
             lowestPrice = sorted[0]
         }
-        return <span>from S${isManyPrice ? `${lowestPrice}` : priceValue}</span>
+        return <span className="small-text">{isManyPrice ? `from S$${lowestPrice}` : `S$${priceValue}`}</span>
+    }
+
+    const displayListingTitle = () => {
+        
+        const appendText = searchActive ? " Found For " : ""
+        const searchWord = () => {
+            return <span className="">{searchActive ? `"${nameSearch}"` : ""}</span> 
+        }
+        return (
+            <Fragment>
+                {displayProducts && displayProducts.length > 0 &&
+                    <p className="listing-title">
+                        {`${displayProducts.length} Product(s)` + appendText}
+                        {searchWord()}
+                        <span className=""></span>
+                    </p>
+                }
+            </Fragment>
+        )
     }
 
     return (
@@ -344,14 +377,18 @@ export default function ProductListing() {
                     </div>
                 </div>
 
+                <div className="d-flex flex-row">
                 {/* Desktop Filter */}
-                <div className="search d-none d-md-block col-12 col-md-3 mb-5 pe-3">
+                <div className="search filters d-none d-md-block mb-5">
                     {searchFilters()}
                 </div>
 
                 {/* Product Listing */}
-                <div className="products col-12 col-md-9">
-                    <div className="pb-3 row row-cols-2 row-cols-md-2 row-cols-lg-3 g-3 g-md-4">
+                <div className="products">
+                    <div className="listing-title">
+                        {displayListingTitle()}
+                    </div>
+                    <div className="pb-3 row row-cols-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 g-3 g-md-4">
                         {displayProducts && displayProducts.map((product, index) => (
                             <div className="col" key={index}>
                                 {/* Card */}
@@ -364,13 +401,11 @@ export default function ProductListing() {
                                                 <img src={product.image} className="card-img-top rounded-0" alt="..." />
                                             </div>
                                             {/* Card Body */}
-                                            <div className="d-flex row justify-content-between my-3 mx-1">
-                                                <div className="col-12 col-md-7">
-                                                    <p className="product-title mb-2">{product.name} {product.type} {displaySize(product.size)}</p>
-                                                </div>
-                                                <div className="col-12 col-md-5">
-                                                    <p className="product-title text-md-end text-start">{displayPrice(product.price)}</p>
-                                                </div>
+                                            <div className="d-flex row justify-content-between my-3 mx-0">
+                                                    <p className="product-label text-uppercase p-0">{product.type}</p>
+                                                    <p className="product-title m-0 p-0">{product.name} {product.type}</p>
+                                                    <p className="product-title mt-1 p-0">{displayPrice(product.price)} {displaySize(product.size)}</p>
+                                                
                                             </div>
                                         </Link>
                                     </div>
@@ -378,6 +413,7 @@ export default function ProductListing() {
                             </div>
                         ))}
                     </div>
+                </div>
                 </div>
             </div>
         </div>
