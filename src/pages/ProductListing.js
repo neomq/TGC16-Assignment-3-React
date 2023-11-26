@@ -2,8 +2,9 @@ import React, { useState, useEffect, Fragment } from "react"
 import { Form, Accordion } from 'react-bootstrap'
 import { CiSearch } from "react-icons/ci"
 import { TfiClose } from "react-icons/tfi"
-import { PiSlidersHorizontalLight } from "react-icons/pi";
-import { Link } from "react-router-dom"
+import { PiSlidersHorizontalLight } from "react-icons/pi"
+import { useNavigate } from "react-router-dom"
+import { pages } from "../constants/constants"
 import { 
     allProducts,
     allTypes,
@@ -12,8 +13,19 @@ import {
     allBenefits,
     productSearch,
 } from "../utils/API"
+import { 
+    prepareProducts,
+    displaySize,
+    displayPrice,
+} from "../helpers/productHelpers"
+import {
+    updateUsage,
+    updateScent,
+    updateBenefits,
+} from "../helpers/searchHelpers"
 import TextInput from "../components/TextInput"
 import ProductsHeader from "../components/ProductsHeader"
+
 
 export default function ProductListing() {
     const [products, setProducts] = useState([])
@@ -36,12 +48,7 @@ export default function ProductListing() {
     const [clearFilter, setClearFilter] = useState(false)
     const [numOfFilters, setNumOfFilters] = useState(0)
 
-    // const navigate = useNavigate();
-    // console.log("products", products)
-
-    //console.log("searchActive", searchActive)
-    //console.log("filterActive", filterActive)
-    // console.log("filter", numOfFilters)
+    const navigate = useNavigate()
 
     useEffect(() => {
         fetchProductListings()
@@ -68,100 +75,12 @@ export default function ProductListing() {
     }
 
     // console.log("products", products)
-    // console.log("displayProducts", displayProducts)
-
-    const prepareProducts = (productArray) => {
-        if (productArray && productArray.length > 0) {
-            // prune products data
-            const pruned = productArray.map(item => {
-                const { id, essentialoil, itemtype, image, size, price_sgd } = item
-                let productInfo = {
-                    pd_id: id,
-                    eo_id: essentialoil.id,
-                    name: essentialoil.name,
-                    type: itemtype.name,
-                    image: image,
-                    size: size,
-                    price: price_sgd,
-                }
-                return productInfo
-            })
-            // group products by property name
-            const grouped = pruned.reduce((acc, obj) => {
-                const current = acc.find(item => item.name === obj.name)
-                if (current) {
-                    if (Array.isArray(current.size)){
-                        current.size.push(obj.size)
-                        current.price.push(obj.price)
-                        current.pd_id.push(obj.pd_id)
-                    } else {
-                        current.size = [current.size, obj.size]
-                        current.price = [current.price, obj.price]
-                        current.pd_id = [current.pd_id, obj.pd_id]
-                    }
-                } else {
-                    acc.push({
-                        ...obj,
-                        size: obj.size,
-                        price: obj.price,
-                        pd_id: obj.pd_id
-                    })
-                }
-                return acc
-            }, [])
-            return grouped
-        }
-    }
+    console.log("displayProducts", displayProducts)
 
     const renderProducts = (products) => {
         const productsToDisplay = prepareProducts(products)
         setDisplay(productsToDisplay)
     }
-
-    const updateUsage = (e) => {
-        if (useSearch.includes(e.target.value)) {
-            let clone = useSearch.slice()
-            let indexToRemove = useSearch.findIndex(i => i === e.target.value);
-            clone.splice(indexToRemove, 1)
-            setUseSearch(clone)
-        } else {
-            let clone = useSearch.slice()
-            clone.push(e.target.value)
-            setUseSearch(clone)
-        }
-    }
-
-    const updateScent = (e) => {
-        if (scentSearch.includes(e.target.value)) {
-            let clone = scentSearch.slice()
-            let indexToRemove = scentSearch.findIndex(i => i === e.target.value);
-            clone.splice(indexToRemove, 1)
-            setScentSearch(clone)
-        } else {
-            let clone = scentSearch.slice()
-            clone.push(e.target.value)
-            setScentSearch(clone)
-        }
-    }
-
-    const updateBenefits = (e) => {
-        if (benefitsSearch.includes(e.target.value)) {
-            let clone = benefitsSearch.slice()
-            let indexToRemove = benefitsSearch.findIndex(i => i === e.target.value);
-            clone.splice(indexToRemove, 1)
-            setBenefitsSearch(clone)
-        } else {
-            let clone = benefitsSearch.slice()
-            clone.push(e.target.value)
-            setBenefitsSearch(clone)
-        }
-    }
-
-    useEffect(()=> {
-        if (clearFilter) {
-            searchProducts()
-        }
-    }, [clearFilter])
 
     const searchProducts = async () => {
         let searchObj = {}
@@ -197,6 +116,12 @@ export default function ProductListing() {
         setClearFilter(false)
         setNumOfFilters(filterCount)
     }
+
+    useEffect(()=> {
+        if (clearFilter) {
+            searchProducts()
+        }
+    }, [clearFilter])
 
     // reset when no input in search field
     useEffect(() => {
@@ -283,7 +208,9 @@ export default function ProductListing() {
                                     label={use[1]}
                                     name="use"
                                     value={use[0]}
-                                    onChange={updateUsage}
+                                    onChange={(e) => 
+                                        updateUsage(e, useSearch, setUseSearch)
+                                    }
                                 />
                             ))}
                         </Accordion.Body>
@@ -300,7 +227,9 @@ export default function ProductListing() {
                                     label={scent[1]}
                                     name="scent"
                                     value={scent[0]}
-                                    onChange={updateScent}
+                                    onChange={(e) => 
+                                        updateScent(e, scentSearch, setScentSearch)
+                                    }
                                 />
                             ))}
                         </Accordion.Body>
@@ -317,7 +246,9 @@ export default function ProductListing() {
                                     label={benefit[1]}
                                     name="benefit"
                                     value={benefit[0]}
-                                    onChange={updateBenefits}
+                                    onChange={(e) => 
+                                        updateBenefits(e, benefitsSearch, setBenefitsSearch)
+                                    }
                                 />
                             ))}
                         </Accordion.Body>
@@ -327,49 +258,10 @@ export default function ProductListing() {
                     <button
                         className="shop-btn btn text-uppercase"
                         onClick={()=>{searchProducts()}}
-                    >
-                        Apply
-                    </button>
+                    >Apply</button>
                 </div>
             </Fragment>
         )
-    }
-
-    // display product size
-    const displaySize = (sizeValue) => {
-        const isMultiSize = Array.isArray(sizeValue)
-        let sizeArr = []
-        if (isMultiSize) {
-            sizeValue.forEach(val => {
-                sizeArr.push(`${val.size}ml`)
-            })
-        }
-        const singleSize = `${sizeValue.size}ml`
-        const multiSize = () => (
-            <Fragment>
-                {sizeArr.map((size, index) => (
-                    <span className="size-tag me-1" key={index}>{size}</span>
-                ))}
-            </Fragment>
-        )
-
-        return (
-            <Fragment>
-                {isMultiSize ? multiSize() :  <span className="size-tag">{singleSize}</span>}
-            </Fragment>
-        )
-    }
-
-    // display product price
-    const displayPrice = (priceValue) => {
-        const isManyPrice = Array.isArray(priceValue)
-        let lowestPrice = ""
-        const compare = (a, b) => { return a - b }
-        if (isManyPrice){
-            const sorted = priceValue.sort(compare)
-            lowestPrice = sorted[0]
-        }
-        return <span className="price-tag">{isManyPrice ? `from S$${lowestPrice}` : `S$${priceValue}`}</span>
     }
 
     const displayListingTitle = () => {
@@ -390,6 +282,10 @@ export default function ProductListing() {
                 }
             </Fragment>
         )
+    }
+
+    const navigateToProduct = (id) => {
+        navigate(`${pages.products}/${id}`)
     }
 
     return (
@@ -438,8 +334,8 @@ export default function ProductListing() {
                                 {/* Card */}
                                 <div className="card d-flex flex-column justify-content-between border-0 rounded-0 h-100 bg-transparent">
                                     {/* Card Header */}
-                                    <div className="wrapper">
-                                        <Link to={"/products/" + product.eo_id} className="text-decoration-none text-reset">
+                                    <div onClick={()=>navigateToProduct(product.eo_id)}>
+                                        {/* <Link to={"/products/" + product.eo_id} className="text-decoration-none text-reset"> */}
                                             {/* Card Img */}
                                             <div className="img">
                                                 <img src={product.image} className="card-img-top rounded-0" alt="..." />
@@ -451,7 +347,7 @@ export default function ProductListing() {
                                                 <p className="product-title m-0 mt-2 p-0">{displaySize(product.size)}</p>
                                                 <p className="product-title m-0 mt-3 p-0">{displayPrice(product.price)}</p>
                                             </div>
-                                        </Link>
+                                        {/* </Link> */}
                                     </div>
                                 </div>
                             </div>

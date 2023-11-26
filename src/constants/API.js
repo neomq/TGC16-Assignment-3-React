@@ -16,6 +16,9 @@ const API = {
     PRODUCT_SCENT: '/api/products/scents',
     PRODUCT_BENEFITS: '/api/products/benefits',
     PRODUCT_SEARCH: '/api/products/search',
+
+    // Essential Oils
+    ESSENTIAL_OILS: '/api/essentialoils/',
 }
 
 export default API
