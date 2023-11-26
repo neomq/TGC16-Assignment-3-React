@@ -235,13 +235,23 @@ body {
     font-weight: 300;
 }
 
-.filter-btn span,
-.filter-btn i {
-    font-family: 'Poppins', sans-serif;
+.filter-title {
+    font-family: 'Prata', serif;
     font-size: 16px;
-    font-weight: 300;
+}
+
+.filter-btn {
+    background-color: #E7E4DE;
+    padding: 8px 10px;
+    border-radius: 2px;
+}
+
+.filter-btn span {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
     letter-spacing: 0.4px;
-    color: #5F4027;
+    color: #3B3530;
 }
 
 /* .filter-btn {
@@ -253,6 +263,30 @@ body {
     margin-top: 40px;
 } */
 
+.flat-btn {
+    border: none;
+    border-radius: 2px;
+    color: #3B3530;
+    background-color: #E7E4DE;
+    font-size: 12px;
+    letter-spacing: 1.2px;
+    padding: 10px 20px;
+}
+
+.flat-btn:hover {
+    cursor: pointer;
+}
+
+.transparent-btn {
+    background-color: transparent;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.6px;
+    border: none;
+    color: #3b3530BF;
+    font-weight: 300;
+}
+
 .listing-title {
     /* font-family: 'Prata', serif; */
     font-family: 'Poppins', sans-serif;
@@ -262,7 +296,7 @@ body {
     letter-spacing: 0.4px;
 }
 
-.listing-title > span {
+.listing-title > span.searchword {
     font-family: 'Prata', serif !important;
     font-size: 16px;
 }
@@ -291,9 +325,26 @@ body {
 
 .product-label {
     font-family: 'Poppins', sans-serif;
-    letter-spacing: 1.2px;
+    letter-spacing: 1.4px;
     font-size: 11px;
     color: #3b3530c8;
+    font-weight: 300;
+}
+
+.size-tag {
+    background-color: #E7E4DE;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1px;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 2px;
+    color: #3B3530;
+}
+
+.price-tag {
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.4px;
+    font-size: 15px;
     font-weight: 300;
 }
 
@@ -318,11 +369,11 @@ body {
 
 .search,
 .search .search-box,
-.search select,
-.search select option,
-.search .accordion-header,
-.accordion-button,
-.search .accordion-button,
+/* .search select,
+.search select option, */
+/* .search .accordion-header, */
+/* .accordion-button, */
+/* .search .accordion-button, */
 .search .accordion-body,
 input
 {
@@ -331,6 +382,16 @@ input
     font-size: 13px !important;
     letter-spacing: 0.4px;
     font-weight: 300;
+}
+
+.accordion-button,
+.search select,
+.search select option {
+    color: #3B3530 !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 300;
+    letter-spacing: 0.5px;
 }
 
 input::-webkit-input-placeholder {
@@ -472,9 +533,7 @@ input.form-check-input:checked {
 }
 
 .search.filters {
-    width: -webkit-fill-available;
-    min-width: 220px;
-    max-width: 260px;
+    min-width: 260px;
     margin-right: 34px;
 }
 

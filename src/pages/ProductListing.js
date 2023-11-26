@@ -2,6 +2,7 @@ import React, { useState, useEffect, Fragment } from "react"
 import { Form, Accordion } from 'react-bootstrap'
 import { CiSearch } from "react-icons/ci"
 import { TfiClose } from "react-icons/tfi"
+import { PiSlidersHorizontalLight } from "react-icons/pi";
 import { Link } from "react-router-dom"
 import { 
     allProducts,
@@ -22,18 +23,25 @@ export default function ProductListing() {
     const [productBenefits, setProductBenefits] = useState([])
     const [displayProducts, setDisplay] = useState([])
 
-    //search
+    // kwyword search
     const [searchActive, setSearchActive] = useState(false)
     const [nameSearch, setNameSearch] = useState("")
+    const [searchIsFocused, setFocused] = useState(false)
+    
+    //filters
     const [typeSearch, setTypeSearch] = useState("")
     const [useSearch, setUseSearch] = useState([])
     const [scentSearch, setScentSearch] = useState([])
     const [benefitsSearch, setBenefitsSearch] = useState([])
-    const [searchIsFocused, setFocused] = useState(false)
     const [clearFilter, setClearFilter] = useState(false)
+    const [numOfFilters, setNumOfFilters] = useState(0)
 
     // const navigate = useNavigate();
     // console.log("products", products)
+
+    //console.log("searchActive", searchActive)
+    //console.log("filterActive", filterActive)
+    // console.log("filter", numOfFilters)
 
     useEffect(() => {
         fetchProductListings()
@@ -59,8 +67,8 @@ export default function ProductListing() {
         setProductBenefits(benefitsData)
     }
 
-    console.log("products", products)
-    console.log("displayProducts", displayProducts)
+    // console.log("products", products)
+    // console.log("displayProducts", displayProducts)
 
     const prepareProducts = (productArray) => {
         if (productArray && productArray.length > 0) {
@@ -150,36 +158,44 @@ export default function ProductListing() {
     }
 
     useEffect(()=> {
-        searchProducts()
+        if (clearFilter) {
+            searchProducts()
+        }
     }, [clearFilter])
 
     const searchProducts = async () => {
-        setSearchActive(true)
         let searchObj = {}
+        let filterCount = 0
         if (clearFilter && nameSearch) {
             searchObj.name = nameSearch
         } else if (clearFilter && !nameSearch) {
             resetSearch()
+            setSearchActive(false)
         } else {
             if (nameSearch) {
                 searchObj.name = nameSearch
             }
-            if (typeSearch && typeSearch !== "-- Collection --") {
+            if (typeSearch && typeSearch !== "Collection") {
                 searchObj.type = typeSearch
+                filterCount += 1
             }
             if (useSearch && useSearch.length > 0) {
                 searchObj.use = useSearch
+                filterCount += useSearch.length
             }
             if (scentSearch && scentSearch.length > 0) {
                 searchObj.scent = scentSearch
+                filterCount += scentSearch.length
             }
             if (benefitsSearch && benefitsSearch.length > 0) {
                 searchObj.benefits = benefitsSearch
+                filterCount += benefitsSearch.length
             }
-            const searchResults = await productSearch(searchObj)
-            renderProducts(searchResults)
         }
+        const searchResults = await productSearch(searchObj)
+        renderProducts(searchResults)
         setClearFilter(false)
+        setNumOfFilters(filterCount)
     }
 
     // reset when no input in search field
@@ -211,10 +227,13 @@ export default function ProductListing() {
     const searchBar = () => {
         const customClass = searchIsFocused ? " focus" : ""
         const handleKeyDown = (e) => {
-            if (e.key === "Enter") { searchProducts() }
+            if (e.key === "Enter") {
+                setSearchActive(true)
+                searchProducts() 
+            }
         }
         return (
-            <div className={"input-box d-flex flex-row align-items-center px-3" + customClass}>
+            <div className={"input-box d-flex flex-row align-items-center px-2" + customClass}>
                 <div className="me-2"><CiSearch color="#3B3530" fontSize="22px" /></div>
                 <TextInput
                     type="text"
@@ -230,7 +249,7 @@ export default function ProductListing() {
                 {nameSearch && 
                     <div
                         className="ms-2 clear-search-btn"
-                        onClick={()=>{resetSearch()}}>
+                        onClick={()=>resetSearch()}>
                         <TfiClose color="#3B3530" fontSize="14px" />
                     </div>
                 }
@@ -245,8 +264,8 @@ export default function ProductListing() {
                     name="typeSearch"
                     value={typeSearch}
                     onChange={(e) => setTypeSearch(e.target.value)}
-                    className="rounded-0 bg-transparent py-2">
-                    <option>-- Collection --</option>
+                    className="rounded-0 bg-transparent py-2 px-3">
+                    <option>Collection</option>
                     {productType.map((types) =>
                         <option key={types[1]} value={types[1]}>
                             {types[1]}
@@ -304,9 +323,13 @@ export default function ProductListing() {
                         </Accordion.Body>
                     </Accordion.Item>
                 </Accordion>
-                <div className="mt-4 d-grid gap-2">
-                    <button className="shop-btn btn text-uppercase" onClick={searchProducts}>Filter</button>
-                    <button className="card-btn btn text-uppercase" onClick={handleClearFilter}>Clear Filters</button>
+                <div className="mt-3 d-grid gap-2">
+                    <button
+                        className="shop-btn btn text-uppercase"
+                        onClick={()=>{searchProducts()}}
+                    >
+                        Apply
+                    </button>
                 </div>
             </Fragment>
         )
@@ -314,16 +337,27 @@ export default function ProductListing() {
 
     // display product size
     const displaySize = (sizeValue) => {
-        const isManySizes = Array.isArray(sizeValue)
+        const isMultiSize = Array.isArray(sizeValue)
         let sizeArr = []
-        if (isManySizes) {
+        if (isMultiSize) {
             sizeValue.forEach(val => {
                 sizeArr.push(`${val.size}ml`)
             })
         }
-        const multiSizes = `(${sizeArr.join(' / ')})`
-        const singleSize = `(${sizeValue.size}ml)`
-        return <span className="small-text">{isManySizes ? multiSizes : singleSize}</span>
+        const singleSize = `${sizeValue.size}ml`
+        const multiSize = () => (
+            <Fragment>
+                {sizeArr.map((size, index) => (
+                    <span className="size-tag me-1" key={index}>{size}</span>
+                ))}
+            </Fragment>
+        )
+
+        return (
+            <Fragment>
+                {isMultiSize ? multiSize() :  <span className="size-tag">{singleSize}</span>}
+            </Fragment>
+        )
     }
 
     // display product price
@@ -335,22 +369,23 @@ export default function ProductListing() {
             const sorted = priceValue.sort(compare)
             lowestPrice = sorted[0]
         }
-        return <span className="small-text">{isManyPrice ? `from S$${lowestPrice}` : `S$${priceValue}`}</span>
+        return <span className="price-tag">{isManyPrice ? `from S$${lowestPrice}` : `S$${priceValue}`}</span>
     }
 
     const displayListingTitle = () => {
-        
-        const appendText = searchActive ? " Found For " : ""
+        const hasSearch = searchActive && nameSearch
         const searchWord = () => {
-            return <span className="">{searchActive ? `"${nameSearch}"` : ""}</span> 
+            return <span className="searchword">{hasSearch ? `"${nameSearch}"` : ""}</span> 
         }
         return (
             <Fragment>
                 {displayProducts && displayProducts.length > 0 &&
                     <p className="listing-title">
-                        {`${displayProducts.length} Product(s)` + appendText}
-                        {searchWord()}
-                        <span className=""></span>
+                        {hasSearch
+                            ? (<>{displayProducts.length} results for {searchWord()}</>)
+                            : (`${displayProducts.length} Product(s)`)
+                        }
+                        <span>&nbsp;&nbsp;|&nbsp;&nbsp;{numOfFilters} Filter(s)</span>
                     </p>
                 }
             </Fragment>
@@ -362,11 +397,14 @@ export default function ProductListing() {
             <ProductsHeader>{searchBar()}</ProductsHeader>
 
             <div className="page-body mt-md-5 row">
-               {/* Mobile Filter Toggler */}
-                <div className="px-3 py-0 d-flex my-3 d-md-none">
-                    <button className="btn filter-btn d-flex align-items-center py-0 rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
-                        <i className="bi bi-funnel px-0 py-2"></i>
-                        <span className="p-2 px-1 mb-0">Filter</span>
+               {/* Mobile Filter Buttons*/}
+                <div className="py-0 d-flex my-4 d-md-none justify-content-between">
+                    <button className="btn filter-btn d-flex align-items-center py-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+                        <PiSlidersHorizontalLight color="#3B3530" fontSize="22px"/>
+                        <span className="p-2 px-2 mb-0">Filter</span>
+                    </button>
+                    <button className="transparent-btn" onClick={()=>{handleClearFilter()}}>
+                        Clear Filter
                     </button>
                 </div>
 
@@ -380,6 +418,12 @@ export default function ProductListing() {
                 <div className="d-flex flex-row">
                 {/* Desktop Filter */}
                 <div className="search filters d-none d-md-block mb-5">
+                    <div className="d-flex flex-row justify-content-between align-items-center mb-3">
+                        <p className="filter-title m-0">Filters</p>
+                        <button className="flat-btn btn text-uppercase" onClick={()=>{handleClearFilter()}}>
+                            Clear
+                        </button>
+                    </div>
                     {searchFilters()}
                 </div>
 
@@ -388,7 +432,7 @@ export default function ProductListing() {
                     <div className="listing-title">
                         {displayListingTitle()}
                     </div>
-                    <div className="pb-3 row row-cols-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 g-3 g-md-4">
+                    <div className="row row-cols-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 g-3 g-md-4">
                         {displayProducts && displayProducts.map((product, index) => (
                             <div className="col" key={index}>
                                 {/* Card */}
@@ -402,10 +446,10 @@ export default function ProductListing() {
                                             </div>
                                             {/* Card Body */}
                                             <div className="d-flex row justify-content-between my-3 mx-0">
-                                                    <p className="product-label text-uppercase p-0">{product.type}</p>
-                                                    <p className="product-title m-0 p-0">{product.name} {product.type}</p>
-                                                    <p className="product-title mt-1 p-0">{displayPrice(product.price)} {displaySize(product.size)}</p>
-                                                
+                                                <p className="product-label text-uppercase p-0">{product.type}</p>
+                                                <p className="product-title m-0 p-0">{product.name} {product.type}</p>
+                                                <p className="product-title m-0 mt-2 p-0">{displaySize(product.size)}</p>
+                                                <p className="product-title m-0 mt-3 p-0">{displayPrice(product.price)}</p>
                                             </div>
                                         </Link>
                                     </div>
