@@ -120,8 +120,8 @@ export default function Cart() {
         <React.Fragment>
 
             <div className="page-container">
-                <div className="row justify-content-center px-md-2">
-                    <h1 className="mt-4 mb-0 text-center page-title-large">My Shopping Cart</h1>
+                <div className="mt-5 row justify-content-center px-md-2">
+                    <h1 className="mt-5 mb-0 text-center page-title-large">My Shopping Cart</h1>
                     {loggedIn === true ?
                         <>
                             {cartItems.length !== 0 ?
