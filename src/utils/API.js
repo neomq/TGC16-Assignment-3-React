@@ -45,8 +45,8 @@ const essentialOilById = async (essentialoil_id) => {
     return data
 }
 
-const addItemToCart = async (user_id, pd_id) => {
-    let response = await axios.get(BASE_URL + API.CART + user_id + "/add/" + pd_id)
+const addItemToCart = async (user_id, id) => {
+    let response = await axios.get(BASE_URL + API.CART + user_id + "/add/" + id)
     const status = response.status
     return status
 }

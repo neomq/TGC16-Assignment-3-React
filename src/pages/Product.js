@@ -20,6 +20,8 @@ export default function Product() {
     const [showToast, setShowToast] = useState(false)
     const [error, setError] = useState(false)
 
+    console.log(error)
+
     const navigate = useNavigate()
     let { essentialoil_id } = useParams()
     const location = useLocation()

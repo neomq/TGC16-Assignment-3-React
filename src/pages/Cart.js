@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Button } from 'react-bootstrap';
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+import { pages } from "../constants/constants"
+import { getObjectKey } from "../utils/common"
 import API from '../constants/api';
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL
@@ -11,6 +13,8 @@ export default function Cart() {
     const [loggedIn, setLoggedIn] = useState(true)
     const [cartItems, setCartItems] = useState([])
     const [orderTotal, setOrderTotal] = useState(0)
+    
+    const pageName = getObjectKey(pages, window.location.pathname)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -98,6 +102,20 @@ export default function Cart() {
         window.location.href = BASE_URL + API.CHECKOUT + localStorage.getItem("id")
     }
 
+    const navigateToProduct = (id, name, type) => {
+        navigate(`${pages.products}/${id}`, {
+            state: {
+                navigateFrom: {
+                    name: pageName,
+                    path: window.location.pathname
+                },
+                navigateTo: {
+                    name: `${name} ${type}`
+                }
+            }
+        })
+    }
+
     return (
         <React.Fragment>
 
@@ -124,55 +142,57 @@ export default function Cart() {
                                         </div>
 
                                         <div className="mt-3 cart-body">
-                                            {cartItems.map((c, idx) => (
-                                                <div className="cart-item">
-                                                    <div className=" d-flex align-items-center text-start text-md-center row">
-                                                        <div className="col-md-5 col-12">
-                                                            <div className="d-flex justify-content-between align-items-center">
-                                                                <Link to={"/products/" + c.products.id} className="text-decoration-none text-reset">
-                                                                    <div className="d-flex align-items-center col-10">
-                                                                            <img src={c.products.image} width="100px" alt="..." />
-                                                                            <div className="ps-3 text-start">
-                                                                                <p className="mb-1 item-title">{c.products.essentialoil.name}</p>
-                                                                                <div className="item-subtitle">{c.products.size.size}</div>
-                                                                            </div>
+                                            {cartItems.map((c, idx) => {
+                                                return (
+                                                    <div className="cart-item" key={idx}>
+                                                        <div className=" d-flex align-items-center text-start text-md-center row">
+                                                            <div className="col-md-5 col-12">
+                                                                <div className="d-flex justify-content-between align-items-center">
+                                                                    <div onClick={() => navigateToProduct(c.products.essentialoil_id, c.products.essentialoil.name, c.products.itemtype.name)}>
+                                                                        <div className="d-flex align-items-center col-10">
+                                                                                <img src={c.products.image} width="100px" alt="..." />
+                                                                                <div className="ps-3 text-start">
+                                                                                    <p className="mb-1 item-title">{c.products.essentialoil.name}</p>
+                                                                                    <div className="item-subtitle">{c.products.size.size}</div>
+                                                                                </div>
+                                                                        </div>
                                                                     </div>
-                                                                </Link>
-                                                                <div className="d-md-none align-self-start text-center col-2" onClick={() => { deleteCartItem(c.product_id) }}>
-                                                                    <Button variant="link" className="text-reset"><i className="text-reset bi bi-x-lg"></i></Button>
+                                                                    <div className="d-md-none align-self-start text-center col-2" onClick={() => { deleteCartItem(c.product_id) }}>
+                                                                        <Button variant="link" className="text-reset"><i className="text-reset bi bi-x-lg"></i></Button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
 
-                                                        <div className="mt-2 mt-md-0 col-md-7 col-12">
-                                                            <div className="align-items-center row">
-                                                                <div className="col-md-5">
-                                                                    <div className="row align-items-center py-1">
-                                                                        <div className="d-md-none col-6 table-header">Quantity</div>
-                                                                        <div className="text-end text-md-center col-md-12 col-6">
-                                                                            <div className="row d-flex align-items-center justify-content-end justify-content-md-center">
-                                                                                <button className="col-3 btn btn-sm px-0 item-body" onClick={() => { decreaseItemQty(c.product_id) }}><AiOutlineMinus /></button>
-                                                                                <div className="col-4 p-1 item-body qty-box text-center">{c.item_quantity}</div>
-                                                                                <button className="col-3 btn btn-sm px-0 item-body" onClick={() => { increaseItemQty(c.product_id) }}><AiOutlinePlus /></button>
+                                                            <div className="mt-2 mt-md-0 col-md-7 col-12">
+                                                                <div className="align-items-center row">
+                                                                    <div className="col-md-5">
+                                                                        <div className="row align-items-center py-1">
+                                                                            <div className="d-md-none col-6 table-header">Quantity</div>
+                                                                            <div className="text-end text-md-center col-md-12 col-6">
+                                                                                <div className="row d-flex align-items-center justify-content-end justify-content-md-center">
+                                                                                    <button className="col-3 btn btn-sm px-0 item-body" onClick={() => { decreaseItemQty(c.product_id) }}><AiOutlineMinus /></button>
+                                                                                    <div className="col-4 p-1 item-body qty-box text-center">{c.item_quantity}</div>
+                                                                                    <button className="col-3 btn btn-sm px-0 item-body" onClick={() => { increaseItemQty(c.product_id) }}><AiOutlinePlus /></button>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div className="col-md-4">
-                                                                    <div className="row align-items-center py-1">
-                                                                        <div className="d-md-none col-6 table-header">Sub total</div>
-                                                                        <div className="text-end text-md-center col-md-12 col-6 item-body">${c.sub_total_sgd}</div>
+                                                                    <div className="col-md-4">
+                                                                        <div className="row align-items-center py-1">
+                                                                            <div className="d-md-none col-6 table-header">Sub total</div>
+                                                                            <div className="text-end text-md-center col-md-12 col-6 item-body">${c.sub_total_sgd}</div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div className="d-none d-md-block text-center col-3" onClick={() => { deleteCartItem(c.product_id) }}>
-                                                                    <Button variant="link" className="text-reset"><i className="text-reset bi bi-x-lg"></i></Button>
+                                                                    <div className="d-none d-md-block text-center col-3" onClick={() => { deleteCartItem(c.product_id) }}>
+                                                                        <Button variant="link" className="text-reset"><i className="text-reset bi bi-x-lg"></i></Button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <hr />
                                                     </div>
-                                                    <hr />
-                                                </div>
-                                            ))}
+                                                )
+                                            })}
                                         </div>
                                     </div>
 
