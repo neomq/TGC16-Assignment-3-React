@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import API from '../constants/api';
+import React, { useEffect, useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import API from "../constants/apiEndpoints"
 import axios from 'axios'
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL

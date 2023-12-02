@@ -4,7 +4,7 @@ import { Form } from 'react-bootstrap'
 import { REGISTER_ERROR } from "../constants/error"
 import { placeholder } from "../constants/constants"
 import TextInput from "../components/TextInput"
-import API from '../constants/api'
+import API from "../constants/apiEndpoints"
 import axios from 'axios'
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL

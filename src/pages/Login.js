@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Form } from 'react-bootstrap';
+import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { Form } from 'react-bootstrap'
 import { LOGIN_ERROR } from "../constants/error"
 import TextInput from "../components/TextInput"
-import API from '../constants/api';
+import API from "../constants/apiEndpoints"
 import axios from 'axios'
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { Button } from 'react-bootstrap';
+import React, { useEffect, useState } from "react"
+import { Button } from 'react-bootstrap'
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+import { useNavigate } from "react-router-dom"
+import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai"
 import { pages } from "../constants/constants"
 import { getObjectKey } from "../utils/common"
-import API from '../constants/api';
+import API from '../constants/apiEndpoints'
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL
 

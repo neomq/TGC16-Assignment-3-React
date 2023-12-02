@@ -4,11 +4,9 @@ const API = {
     LOGOUT: '/api/users/logout',
     PROFILE: '/api/users/profile',
     REGISTER: '/api/users/register',
-
     // Checkout
     CART: '/api/cart/',
     CHECKOUT: '/api/checkout/',
-
     // Products
     PRODUCTS: '/api/products/',
     PRODUCT_TYPES: '/api/products/types',
