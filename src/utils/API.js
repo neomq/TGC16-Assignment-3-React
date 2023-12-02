@@ -39,6 +39,18 @@ const productSearch = async (searchObj) => {
     return data
 }
 
+const essentialOilById = async (essentialoil_id) => {
+    let response = await axios.get(BASE_URL + API.ESSENTIAL_OIL + essentialoil_id)
+    const data = response.data
+    return data
+}
+
+const addItemToCart = async (user_id, pd_id) => {
+    let response = await axios.get(BASE_URL + API.CART + user_id + "/add/" + pd_id)
+    const status = response.status
+    return status
+}
+
 export { 
     allProducts,
     allTypes,
@@ -46,5 +58,7 @@ export {
     allScents,
     allBenefits,
     productSearch,
+    essentialOilById,
+    addItemToCart,
 }
 

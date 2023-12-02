@@ -24,9 +24,8 @@ import {
     updateBenefits,
 } from "../helpers/searchHelpers"
 import TextInput from "../components/TextInput"
-import ProductsHeader from "../components/ProductsHeader"
-
-
+import PageHeader from "../components/PageHeader"
+import { getObjectKey } from "../utils/common"
 export default function ProductListing() {
     const [products, setProducts] = useState([])
     const [productType, setProductType] = useState([])
@@ -47,6 +46,9 @@ export default function ProductListing() {
     const [benefitsSearch, setBenefitsSearch] = useState([])
     const [clearFilter, setClearFilter] = useState(false)
     const [numOfFilters, setNumOfFilters] = useState(0)
+
+    const pageName = getObjectKey(pages, window.location.pathname)
+    const pageDesc = "Enhance your everyday with 100% pure natural essential oils extracted from nature, all around the world."
 
     const navigate = useNavigate()
 
@@ -74,12 +76,11 @@ export default function ProductListing() {
         setProductBenefits(benefitsData)
     }
 
-    // console.log("products", products)
-    console.log("displayProducts", displayProducts)
-
     const renderProducts = (products) => {
         const productsToDisplay = prepareProducts(products)
-        setDisplay(productsToDisplay)
+        if (productsToDisplay && productsToDisplay.length > 0) {
+            setDisplay(productsToDisplay)
+        }
     }
 
     const searchProducts = async () => {
@@ -284,78 +285,95 @@ export default function ProductListing() {
         )
     }
 
-    const navigateToProduct = (id) => {
-        navigate(`${pages.products}/${id}`)
+    const navigateToProduct = (id, name, type) => {
+        navigate(`${pages.products}/${id}`, {
+            state: {
+                navigateFrom: {
+                    name: pageName,
+                    path: window.location.pathname
+                },
+                navigateTo: {
+                    name: `${name} ${type}`
+                }
+            }
+        })
     }
 
     return (
-        <div className="page-container">
-            <ProductsHeader>{searchBar()}</ProductsHeader>
+        <Fragment>
+            <PageHeader
+                    name={pageName}
+                    title="Shop Essential Oils"
+                    description={pageDesc}>
+                    {searchBar()}
+                </PageHeader>
+            <div className="page-container">
+                
 
-            <div className="page-body mt-md-5 row">
-               {/* Mobile Filter Buttons*/}
-                <div className="py-0 d-flex my-4 d-md-none justify-content-between">
-                    <button className="btn filter-btn d-flex align-items-center py-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
-                        <PiSlidersHorizontalLight color="#3B3530" fontSize="22px"/>
-                        <span className="p-2 px-2 mb-0">Filter</span>
-                    </button>
-                    <button className="transparent-btn" onClick={()=>{handleClearFilter()}}>
-                        Clear Filter
-                    </button>
-                </div>
-
-                {/* Mobile Filter */}
-                <div className="collapse d-md-none" id="collapseFilter">
-                    <div className="search col-12 col-md-3 mb-5">
-                        {searchFilters()}
-                    </div>
-                </div>
-
-                <div className="d-flex flex-row">
-                {/* Desktop Filter */}
-                <div className="search filters d-none d-md-block mb-5">
-                    <div className="d-flex flex-row justify-content-between align-items-center mb-3">
-                        <p className="filter-title m-0">Filters</p>
-                        <button className="flat-btn btn text-uppercase" onClick={()=>{handleClearFilter()}}>
-                            Clear
+                <div className="page-body mt-md-5 row">
+                {/* Mobile Filter Buttons*/}
+                    <div className="py-0 d-flex my-4 d-md-none justify-content-between">
+                        <button className="btn filter-btn d-flex align-items-center py-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+                            <PiSlidersHorizontalLight color="#3B3530" fontSize="22px"/>
+                            <span className="p-2 px-2 mb-0">Filter</span>
+                        </button>
+                        <button className="transparent-btn" onClick={()=>{handleClearFilter()}}>
+                            Clear Filter
                         </button>
                     </div>
-                    {searchFilters()}
-                </div>
 
-                {/* Product Listing */}
-                <div className="products">
-                    <div className="listing-title">
-                        {displayListingTitle()}
+                    {/* Mobile Filter */}
+                    <div className="collapse d-md-none" id="collapseFilter">
+                        <div className="search col-12 col-md-3 mb-5">
+                            {searchFilters()}
+                        </div>
                     </div>
-                    <div className="row row-cols-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 g-3 g-md-4">
-                        {displayProducts && displayProducts.map((product, index) => (
-                            <div className="col" key={index}>
-                                {/* Card */}
-                                <div className="card d-flex flex-column justify-content-between border-0 rounded-0 h-100 bg-transparent">
-                                    {/* Card Header */}
-                                    <div onClick={()=>navigateToProduct(product.eo_id)}>
-                                        {/* <Link to={"/products/" + product.eo_id} className="text-decoration-none text-reset"> */}
-                                            {/* Card Img */}
-                                            <div className="img">
-                                                <img src={product.image} className="card-img-top rounded-0" alt="..." />
-                                            </div>
-                                            {/* Card Body */}
-                                            <div className="d-flex row justify-content-between my-3 mx-0">
-                                                <p className="product-label text-uppercase p-0">{product.type}</p>
-                                                <p className="product-title m-0 p-0">{product.name} {product.type}</p>
-                                                <p className="product-title m-0 mt-2 p-0">{displaySize(product.size)}</p>
-                                                <p className="product-title m-0 mt-3 p-0">{displayPrice(product.price)}</p>
-                                            </div>
-                                        {/* </Link> */}
+
+                    <div className="d-flex flex-row">
+                    {/* Desktop Filter */}
+                    <div className="search filters d-none d-md-block mb-5">
+                        <div className="d-flex flex-row justify-content-between align-items-center mb-3">
+                            <p className="filter-title m-0">Filters</p>
+                            <button className="flat-btn btn text-uppercase" onClick={()=>{handleClearFilter()}}>
+                                Clear
+                            </button>
+                        </div>
+                        {searchFilters()}
+                    </div>
+
+                    {/* Product Listing */}
+                    <div className="products">
+                        <div className="listing-title">
+                            {displayListingTitle()}
+                        </div>
+                        <div className="row row-cols-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 g-3 g-md-4">
+                            {displayProducts && displayProducts.map((product, index) => (
+                                <div className="col" key={index}>
+                                    {/* Card */}
+                                    <div className="card d-flex flex-column justify-content-between border-0 rounded-0 h-100 bg-transparent">
+                                        {/* Card Header */}
+                                        <div onClick={()=>navigateToProduct(product.eo_id, product.name, product.type)}>
+                                                {/* Card Img */}
+                                                <div className="img">
+                                                    <img src={product.image} className="card-img-top rounded-0" alt="..." />
+                                                </div>
+                                                {/* Card Body */}
+                                                <div className="d-flex row justify-content-between my-3 mx-0">
+                                                    <p className="product-label text-uppercase p-0">{product.type}</p>
+                                                    <p className="product-title m-0 p-0">{product.name} {product.type}</p>
+                                                    <p className="product-title m-0 mt-2 p-0">{displaySize(product.size)}</p>
+                                                    <p className="product-title m-0 mt-3 p-0">{displayPrice(product.price)}</p>
+                                                </div>
+                                            {/* </Link> */}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
+                    </div>
                     </div>
                 </div>
-                </div>
             </div>
-        </div>
+        </Fragment>
     )
 }

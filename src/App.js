@@ -62,7 +62,7 @@ function App() {
           <Route path="/products" element={<ProductListing/>} />
 
           {/* Individual product route */}
-          <Route path="/products/:product_id" element={<Product/>} />
+          <Route path="/products/:essentialoil_id" element={<Product/>} />
 
           {/* Cart route */}
           <Route path="/cart" element={<Cart/>} />
