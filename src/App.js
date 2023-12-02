@@ -10,7 +10,8 @@ import Profile from './pages/Profile';
 import Register from './pages/Register';
 import CheckoutSuccess from './pages/CheckoutSuccess';
 import Navbar from './components/Navbar';
-import API from './constants/API';
+import Footer from './components/Footer';
+import API from './constants/api';
 import axios from "axios"
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL
@@ -61,7 +62,7 @@ function App() {
           <Route path="/products" element={<ProductListing/>} />
 
           {/* Individual product route */}
-          <Route path="/products/:product_id" element={<Product/>} />
+          <Route path="/products/:essentialoil_id" element={<Product/>} />
 
           {/* Cart route */}
           <Route path="/cart" element={<Cart/>} />
@@ -78,6 +79,7 @@ function App() {
           {/* Checkout success route */}
           <Route path="/paymentsuccess" element={<CheckoutSuccess/>} />
         </Routes>
+        <Footer />
       </Router>
     </Fragment>
   );

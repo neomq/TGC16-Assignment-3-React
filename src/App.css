@@ -139,11 +139,11 @@ body {
 
 .section-content {
     width: 88%;
-    margin: 60px auto !important;
+    margin: 80px auto !important;
 }
 
 .section .section-title {
-    font-size: 24px;
+    font-size: 28px;
     letter-spacing: 0.4px;
     color: #3B3530;
     font-family: 'Prata', serif;
@@ -197,47 +197,73 @@ body {
 
 /* --- Product Listing Page --- */
 .page-container {
-    margin-top: 100px;
-    padding: 0 30px;
+    width: 88%;
+    margin: 0 auto !important;
+    padding: 0 0 80px;
 }
 
 .page-header {
-    background-color: #dfdfdcc2;
+    margin-top: 80px;
+    background-color: #E7E4DE;
+}
+
+.page-header.light {
+    background-color: #EFEEEB;
+    border-top: 1px solid #A39A8A40;
 }
 
 .page-header .b-crumb li,
 .page-header-2 .b-crumb li {
-    color: #5F4027;
+    color: #3B3530;
     font-family: 'Poppins', sans-serif;
     font-size: 13px;
     letter-spacing: 1.2px;
     font-weight: 400;
     text-transform: uppercase;
     opacity: 0.8;
+    cursor: pointer;
+}
+
+.page-header-content {
+    max-width: 480px;
 }
 
 .page-title {
-    color: #5F4027;
+    color: #3B3530;
     font-family: 'Prata', serif;
     font-size: 25px;
     letter-spacing: 0.6px;
 }
 
 .page-subtitle {
-    color: #5F4027;
+    color: #3B3530;
     font-family: 'Poppins', sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     letter-spacing: 0.4px;
     font-weight: 300;
 }
 
-.filter-btn span,
-.filter-btn i {
-    font-family: 'Poppins', sans-serif;
+.breadcrumb {
+    margin-bottom: 0;
+}
+
+.filter-title {
+    font-family: 'Prata', serif;
     font-size: 16px;
-    font-weight: 300;
+}
+
+.filter-btn {
+    background-color: #E7E4DE;
+    padding: 8px 10px;
+    border-radius: 2px;
+}
+
+.filter-btn span {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
     letter-spacing: 0.4px;
-    color: #5F4027;
+    color: #3B3530;
 }
 
 /* .filter-btn {
@@ -249,26 +275,110 @@ body {
     margin-top: 40px;
 } */
 
+.size-btn-radio input[type=radio] + label{  
+    border: none;
+    border-radius: 2px;
+    color: #3B3530;
+    background-color: #EFEEEB;
+    font-size: 14px;
+    letter-spacing: 0.8px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.flat-btn {
+    border: none;
+    border-radius: 2px;
+    color: #3B3530;
+    background-color: #E7E4DE;
+    font-size: 12px;
+    letter-spacing: 1.2px;
+    padding: 10px 20px;
+}
+
+.flat-btn:hover {
+    cursor: pointer;
+}
+
+.size-btn-radio input[type=radio]:checked + label{ 
+    background-color: #3B3530;
+    color: #FFFFFF
+}
+
+
+.transparent-btn {
+    background-color: transparent;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.6px;
+    border: none;
+    color: #3b3530BF;
+    font-weight: 300;
+}
+
+.listing-title {
+    /* font-family: 'Prata', serif; */
+    font-family: 'Poppins', sans-serif;
+    color: #3B3530;
+    font-weight: 300;
+    font-size: 14px;
+    letter-spacing: 0.4px;
+}
+
+.listing-title > span.searchword {
+    font-family: 'Prata', serif !important;
+    font-size: 16px;
+}
+
 .product-title {
     font-family: 'Prata', serif;
     letter-spacing: 0.5px;
     font-size: 16px;
-    color: #5F4027;
+    color: #3B3530;
 }
 
-.product-title span {
+/* .product-title span {
     font-family: 'Prata', serif;
     letter-spacing: 0.5px;
     font-size: 14px;
-    color: #5F4027;
-}
+    color: #3B3530;
+} */
 
 .product-title .small-text {
     font-family: 'Poppins', sans-serif;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.4px;
     font-size: 14px;
-    color: #5F4027;
+    color: #3B3530;
     font-weight: 300;
+}
+
+.product-label {
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1.4px;
+    font-size: 11px;
+    color: #3b3530c8;
+    font-weight: 300;
+}
+
+.size-tag {
+    background-color: #E7E4DE;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1px;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 2px;
+    color: #3B3530;
+}
+
+.price-tag {
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.4px;
+    font-size: 15px;
+    font-weight: 300;
+}
+
+.card:hover {
+    cursor: pointer;
 }
 
 .addtocart-btn,
@@ -280,7 +390,8 @@ body {
     font-size: 13px;
     font-weight: 400;
     padding: 16px 35px;
-    background-color: none;
+    background-color: transparent;
+    border-radius: 2px;
 }
 
 .addtocart-btn:hover,
@@ -292,18 +403,35 @@ body {
 
 .search,
 .search .search-box,
-.search select,
-.search select option,
-.search .accordion-header,
-.accordion-button,
-.search .accordion-button,
+/* .search select,
+.search select option, */
+/* .search .accordion-header, */
+/* .accordion-button, */
+/* .search .accordion-button, */
 .search .accordion-body,
-input,
-input::-webkit-input-placeholder
+input
 {
-    color: #5F4027 !important;
+    color: #3B3530 !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 13px !important;
+    letter-spacing: 0.4px;
+    font-weight: 300;
+}
+
+.accordion-button,
+.search select,
+.search select option {
+    color: #3B3530 !important;
     font-family: 'Poppins', sans-serif !important;
     font-size: 14px !important;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+
+input::-webkit-input-placeholder {
+    color: #3B353080 !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 13px !important;
     letter-spacing: 0.4px;
     font-weight: 300;
 }
@@ -315,10 +443,41 @@ input::-webkit-input-placeholder
 }
 
 .search select,
-.search .input-box,
 input
 {
-    border: 1px solid #5f402743 !important;
+    border: 1px solid #3B353040 !important;
+    height: 50px;
+}
+
+input:focus {
+    border: 1px solid #3B353080 !important;
+}
+
+.search .input-box,
+.page-header .input-box {
+    border-bottom: 1px solid #A39A8A !important;
+    height: 50px;
+    width: -webkit-fill-available;
+    max-width: 500px;
+}
+
+.page-header .input-box.focus {
+    border-bottom: 1px solid #3b3530e2 !important;
+}
+
+.page-header .input-box input:focus {
+    border: none !important;
+}
+
+.page-header .input-box input,
+.page-header .input-box input::-webkit-input-placeholder {
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 14px !important;
+    letter-spacing: 0.6px;
+}
+
+.page-header .input-box input::-webkit-input-placeholder {
+    color: #A39A8A !important;
 }
 
 .accordion button,
@@ -353,7 +512,12 @@ select:focus
     box-shadow: none !important;
 }
 
-input.form-check-input:checked{
+input.form-check-input {
+    background-color: #EFEEEB !important;
+    border-color: #3B353080 !important;
+}
+
+input.form-check-input:checked {
     background-color: #5F4027 !important;
 }
 
@@ -402,7 +566,16 @@ input.form-check-input:checked{
     border-radius: 2px;
 }
 
+.search.filters {
+    min-width: 260px;
+    margin-right: 34px;
+}
+
 /* --- Sign In / Register / Profile Page --- */
+.login-page.bg,
+.login.header-content {
+    height: fit-content;
+}
 
 .page-overlay {
     height: inherit;
@@ -413,28 +586,18 @@ input.form-check-input:checked{
 
 .header-content .cta.login {
     margin-top: 90px;
-    margin-bottom: 24px;
+    margin-bottom: 60px;
     max-width: 400px;
     height: fit-content;
     padding: 40px 48px 48px;
     background-color: #EFEEEB;
 }
 
-@media only screen and (max-width: 448px) {
-    .header-content .cta.login {
-        padding: 30px 28px 40px;
-    }
-  }
-
 .page-title-large {
     color: #5F4027;
     font-family: 'Prata', serif;
     font-size: 24px;
     letter-spacing: 0.6px;
-}
-
-.form-input {
-    height: 43px;
 }
 
 .form-input.error {
@@ -484,18 +647,24 @@ input.form-check-input:checked{
     font-weight: 300;
 }
 
+.clear-search-btn:hover {
+    cursor: pointer;
+}
+
 /* -- Individual Product Page -- */
-.page-header-2 {
-    /* background-color: #dfdfdcc2; */
-    border-bottom: 1px solid #dfdfdcc2;
-    /* border-top: 1px solid #dfdfdcc2; */
+.product-bg{
+    background-color: #E7E4DE;
+}
+
+.product-section {
+    padding-top: 60px;;
 }
 
 .product .header-text {
     font-family: 'Prata', serif;
     letter-spacing: 0.5px;
     font-size: 30px;
-    color: #5F4027;
+    color: #3B3530;
 }
 
 .product .header-small {
@@ -520,26 +689,93 @@ input.form-check-input:checked{
     color: #5F4027;
 }
 
-.product-info {
-    background-color: #dfdfdcc2;
+.price-label {
+    font-family: 'Prata', serif;
+    font-size: 20px;
+    letter-spacing: 0.4px;
+    color: #3B3530;
 }
 
-.description {
-    border-top: 1px solid #dfdfdcc2;
+.size-btn-label {
+    cursor: pointer;
+    border: 1px solid #3B3530;
+    color: #3B3530;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.8px;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 10px 20px;
+    background-color: none;
+    border-radius: 2px;
+}
+
+.size-btn-label {
+    cursor: pointer;
+}
+
+.size-btn-label:hover {
+    background-color: #3B3530;
+    color: #FFFFFF;
+}
+
+.description > h4 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.4px;
+    color: #3B3530;
+}
+
+.description > p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0.4px;
+    color: #3B3530 !important;
+}
+
+.description > p span {
+    font-weight: 500;
+}
+
+.moreinfo-btn {
+    background-color: transparent;
+    font-family: 'Poppins', sans-serif;
+    padding: 8px 12px;
+    font-size: 14px;
+    letter-spacing: 0.6px;
+    border: 1px solid #3b3530BF;
+    color: #3b3530BF;
+    font-weight: 300;
+}
+
+.moreinfo-btn:hover {
+    color: #3B3530;
+    border: 1px solid #3B3530;
+}
+
+.product .modal-content,
+.product-info {
+    background-color: #EFEEEB;
+    border: none;
+}
+
+.product .modal-content .modal-header {
+    font-family: 'Prata', serif;
+    font-size: 20px;
+    letter-spacing: 0.4px;
+    color: #3B3530;
+    padding: 40px 40px 20px;
+    border: none;
+}
+
+.product .modal-content .modal-body {
+    padding: 0 20px 40px;
 }
 
 .accordion-body .body-text {
     font-family: 'Poppins', sans-serif;
     font-size: 14px;
-    font-weight: 300px;
-    letter-spacing: 0.4px;
-    color: #5F4027;
-}
-
-.accordion-header,
-.accordion-button {
-    font-family: 'Prata', serif;
-    font-size: 17px;
+    font-weight: 300;
     letter-spacing: 0.4px;
     color: #5F4027;
 }
@@ -644,9 +880,72 @@ input.form-check-input:checked{
     border-left: 2px solid #5F4027;
 }
 
-/* --- Media Query --- */
+/* --- Footer --- */
+.footer {
+    background-color: #28411F;
+}
+
+.footer-content {
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.4px;
+    line-height: 1.6;
+    font-weight: 300;
+    padding: 80px 0;
+    margin: 0 80px;
+}
+
+.footer-title {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1.4px;
+}
+
+.footer-section {
+    width: 70%;
+}
+
+.footer-link:hover {
+    cursor: pointer;
+}
+
+/* if width is 992px or smaller */
+@media only screen and (max-width: 992px) {
+    .footer-section {
+        width: 100%;
+    }
+
+    .footer-content {
+        margin: 0 28px;
+        padding: 60px 0 20px;
+    }
+}
+
+/* if width is 768px or larger */
 @media screen and (min-width: 768px) {
     .header-content .short-text {
         background-position: 10% 90%;
     }
-  }
+}
+
+/* if width is 448px or smaller */
+@media only screen and (max-width: 448px) {
+    .header-content .cta.login {
+        padding: 30px 28px 40px;
+    }
+}
+
+/* if height is more than 768px */
+@media screen and (min-height: 768px) {
+    .login-page.bg,
+    .login.header-content {
+        height: 100vh;
+    }
+}
+
+/* if height is more than 1024px */
+@media only screen and (min-height: 1024px) {
+    .header-content .cta.login {
+        margin-top: 120px;
+    }
+}

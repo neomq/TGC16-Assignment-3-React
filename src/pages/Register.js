@@ -4,7 +4,7 @@ import { Form } from 'react-bootstrap'
 import { REGISTER_ERROR } from "../constants/error"
 import { placeholder } from "../constants/constants"
 import TextInput from "../components/TextInput"
-import API from '../constants/API'
+import API from '../constants/api'
 import axios from 'axios'
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL
@@ -109,7 +109,7 @@ export default function Register() {
                 name="email"
                 value={formState.email}
                 onChange={updateFormField}
-                className={"mt-2 " + inputClass + emailErrorClass}
+                className={"mt-3 " + inputClass + emailErrorClass}
                 placeholder={placeholder.email}
                 errorState={formError?.INVALID_EMAIL}
                 errorMessage={formError?.INVALID_EMAIL?.errorMessage}
@@ -119,7 +119,7 @@ export default function Register() {
                 name="address"
                 value={formState.address}
                 onChange={updateFormField}
-                className={"mt-2 " + inputClass + addErrorClass}
+                className={"mt-3 " + inputClass + addErrorClass}
                 placeholder={placeholder.address}
                 errorState={formError?.INVALID_ADDRESS}
                 errorMessage={formError?.INVALID_ADDRESS?.errorMessage}
@@ -147,7 +147,7 @@ export default function Register() {
                 name="confirm_password"
                 value={formState.confirm_password}
                 onChange={updateFormField}
-                className={"mt-2 " + inputClass + cfmPwErrorClass}
+                className={"mt-3 " + inputClass + cfmPwErrorClass}
                 placeholder={placeholder.confirm_pw}
                 errorState={formError?.INVALID_PW_MATCH}
                 errorMessage={formError?.INVALID_PW_MATCH?.errorMessage}
@@ -161,12 +161,12 @@ export default function Register() {
 
     return (
         <React.Fragment>
-            <div className="bg">
+            <div className="login-page bg">
                 <div className="login header-content">
-                    <div className="page-overlay overflow-scroll d-flex justify-content-center">
+                    <div className="page-overlay d-flex justify-content-center">
                         <div className="cta login mx-4 w-100 d-flex flex-column shadow-lg">
                             <p className="text-center page-title-large mb-2">Register</p>
-                            <p className="text-center page-subtitle m-0">{createPassword ? `Hello ${formState.username}, create your password below.` : "Enter your details."}</p>
+                            <p className="text-center page-subtitle mb-1">{createPassword ? `Hello ${formState.username}, create your password below.` : "Enter your details."}</p>
                             <Form className="register-form my-4">
                                 {createPassword ? createPasswordForm() : personalInfoForm()}
                             </Form>
