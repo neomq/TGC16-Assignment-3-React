@@ -122,7 +122,7 @@ export default function Product() {
 
     return (
         <div className="product-bg">
-            {location.state && <PageHeader state={location.state} />}
+            {location.state && <PageHeader state={location.state}/>}
             <div className="page-container">
                 <div className="product-section">
                     <div className="row d-flex justify-content-center">
@@ -130,15 +130,15 @@ export default function Product() {
                             <img src={eoImage} className="mx-auto d-block img-fluid" alt="..." />
                         </div>
                         <div className="col-12 col-md-5 px-3 px-md-4 product">
-                            <div className="pb-5">
-                                <h1 className="header-text">{eoProduct.name} {eoType}</h1>
+                            <div className="pb-4">
+                                <h1 className="header-text mt-3 mt-lg-0">{eoProduct.name} {eoType}</h1>
                                 {renderOptions()}
                                 <div className="description mt-4 mb-5">
                                     <p className="mb-0 body-text"><span>Use:</span> {eoUsage.map((use) => (use)).join(", ")}</p>
                                     <p className="m-0 body-text"><span>Scent:</span> {eoScent.map((sct) => (sct)).join(", ")}</p>
                                     <p className="mt-3 body-text">{eoProduct.description}</p>
                                     <button type="button" class="moreinfo-btn rounded-pill" data-bs-toggle="modal" data-bs-target="#productInfo">
-                                        <CiCircleInfo fontSize="20px" /><span className="ps-2 pe-1">Read More</span>
+                                        <CiCircleInfo fontSize="20px"/><span className="ps-2 pe-1">Read More</span>
                                     </button>
                                 </div>
                                 <div className="mt-4">
@@ -159,7 +159,7 @@ export default function Product() {
 
             {/* Product Information Modal */}
             <div class="modal fade" id="productInfo" tabindex="-1" aria-labelledby="productInfoModalLabel" aria-hidden="true">
-                <div class="product modal-dialog">
+                <div class="product modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
                             <p class="modal-title mt-2" id="exampleModalLabel">{eoProduct.name} {eoType}</p>

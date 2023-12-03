@@ -157,9 +157,13 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
-.card {
+.feature-card {
     border: none;
     background-color: #E7E4DE;
+}
+
+.feature-card.card {
+    cursor: default !important;
 }
 
 .card-body {
@@ -199,7 +203,7 @@ body {
 .page-container {
     width: 88%;
     margin: 0 auto !important;
-    padding: 0 0 80px;
+    padding: 0 0 40px;
 }
 
 .page-header {
@@ -657,12 +661,13 @@ input.form-check-input:checked {
 }
 
 .product-section {
-    padding-top: 60px;;
+    padding-top: 20px;
 }
 
 .product .header-text {
     font-family: 'Prata', serif;
     letter-spacing: 0.5px;
+    line-height: 1.3;
     font-size: 30px;
     color: #3B3530;
 }
@@ -923,8 +928,14 @@ input.form-check-input:checked {
 
 /* if width is 768px or larger */
 @media screen and (min-width: 768px) {
+    .page-container {
+        padding: 0 0 80px;
+    }
     .header-content .short-text {
         background-position: 10% 90%;
+    }
+    .product-section {
+        padding-top: 60px;
     }
 }
 

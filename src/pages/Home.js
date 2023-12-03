@@ -31,7 +31,7 @@ export default function Home() {
                                 : "col p-0 pe-md-3"
                             return(
                                 <div className={className} key={index}>
-                                    <div className="card h-100">
+                                    <div className="feature-card card h-100">
                                         <div className="card-body header" style={{
                                             backgroundImage: `url(${item.image})`,
                                         }}>

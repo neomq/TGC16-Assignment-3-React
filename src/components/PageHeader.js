@@ -9,7 +9,7 @@ export default function ProductsHeader({state = {}, name, title, description, ch
     const lightMode = isProductPage ? " light" : ""
 
     return (
-        <div className={"page-header py-5 px-4 mb-0 mx-auto" + lightMode}>
+        <div className={"page-header py-4 py-lg-5 px-4 mb-0 mx-auto" + lightMode}>
             <Breadcrumb className="b-crumb d-flex justify-content-center">
                 {navigateFrom &&
                     <Breadcrumb.Item
