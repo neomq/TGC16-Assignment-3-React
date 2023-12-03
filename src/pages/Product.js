@@ -1,10 +1,11 @@
 import React, {Fragment, useState, useEffect} from 'react';
-import { Accordion, Toast } from 'react-bootstrap';
+import { Accordion } from 'react-bootstrap';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { essentialOilById, addItemToCart } from "../utils/API"
 import { CiCircleInfo } from "react-icons/ci";
 import { TfiClose } from "react-icons/tfi"
 import PageHeader from '../components/PageHeader';
+import Alert from '../components/Alert';
 
 export default function Product() {
     
@@ -143,13 +144,11 @@ export default function Product() {
                                 </div>
                                 <div className="mt-4">
                                     <button className="shop-btn text-uppercase" onClick={() => addToCart(selectedOption)}>Add To Cart</button>
-                                    {/* alert */}
-                                    <Toast className="cart-toast box rounded-0 border-0 position-absolute mt-3" onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide>
-                                        <div className="toast-div d-flex">
-                                            <Toast.Body><i className="bi bi-check-circle"></i> Item added to shopping cart!</Toast.Body>
-                                            <button type="button" className="btn cart-toast me-2 m-auto" data-bs-dismiss="toast"><i className="bi bi-x-lg"></i></button>
-                                        </div>
-                                    </Toast>
+                                    <Alert 
+                                        showToast={showToast}
+                                        setShowToast={setShowToast}
+                                        error={error}
+                                    />
                                 </div>
                             </div>
                         </div>

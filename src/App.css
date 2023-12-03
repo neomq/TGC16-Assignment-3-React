@@ -208,12 +208,15 @@ body {
 
 .page-header {
     margin-top: 80px;
+    padding: 40px 24px;
     background-color: #E7E4DE;
 }
 
 .page-header.light {
     background-color: #EFEEEB;
+    padding: 20px 24px;
     border-top: 1px solid #A39A8A40;
+    border-bottom: 1px solid #A39A8A40;
 }
 
 .page-header .b-crumb li,
@@ -872,17 +875,24 @@ input.form-check-input:checked {
     font-weight: 300;
 }
 
-.cart-toast {
-    background-color: #f1f1ee;
-    color: #5F4027;
+.cust-toast {
+    background-color: #EFEEEB;
+    color: #28411F;
     font-family: 'Poppins', sans-serif;
     font-size: 13px;
     letter-spacing: 0.4px;
-    /* font-weight: 300; */
 }
 
-.cart-toast .toast-div {
-    border-left: 2px solid #5F4027;
+.cust-toast.error-toast {
+    color: #E91630;
+}
+
+.cust-toast .toast-div {
+    border-left: 2px solid #28411F;
+}
+
+.cust-toast.error-toast .toast-div {
+    border-left: 2px solid #E91630;
 }
 
 /* --- Footer --- */
@@ -930,6 +940,9 @@ input.form-check-input:checked {
 @media screen and (min-width: 768px) {
     .page-container {
         padding: 0 0 80px;
+    }
+    .page-header.light {
+        padding: 40px 24px;
     }
     .header-content .short-text {
         background-position: 10% 90%;
