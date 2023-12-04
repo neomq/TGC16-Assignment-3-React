@@ -799,62 +799,55 @@ input.form-check-input:checked {
 }
 
 .section-title {
-    color: #5F4027;
-    font-family: 'Poppins', sans-serif;
-    font-size: 16px;
-    letter-spacing: 1px;
-    font-weight: 400;
-    /* text-transform: uppercase; */
+    font-family: 'Prata', serif;
+    font-size: 20px;
+    letter-spacing: 0.8px;
+    color: #3B3530;
+
 }
 
 .order-section span {
-    color: #5F4027;
+    color: #3B3530;
     font-family: 'Poppins', sans-serif;
     font-size: 14px;
     letter-spacing: 0.4px;
     font-weight: 300;
 }
 
-.order-section .order-total {
-    color: #5F4027;
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px;
-    letter-spacing: 0.4px;
-    font-weight: 300;
-}
 
 .order-list {
     border-bottom: 1px solid #5f402719;
 }
 
 .order-section .order-total {
-    color: #5F4027;
+    color: #3B3530;
     font-family: 'Poppins', sans-serif;
-    font-size: 15px;
+    font-size: 14px;
     letter-spacing: 0.4px;
     font-weight: 500;
 }
 
 .cart .table-header {
-    color: #5F4027;
+    color: #3B3530;
     font-family: 'Poppins', sans-serif;
     font-size: 13px;
     letter-spacing: 1px;
     font-weight: 400;
     text-transform: uppercase;
+    letter-spacing: 1.68px;
 }
 
 .cart-body .item-title {
     font-family: 'Prata', serif;
     letter-spacing: 0.5px;
     font-size: 16px;
-    color: #5F4027;
+    color: #3B3530;
 }
 
 .cart-body .item-subtitle {
     color: #5F4027;
     font-family: 'Poppins', sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     letter-spacing: 0.4px;
     font-weight: 300;
 }
@@ -863,7 +856,7 @@ input.form-check-input:checked {
     color: #5F4027;
     font-family: 'Poppins', sans-serif;
     font-size: 14px;
-    letter-spacing: 1px;
+    letter-spacing: 0.6px;
     font-weight: 400;
 }
 
@@ -953,6 +946,13 @@ input.form-check-input:checked {
     }
     .product-section {
         padding-top: 60px;
+    }
+}
+
+/* if width is >= 768px and <= 992px */
+@media screen and (min-width: 768px) and (max-width: 992px) {
+    .page-container {
+        width: 94%;
     }
 }
 
