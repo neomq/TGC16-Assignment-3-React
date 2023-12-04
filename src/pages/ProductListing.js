@@ -17,12 +17,12 @@ import {
     prepareProducts,
     displaySize,
     displayPrice,
-} from "../helpers/productHelpers"
+} from "../helpers/productHelper"
 import {
     updateUsage,
     updateScent,
     updateBenefits,
-} from "../helpers/searchHelpers"
+} from "../helpers/searchHelper"
 import TextInput from "../components/TextInput"
 import PageHeader from "../components/PageHeader"
 import { getObjectKey } from "../utils/common"
@@ -285,28 +285,17 @@ export default function ProductListing() {
         )
     }
 
-    const navigateToProduct = (id, name, type) => {
-        navigate(`${pages.products}/${id}`, {
-            state: {
-                navigateFrom: {
-                    name: pageName,
-                    path: window.location.pathname
-                },
-                navigateTo: {
-                    name: `${name} ${type}`
-                }
-            }
-        })
+    const navigateToProduct = (id) => {
+        navigate(`${pages.products}/${id}`)
     }
 
     return (
         <Fragment>
             <PageHeader
-                    name={pageName}
-                    title="Shop Essential Oils"
-                    description={pageDesc}>
-                    {searchBar()}
-                </PageHeader>
+                title="Shop Essential Oils"
+                description={pageDesc}>
+                {searchBar()}
+            </PageHeader>
             <div className="page-container">
                 
 
@@ -352,7 +341,7 @@ export default function ProductListing() {
                                     {/* Card */}
                                     <div className="card d-flex flex-column justify-content-between border-0 rounded-0 h-100 bg-transparent">
                                         {/* Card Header */}
-                                        <div onClick={()=>navigateToProduct(product.eo_id, product.name, product.type)}>
+                                        <div onClick={()=>navigateToProduct(product.eo_id)}>
                                                 {/* Card Img */}
                                                 <div className="img">
                                                     <img src={product.image} className="card-img-top rounded-0" alt="..." />

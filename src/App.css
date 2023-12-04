@@ -254,6 +254,10 @@ body {
     margin-bottom: 0;
 }
 
+.breadcrumb-item {
+    font-size: 12px !important;
+}
+
 .filter-title {
     font-family: 'Prata', serif;
     font-size: 16px;
@@ -791,7 +795,7 @@ input.form-check-input:checked {
 /* -- Shopping Cart Page -- */
 .cart .cart-heading,
 .cart .order-section {
-    background-color: #dfdfdc6e;
+    background-color: #E7E4DE;
 }
 
 .section-title {

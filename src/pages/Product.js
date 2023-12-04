@@ -1,6 +1,6 @@
 import React, {Fragment, useState, useEffect} from 'react';
 import { Accordion } from 'react-bootstrap';
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { essentialOilById, addItemToCart } from "../utils/API"
 import { CiCircleInfo } from "react-icons/ci";
 import { TfiClose } from "react-icons/tfi"
@@ -9,7 +9,7 @@ import Alert from '../components/Alert';
 
 export default function Product() {
     
-    const [eoProduct, setEoProduct] = useState("")
+    const [eoProduct, setEoProduct] = useState({})
     const [eoType, setEoType] = useState("")
     const [eoImage, setEoImage] = useState("")
     const [eoUsage, setEoUsage] = useState([])
@@ -21,11 +21,8 @@ export default function Product() {
     const [showToast, setShowToast] = useState(false)
     const [error, setError] = useState(false)
 
-    console.log(error)
-
     const navigate = useNavigate()
     let { essentialoil_id } = useParams()
-    const location = useLocation()
 
     console.log("selectedOption", selectedOption)
     console.log("productOptions", productOptions)
@@ -123,7 +120,7 @@ export default function Product() {
 
     return (
         <div className="product-bg">
-            {location.state && <PageHeader state={location.state}/>}
+            <PageHeader data={eoProduct}/>
             <div className="page-container">
                 <div className="product-section">
                     <div className="row d-flex justify-content-center">

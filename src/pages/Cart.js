@@ -1,100 +1,83 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, Fragment } from "react"
+import { useLocation } from 'react-router-dom';
 import { Button } from 'react-bootstrap'
-import axios from "axios";
 import { useNavigate } from "react-router-dom"
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai"
 import { pages } from "../constants/constants"
+import { allCartItems, deleteItemFromCart, updateCartItemQty } from "../utils/API"
 import { getObjectKey } from "../utils/common"
 import API from '../constants/apiEndpoints'
+import PageHeader from '../components/PageHeader'
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL
 
-export default function Cart() {
+export default function Cart({ user }) {
     const [loggedIn, setLoggedIn] = useState(true)
     const [cartItems, setCartItems] = useState([])
     const [orderTotal, setOrderTotal] = useState(0)
     
     const pageName = getObjectKey(pages, window.location.pathname)
     const navigate = useNavigate()
+    const location = useLocation()
+
+    console.log("user", user)
 
     useEffect(() => {
-        // check if user is logged in
-        if (localStorage.getItem("id") !== null) {
-            // setLoggedIn(true)
-            // get all cart items
-            // let user_id = localStorage.getItem("id")
-            fetch() 
+        if (Object.keys(user).length > 0) {
+            console.log("fetch cart iems")
+            fetchCartItems() 
         } else {
             setLoggedIn(false)
         }
     }, [])
 
-    const fetch = async () => {
-        let user_id = localStorage.getItem("id")
-        const response = await axios.get(BASE_URL + API.CART + user_id)
-        
+    useEffect(() => {
+        calcOrderAmount()
+    },[cartItems])
+
+    const fetchCartItems = async () => {
+        const cartData = await allCartItems(user.id)
+        setCartItems(cartData)        
+    }
+
+    const calcOrderAmount = () => {
         let orderSubTotal = 0
-        for (let i of response.data) {
-            orderSubTotal += (i.sub_total_sgd * i.item_quantity)
+        for (let item of cartItems) {
+            orderSubTotal += (item.sub_total_sgd * item.item_quantity)
         }
         setOrderTotal(orderSubTotal.toFixed(2))
-        setCartItems(response.data)
-
-        console.log("CART:",response.data)
     }
 
     const deleteCartItem = async (product_id) => {
-        let user_id = localStorage.getItem("id")
-        await axios.get(BASE_URL + API.CART + user_id + /remove/ + product_id)
-        
-        // refresh cart items
-        let response = await axios.get(BASE_URL + API.CART + user_id)
-        setCartItems(response.data)
+        const response = await deleteItemFromCart(user.id, product_id)
+        if (response === 200){
+            fetchCartItems()
+        }
+    }
 
-        fetch()
+    const updateCartItem = async (product_id, cartItem) => {
+        const response = await updateCartItemQty(user.id, product_id, cartItem)
+        if (response === 200){
+            fetchCartItems()
+        }
     }
 
     const decreaseItemQty = async (product_id) => {
-        // Get cart item index
         const index = cartItems.findIndex(i => i.product_id === parseInt(product_id))
-        
-        // Clone the state
         let cloned = [...cartItems]
-
-        // Modify item quantity
         if (cloned[index].item_quantity > 1) {
             cloned[index].item_quantity -= 1;
         }
-        // replace the state
         setCartItems(cloned)
-        
-        let user_id = localStorage.getItem("id")
-        await axios.post(BASE_URL + API.CART + user_id + "/updateQuantity/" + product_id, {
-            'newQuantity': cloned[index].item_quantity
-        })
-        
-        fetch()
+        updateCartItem(product_id, cloned[index])
     }
 
     const increaseItemQty = async (product_id) => {
-        // Get cart item index
         const index = cartItems.findIndex(i => i.product_id === parseInt(product_id))
-        
-        // Clone the state
         let cloned = [...cartItems]
-
-        // Modify item quantity
         cloned[index].item_quantity += 1
-        
-        // replace the state
         setCartItems(cloned)
-        
-        let user_id = localStorage.getItem("id")
-        await axios.post(BASE_URL + API.CART + user_id + "/updateQuantity/" + product_id, {
-            'newQuantity': cloned[index].item_quantity
-        })
-
-        fetch()
+        updateCartItem(product_id, cloned[index])
     }
 
     const checkout = () => {
@@ -102,31 +85,19 @@ export default function Cart() {
         window.location.href = BASE_URL + API.CHECKOUT + localStorage.getItem("id")
     }
 
-    const navigateToProduct = (id, name, type) => {
-        navigate(`${pages.products}/${id}`, {
-            state: {
-                navigateFrom: {
-                    name: pageName,
-                    path: window.location.pathname
-                },
-                navigateTo: {
-                    name: `${name} ${type}`
-                }
-            }
-        })
+    const navigateToProduct = (id) => {
+        navigate(`${pages.products}/${id}`)
     }
 
     return (
-        <React.Fragment>
-
+        <Fragment>
+            <PageHeader title="My Shopping Cart"/>
             <div className="page-container">
-                <div className="mt-5 row justify-content-center px-md-2">
-                    <h1 className="mt-5 mb-0 text-center page-title-large">My Shopping Cart</h1>
-                    {loggedIn === true ?
-                        <>
-                            {cartItems.length !== 0 ?
+                <div className="row justify-content-center px-md-2">
+                    {(loggedIn && Object.keys(user).length > 0) ?
+                        <Fragment>
+                            {cartItems.length > 0 ?
                                 <div className="cart row mt-5">
-
                                     <div className="col-12 col-md-8">
                                         <div className="cart-heading text-center py-3">
                                             <div className="row">
@@ -221,7 +192,7 @@ export default function Cart() {
                                         </div>
 
                                         {/* Checkout Button */}
-                                        <div className="btn checkout-btn rounded-0 p-2 px-3 w-100 my-4" onClick={checkout}>PROCEED TO CHECKOUT</div>
+                                        <div className="btn checkout-btn w-100 my-4" onClick={checkout}>PROCEED TO CHECKOUT</div>
                                         <div className="text-decoration-none" onClick={()=>navigate('/products')}><p className="pb-3 text-center text-decoration-underline page-subtitle">Continue Shopping</p></div>
                                     </div>
 
@@ -231,7 +202,7 @@ export default function Cart() {
                                     <p className="cart-message py-4 lead text-center">There are no items in your shopping cart.</p>
                                 </div>
                             }
-                        </>
+                        </Fragment>
                         :
                         <div>
                             <p className="cart-message py-4 lead text-center">Please log in to view or add items to your shopping cart.</p>
@@ -239,12 +210,7 @@ export default function Cart() {
                     }
                 </div>
             </div>
-            
-
-            
-            
-            
-        </React.Fragment>
+        </Fragment>
 
     )
 }

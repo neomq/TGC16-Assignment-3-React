@@ -85,7 +85,7 @@ function App() {
           <Route path="/products/:essentialoil_id" element={<Product/>} />
 
           {/* Cart route */}
-          <Route path="/cart" element={<Cart/>} />
+          <Route path="/cart" element={<Cart {...AuthProps}/>} />
 
           {/* Login route */}
           <Route path="/login" element={<Login {...AuthProps}/>} />

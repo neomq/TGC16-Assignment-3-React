@@ -40,15 +40,33 @@ const productSearch = async (searchObj) => {
 }
 
 const essentialOilById = async (essentialoil_id) => {
-    let response = await axios.get(BASE_URL + API.ESSENTIAL_OIL + essentialoil_id)
+    const response = await axios.get(BASE_URL + API.ESSENTIAL_OIL + essentialoil_id)
+    const data = response.data
+    return data
+}
+
+const allCartItems = async (user_id) => {
+    const response = await axios.get(BASE_URL + API.CART + user_id)
     const data = response.data
     return data
 }
 
 const addItemToCart = async (user_id, id) => {
-    let response = await axios.get(BASE_URL + API.CART + user_id + "/add/" + id)
+    const response = await axios.get(BASE_URL + API.CART + user_id + "/add/" + id)
     const status = response.status
     return status
+}
+
+const deleteItemFromCart = async (user_id, product_id) => {
+    const response = await axios.get(BASE_URL + API.CART + user_id + /remove/ + product_id)
+    const status = response.status
+    return status
+}
+
+const updateCartItemQty = async (user_id, product_id, cartItem) => {
+    await axios.post(BASE_URL + API.CART + user_id + "/updateQuantity/" + product_id, {
+        'newQuantity': cartItem.item_quantity
+    })
 }
 
 export { 
@@ -60,5 +78,8 @@ export {
     productSearch,
     essentialOilById,
     addItemToCart,
+    allCartItems,
+    deleteItemFromCart,
+    updateCartItemQty,
 }
 
