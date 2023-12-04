@@ -86,6 +86,20 @@ const breakpoint = {
     xxl: 1400
 }
 
+// Empty state messages
+const emptyCartMessage = {
+    notFound: {
+        message: "Please login to view or add items to your shopping cart.",
+        buttonLabel: "Go to login",
+        buttonLink: pages.login
+    },
+    noItems: {
+        message: "Seems like there is nothing in your shopping cart.",
+        buttonLabel: "Start shopping",
+        buttonLink: pages.products
+    }
+}
+
 export {
     pages,
     leftNavMenu,
@@ -94,5 +108,6 @@ export {
     featuredContent,
     footerLinks,
     placeholder,
+    emptyCartMessage,
     breakpoint,
 }

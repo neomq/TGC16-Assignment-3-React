@@ -25,7 +25,7 @@ import {
 } from "../helpers/searchHelper"
 import TextInput from "../components/TextInput"
 import PageHeader from "../components/PageHeader"
-import { getObjectKey } from "../utils/common"
+
 export default function ProductListing() {
     const [products, setProducts] = useState([])
     const [productType, setProductType] = useState([])
@@ -47,7 +47,6 @@ export default function ProductListing() {
     const [clearFilter, setClearFilter] = useState(false)
     const [numOfFilters, setNumOfFilters] = useState(0)
 
-    const pageName = getObjectKey(pages, window.location.pathname)
     const pageDesc = "Enhance your everyday with 100% pure natural essential oils extracted from nature, all around the world."
 
     const navigate = useNavigate()

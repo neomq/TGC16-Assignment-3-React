@@ -2,7 +2,7 @@ import React, { useEffect, useState, Fragment } from "react"
 import { Button } from 'react-bootstrap'
 import { useNavigate } from "react-router-dom"
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai"
-import { pages } from "../constants/constants"
+import { pages, emptyCartMessage } from "../constants/constants"
 import { allCartItems, deleteItemFromCart, updateCartItemQty } from "../utils/API"
 import { TfiClose } from "react-icons/tfi"
 import API from '../constants/apiEndpoints'
@@ -14,6 +14,7 @@ export default function Cart({ user }) {
     const [loggedIn, setLoggedIn] = useState(true)
     const [cartItems, setCartItems] = useState([])
     const [orderTotal, setOrderTotal] = useState(0)
+    const { notFound, noItems } = emptyCartMessage
     
     const navigate = useNavigate()
 
@@ -21,7 +22,6 @@ export default function Cart({ user }) {
 
     useEffect(() => {
         if (Object.keys(user).length > 0) {
-            console.log("fetch cart iems")
             fetchCartItems() 
         } else {
             setLoggedIn(false)
@@ -86,12 +86,29 @@ export default function Cart({ user }) {
         navigate(`${pages.products}/${id}`)
     }
 
+    const EmptyState = ({message, btnLink, btnLabel}) => (
+        <div style={{ 
+            maxWidth: '300px',
+            marginTop: '48px',
+            height: '42vh' 
+        }}>
+            <div>
+                <p className="cart-message lead text-center">{message}</p>
+                <div className="d-grid mt-5">
+                    <button className="signin-btn text-uppercase" type="button" onClick={()=>navigate(btnLink)}>
+                        {btnLabel}
+                    </button>
+                </div>
+            </div>
+        </div>
+    )
+
     return (
         <Fragment>
             <PageHeader title="My Shopping Cart"/>
             <div className="page-container">
                 <div className="row justify-content-center">
-                    {(loggedIn && Object.keys(user).length > 0) ?
+                    {(loggedIn && Object.keys(user).length > 0) ? (
                         <Fragment>
                             {cartItems.length > 0 ?
                                 <div className="cart row mt-4 mt-lg-5">
@@ -118,11 +135,11 @@ export default function Cart({ user }) {
                                                                 <div className="d-flex justify-content-between align-items-center">
                                                                     <div onClick={() => navigateToProduct(c.products.essentialoil_id, c.products.essentialoil.name, c.products.itemtype.name)}>
                                                                         <div className="d-flex align-items-center col-10">
-                                                                                <img src={c.products.image} width="100px" alt="..." />
-                                                                                <div className="ps-3 text-start">
-                                                                                    <p className="mb-1 item-title">{c.products.essentialoil.name} {c.products.itemtype.name}</p>
-                                                                                    <div className="item-subtitle">({c.products.size.size}ml)</div>
-                                                                                </div>
+                                                                            <img src={c.products.image} width="100px" alt="..." />
+                                                                            <div className="ps-3 text-start">
+                                                                                <p className="mb-1 item-title">{c.products.essentialoil.name} {c.products.itemtype.name}</p>
+                                                                                <div className="item-subtitle">({c.products.size.size}ml)</div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                     <div className="d-md-none align-self-start text-end text-md-center col-2" onClick={() => { deleteCartItem(c.product_id) }}>
@@ -191,21 +208,26 @@ export default function Cart({ user }) {
                                         </div>
 
                                         {/* Checkout Button */}
-                                        <div className="btn checkout-btn w-100 my-4" onClick={checkout}>PROCEED TO CHECKOUT</div>
-                                        <div className="text-decoration-none" onClick={()=>navigate('/products')}><p className="pb-3 text-center text-decoration-underline page-subtitle">Continue Shopping</p></div>
+                                        <div className="btn checkout-btn w-100 my-4 text-uppercase" onClick={checkout}>Proceed to checkout</div>
+                                        <div className="text-decoration-none" onClick={() => navigate('/products')}><p className="pb-3 text-center text-decoration-underline page-subtitle">Continue Shopping</p></div>
                                     </div>
 
                                 </div>
                                 :
-                                <div>
-                                    <p className="cart-message py-4 lead text-center">There are no items in your shopping cart.</p>
-                                </div>
+                                <EmptyState
+                                    message={noItems.message}
+                                    btnLink={noItems.buttonLink}
+                                    btnLabel={noItems.buttonLabel}
+                                />
                             }
                         </Fragment>
-                        :
-                        <div>
-                            <p className="cart-message py-4 lead text-center">Please log in to view or add items to your shopping cart.</p>
-                        </div>
+                    ) : (
+                        <EmptyState 
+                            message={notFound.message}
+                            btnLink={notFound.buttonLink}
+                            btnLabel={notFound.buttonLabel}
+                        />
+                    )
                     }
                 </div>
             </div>
