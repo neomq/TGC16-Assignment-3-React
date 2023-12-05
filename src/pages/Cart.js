@@ -2,10 +2,10 @@ import React, { useEffect, useState, Fragment } from "react"
 import { Button } from 'react-bootstrap'
 import { useNavigate } from "react-router-dom"
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai"
-import { pages, emptyCartMessage } from "../constants/constants"
+import { pages, emptyCartMessage } from "../constants/common"
 import { allCartItems, deleteItemFromCart, updateCartItemQty } from "../utils/API"
 import { TfiClose } from "react-icons/tfi"
-import API from '../constants/apiEndpoints'
+import API from '../constants/APIs'
 import PageHeader from '../components/PageHeader'
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL

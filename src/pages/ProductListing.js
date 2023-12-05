@@ -4,7 +4,7 @@ import { CiSearch } from "react-icons/ci"
 import { TfiClose } from "react-icons/tfi"
 import { PiSlidersHorizontalLight } from "react-icons/pi"
 import { useNavigate } from "react-router-dom"
-import { pages } from "../constants/constants"
+import { pages } from "../constants/common"
 import { 
     allProducts,
     allTypes,

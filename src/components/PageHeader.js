@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Breadcrumb } from 'react-bootstrap'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { pages } from "../constants/constants"
+import { pages } from "../constants/common"
 
 export default function PageHeader({data = {}, title, description, children}) {
 

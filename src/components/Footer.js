@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FaFacebook, FaInstagram } from "react-icons/fa"
 import { TbBrandYoutubeFilled } from "react-icons/tb"
-import { pages, footerLinks } from "../constants/constants"
+import { pages, footerLinks } from "../constants/common"
 
 export default function Footer() {
     const navigate = useNavigate()

@@ -11,7 +11,7 @@ import Register from './pages/Register';
 import CheckoutSuccess from './pages/CheckoutSuccess';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import API from './constants/apiEndpoints';
+import API from './constants/APIs';
 //import jwt_decode from 'jwt-decode';
 import axios from "axios"
 

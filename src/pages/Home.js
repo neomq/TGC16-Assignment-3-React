@@ -1,6 +1,6 @@
 import React from "react";
-import { useNavigate } from 'react-router-dom';
-import { featuredContent } from "../constants/constants"
+import { useNavigate } from 'react-router-dom'
+import { featuredContent } from "../constants/common"
 
 export default function Home() {
 
