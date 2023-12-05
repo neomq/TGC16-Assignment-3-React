@@ -64,9 +64,11 @@ const deleteItemFromCart = async (user_id, product_id) => {
 }
 
 const updateCartItemQty = async (user_id, product_id, cartItem) => {
-    await axios.post(BASE_URL + API.CART + user_id + "/updateQuantity/" + product_id, {
+   const response = await axios.post(BASE_URL + API.CART + user_id + "/updateQuantity/" + product_id, {
         'newQuantity': cartItem.item_quantity
     })
+    const status = response.status
+    return status
 }
 
 export { 
