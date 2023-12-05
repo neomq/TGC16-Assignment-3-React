@@ -61,7 +61,7 @@ export default function AuthWrapper({ children, loggedIn }) {
 
     useEffect(() => {
         if (startTimer) {
-            const interval = 108000
+            const interval = 870000 // 14.5 mins in ms
             const tokenTimerId = window.setInterval(() => {
                 renewToken()
             }, interval)
