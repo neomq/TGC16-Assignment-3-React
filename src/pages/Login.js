@@ -14,7 +14,7 @@ export default function Login({ setLoggedIn }) {
     const [password, setPassword] = useState("")
     const [unableToLogin, setUnableToLogin] = useState(false)
 
-    const navigate = useNavigate();
+    const navigate = useNavigate()
     const { LOGIN_FAIL } = LOGIN_ERROR
     
     async function login() {
