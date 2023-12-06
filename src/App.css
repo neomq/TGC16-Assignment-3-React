@@ -200,6 +200,10 @@ body {
 }
 
 /* --- Product Listing Page --- */
+.products {
+    width: -webkit-fill-available;
+}
+
 .page-container {
     width: 88%;
     margin: 0 auto !important;
@@ -582,6 +586,30 @@ input.form-check-input:checked {
     margin-right: 34px;
 }
 
+.card.skeleton .img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-color: #E7E4DE;
+    animation: fading 1.5s infinite;
+}
+
+.skeleton-block {
+    background-color: #E7E4DE;
+    animation: fading 1.5s infinite;
+}
+
+@keyframes fading {
+    0% {
+        opacity: .2;
+    }
+    50% {
+        opacity: .8;
+    }
+    100% {
+        opacity: .2;
+    }
+}
+
 /* --- Sign In / Register / Profile Page --- */
 .login-page.bg,
 .login.header-content {
@@ -918,6 +946,20 @@ input.form-check-input:checked {
 }
 
 .footer-link:hover {
+    cursor: pointer;
+}
+
+/* --- Scroll To Top --- */
+.scroll-btn {
+    box-shadow: 0px 18px 40px 2px rgba(42, 46, 36, 0.40);
+    position: fixed;
+    bottom: 80px;
+    right: 80px;
+
+    background-color: #28411F;
+    width: 46px;
+    height: 46px;
+    border-radius: 2px;
     cursor: pointer;
 }
 

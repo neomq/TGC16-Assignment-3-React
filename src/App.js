@@ -12,6 +12,7 @@ import Register from './pages/Register';
 import CheckoutSuccess from './pages/CheckoutSuccess';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   const { isloggedIn, userData } = useAuth()
@@ -64,6 +65,7 @@ function App() {
             {/* Checkout success route */}
             <Route path="/paymentsuccess" element={<CheckoutSuccess/>} />
           </Routes>
+          <ScrollToTop />
           <Footer />
         </AuthWrapper>
       </Fragment>

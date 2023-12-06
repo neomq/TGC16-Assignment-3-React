@@ -33,6 +33,7 @@ export default function ProductListing() {
     const [productScent, setProductScent] = useState([])
     const [productBenefits, setProductBenefits] = useState([])
     const [displayProducts, setDisplay] = useState([])
+    const [productsLoaded, setLoaded] = useState(false)
 
     // kwyword search
     const [searchActive, setSearchActive] = useState(false)
@@ -81,6 +82,12 @@ export default function ProductListing() {
             setDisplay(productsToDisplay)
         }
     }
+
+    useEffect(() => {
+        if (displayProducts.length > 0) {
+            setLoaded(true)
+        }
+    }, [displayProducts])
 
     const searchProducts = async () => {
         let searchObj = {}
@@ -191,8 +198,8 @@ export default function ProductListing() {
                     onChange={(e) => setTypeSearch(e.target.value)}
                     className="rounded-0 bg-transparent py-2 px-3">
                     <option>Collection</option>
-                    {productType.map((types) =>
-                        <option key={types[1]} value={types[1]}>
+                    {productType.map((types, index) =>
+                        <option key={index} value={types[1]}>
                             {types[1]}
                         </option>
                     )}
@@ -201,9 +208,10 @@ export default function ProductListing() {
                     <Accordion.Item eventKey="0">
                         <Accordion.Header>Usage</Accordion.Header>
                         <Accordion.Body>
-                            {productUse.map((use) => (
+                            {productUse.map((use, index) => (
                                 <Form.Check
-                                    inline key={use[0]}
+                                    inline
+                                    key={index}
                                     checked={useSearch.includes(use[0].toString())}
                                     label={use[1]}
                                     name="use"
@@ -220,9 +228,9 @@ export default function ProductListing() {
                     <Accordion.Item eventKey="1">
                         <Accordion.Header>Scent</Accordion.Header>
                         <Accordion.Body>
-                            {productScent.map((scent) => (
+                            {productScent.map((scent, index) => (
                                 <Form.Check
-                                    key={scent[0]}
+                                    key={index}
                                     checked={scentSearch.includes(scent[0].toString())}
                                     label={scent[1]}
                                     name="scent"
@@ -239,9 +247,9 @@ export default function ProductListing() {
                     <Accordion.Item eventKey="2">
                         <Accordion.Header>Benefits</Accordion.Header>
                         <Accordion.Body>
-                            {productBenefits.map((benefit) => (
+                            {productBenefits.map((benefit, index) => (
                                 <Form.Check
-                                    key={benefit[0]}
+                                    key={index}
                                     checked={benefitsSearch.includes(benefit[0].toString())}
                                     label={benefit[1]}
                                     name="benefit"
@@ -287,6 +295,54 @@ export default function ProductListing() {
     const navigateToProduct = (id) => {
         navigate(`${pages.products}/${id}`)
     }
+    
+    const renderProductCard = (product, index) => (
+        <div className="col" key={index}>
+            <div className="card d-flex flex-column justify-content-between border-0 rounded-0 h-100 bg-transparent">
+                <div onClick={() => navigateToProduct(product.eo_id)}>
+                        <div className="img">
+                            <img src={product.image} className="card-img-top rounded-0" alt="..." />
+                        </div>
+                        <div className="d-flex row justify-content-between my-3 mx-0">
+                            <p className="product-label text-uppercase p-0">{product.type}</p>
+                            <p className="product-title m-0 p-0">{product.name} {product.type}</p>
+                            <p className="product-title m-0 mt-2 p-0">{displaySize(product.size)}</p>
+                            <p className="product-title m-0 mt-3 p-0">{displayPrice(product.price)}</p>
+                        </div>
+                </div>
+            </div>
+        </div>
+    )
+
+    const renderProductListing = () => {
+        return displayProducts.map(
+            (product, index) => renderProductCard(product, index)
+        )
+    }
+
+    const renderCardSkeleton = (item, index) => {
+        return (
+            <div className="col" key={index}>
+                <div
+                    className="card skeleton d-flex flex-column justify-content-between border-0 rounded-0 h-100 bg-transparent"
+                    style={{ width: "-webkit-fill-available" }}>
+                    <div>
+                        <div className="img"></div>
+                        <div className="d-flex flex-column justify-content-between my-3 mx-0">
+                            <div className="skeleton-block mb-3 p-0" style={{ width: "50%", height: "16.5px" }}></div>
+                            <div className="skeleton-block m-0 p-0" style={{ width: "80%", height: "24px" }}></div>
+                            <div className="skeleton-block m-0 mt-2 p-0" style={{ width: "50px", height: "25px" }}></div>
+                            <div className="skeleton-block m-0 mt-3 p-0" style={{ width: "50%", height: "21px" }}></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    const renderSkeletonloader = () => {
+        return [...new Array(6)].map(((item, index) => renderCardSkeleton(item, index)))
+    }
 
     return (
         <Fragment>
@@ -296,16 +352,15 @@ export default function ProductListing() {
                 {searchBar()}
             </PageHeader>
             <div className="page-container">
-                
-
                 <div className="page-body mt-md-5 row">
-                {/* Mobile Filter Buttons*/}
+
+                    {/* Mobile Filter Buttons*/}
                     <div className="py-0 d-flex my-4 d-md-none justify-content-between">
                         <button className="btn filter-btn d-flex align-items-center py-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
-                            <PiSlidersHorizontalLight color="#3B3530" fontSize="22px"/>
+                            <PiSlidersHorizontalLight color="#3B3530" fontSize="22px" />
                             <span className="p-2 px-2 mb-0">Filter</span>
                         </button>
-                        <button className="transparent-btn" onClick={()=>{handleClearFilter()}}>
+                        <button className="transparent-btn" onClick={() => { handleClearFilter() }}>
                             Clear Filter
                         </button>
                     </div>
@@ -318,47 +373,26 @@ export default function ProductListing() {
                     </div>
 
                     <div className="d-flex flex-row">
-                    {/* Desktop Filter */}
-                    <div className="search filters d-none d-md-block mb-5">
-                        <div className="d-flex flex-row justify-content-between align-items-center mb-3">
-                            <p className="filter-title m-0">Filters</p>
-                            <button className="flat-btn btn text-uppercase" onClick={()=>{handleClearFilter()}}>
-                                Clear
-                            </button>
+                        {/* Desktop Filter */}
+                        <div className="search filters d-none d-md-block mb-5">
+                            <div className="d-flex flex-row justify-content-between align-items-center mb-3">
+                                <p className="filter-title m-0">Filters</p>
+                                <button className="flat-btn btn text-uppercase" onClick={() => { handleClearFilter() }}>
+                                    Clear
+                                </button>
+                            </div>
+                            {searchFilters()}
                         </div>
-                        {searchFilters()}
-                    </div>
 
-                    {/* Product Listing */}
-                    <div className="products">
-                        <div className="listing-title">
-                            {displayListingTitle()}
+                        {/* Product Listing */}
+                        <div className="products">
+                            <div className="listing-title">
+                                {displayListingTitle()}
+                            </div>
+                            <div className="row row-cols-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 g-3 g-md-4">
+                                {productsLoaded ? renderProductListing() : renderSkeletonloader()}
+                            </div>
                         </div>
-                        <div className="row row-cols-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 g-3 g-md-4">
-                            {displayProducts && displayProducts.map((product, index) => (
-                                <div className="col" key={index}>
-                                    {/* Card */}
-                                    <div className="card d-flex flex-column justify-content-between border-0 rounded-0 h-100 bg-transparent">
-                                        {/* Card Header */}
-                                        <div onClick={()=>navigateToProduct(product.eo_id)}>
-                                                {/* Card Img */}
-                                                <div className="img">
-                                                    <img src={product.image} className="card-img-top rounded-0" alt="..." />
-                                                </div>
-                                                {/* Card Body */}
-                                                <div className="d-flex row justify-content-between my-3 mx-0">
-                                                    <p className="product-label text-uppercase p-0">{product.type}</p>
-                                                    <p className="product-title m-0 p-0">{product.name} {product.type}</p>
-                                                    <p className="product-title m-0 mt-2 p-0">{displaySize(product.size)}</p>
-                                                    <p className="product-title m-0 mt-3 p-0">{displayPrice(product.price)}</p>
-                                                </div>
-                                            {/* </Link> */}
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
                     </div>
                 </div>
             </div>
