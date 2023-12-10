@@ -71,6 +71,37 @@ const updateCartItemQty = async (user_id, product_id, cartItem) => {
     return status
 }
 
+const getUserProfile = async (token) => {
+    const response = await axios.get(BASE_URL + API.PROFILE, {
+        headers: {
+            authorization: "Bearer " + token
+        }
+    })
+    return response
+}
+
+const refreshUserToken = async (refreshToken) => {
+    const response = await axios.post(BASE_URL + API.REFRESH_TOKEN, {
+        refreshToken: refreshToken,
+    })
+    return response
+}
+
+const loginUser = async (email, password) => {
+    const response = await axios.post(BASE_URL + API.LOGIN, {
+        'email': email,
+        'password': password
+    })
+    return response
+}
+
+const logoutUser = async (refreshToken) => {
+    const response = await axios.post(BASE_URL + API.LOGOUT, {
+        'refreshToken': refreshToken
+    })
+    return response
+}
+
 export { 
     allProducts,
     allTypes,
@@ -83,5 +114,9 @@ export {
     allCartItems,
     deleteItemFromCart,
     updateCartItemQty,
+    getUserProfile,
+    refreshUserToken,
+    loginUser,
+    logoutUser,
 }
 

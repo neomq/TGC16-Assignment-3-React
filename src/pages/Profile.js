@@ -1,47 +1,28 @@
 import React, { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import API from "../constants/APIs"
-import axios from 'axios'
+import { pages } from "../constants/common"
+import { getUserProfile } from "../utils/API"
+import { endAuth } from "../utils/auth"
 
-const BASE_URL = process.env.REACT_APP_API_BASE_URL
-
-export default function Profile({ loggedIn, setLoggedIn, setUser }) {
-
-    const [name, setName] = useState("")
-    const [email, setEmail] = useState("")
-    const [address, setAddress] = useState("")
+export default function Profile({ loggedIn, setUser }) {
+    
+    const [userData, setUserData] = useState({})
+    const { name, email, address } = userData
     const navigate = useNavigate();
 
     useEffect(() => {
-        // check if user is logged in
-        if (localStorage.getItem("id") !== null) {
-            const fetchProfile = async () => {
-                let response = await axios.get(BASE_URL + API.PROFILE, {
-                    headers: {
-                        authorization: "Bearer " + localStorage.getItem('accessToken')
-                    }
-                })
-                
-                setName(response.data.name)
-                setEmail(response.data.email)
-                setAddress(response.data.address)
-                setUser(response.data)
-                console.log("USER PROFILE", response.data)
-            }
+        if (loggedIn) {        
             fetchProfile()
-            setLoggedIn(true)
         }
     }, [])
 
-    // logout
-    const logout = async () => {
-        const response = await axios.post(BASE_URL + API.LOGOUT, {
-            'refreshToken': localStorage.getItem('refreshToken')
-        })
+    const fetchProfile = async () => {
+        const token = localStorage.getItem('accessToken')
+        const profileData = await getUserProfile(token)
 
-        if (response.data) {
-            localStorage.clear()
-            window.location.pathname = '/'
+        if (profileData.status === 200) {
+            setUserData(profileData.data)
+            setUser(profileData.data)
         }
     }
 
@@ -63,9 +44,9 @@ export default function Profile({ loggedIn, setLoggedIn, setUser }) {
                         </div>
 
                         <div className="mt-5 d-flex justify-content-center">
-                            <button className="btn shop-btn px-5 rounded-0" onClick={()=>navigate('/products')}>Start Shopping</button>
+                            <button className="btn shop-btn px-5 rounded-0" onClick={()=>navigate(pages.products)}>Start Shopping</button>
                         </div>
-                        <p className="mt-3 text-center page-subtitle">or <Link onClick={logout}>Log out</Link></p>
+                        <p className="mt-3 text-center page-subtitle">or <Link onClick={endAuth}>Log out</Link></p>
                     </div>
 
                 </div>

@@ -3,16 +3,13 @@ import { useNavigate } from "react-router-dom"
 import { Form } from 'react-bootstrap'
 import { LOGIN_ERROR } from "../constants/error"
 import TextInput from "../components/TextInput"
-import API from "../constants/APIs"
-import axios from 'axios'
-
-const BASE_URL = process.env.REACT_APP_API_BASE_URL
+import { startAuth } from "../utils/auth"
 
 export default function Login({ setLoggedIn }) {
     
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [unableToLogin, setUnableToLogin] = useState(false)
+    const [loginError, setLoginError] = useState(false)
 
     const navigate = useNavigate()
     const { LOGIN_FAIL } = LOGIN_ERROR
@@ -20,29 +17,20 @@ export default function Login({ setLoggedIn }) {
     async function login() {
         //validation
         if (!email || !password){
-            setUnableToLogin(true)
+            setLoginError(true)
         } else {
-            const response = await axios.post(BASE_URL + API.LOGIN, {
-                'email': email,
-                'password': password
-            })
-
-            if (response.status === 200) {
-                localStorage.setItem("accessToken", response.data.accessToken)
-                localStorage.setItem('refreshToken', response.data.refreshToken)
-                localStorage.setItem('id', response.data.user_id)
-            
+            const response = await startAuth(email, password)
+            if (response.status === 200) {           
                 setLoggedIn(true)
                 navigate('/profile')
-                
-            } else if (response.status === 204) {
-                setUnableToLogin(true)
+            } else {
+                setLoginError(true)
             }
         }
     }
 
     const inputClass = "form-input bg-transparent rounded-0 "
-    const errorClass = unableToLogin ? "error" : ""
+    const errorClass = loginError ? "error" : ""
 
     return (
         <React.Fragment>
@@ -60,7 +48,7 @@ export default function Login({ setLoggedIn }) {
                                     onChange={(e) => setEmail(e.target.value)}
                                     className={inputClass + errorClass}
                                     placeholder="Email"
-                                    errorState={unableToLogin}
+                                    errorState={loginError}
                                     errorMessage={LOGIN_FAIL.errorMessage}
                                 />
                                 <TextInput
@@ -70,7 +58,7 @@ export default function Login({ setLoggedIn }) {
                                     onChange={(e) => setPassword(e.target.value)}
                                     className={"mt-3 " + inputClass + errorClass}
                                     placeholder="Password"
-                                    errorState={unableToLogin}
+                                    errorState={loginError}
                                     errorMessage={LOGIN_FAIL.errorMessage}
                                 />
                                 <div className="d-grid mt-4">

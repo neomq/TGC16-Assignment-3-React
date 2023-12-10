@@ -8,6 +8,9 @@ const pages = {
     cart: '/cart'
 }
 
+// timer interval for renewing token
+const tokenInterval = 870000 // 14.5 mins in ms
+
 // Navigation
 const leftNavMenu = [
     { name: "Shop", link: pages.products },
@@ -102,6 +105,7 @@ const emptyCartMessage = {
 
 export {
     pages,
+    tokenInterval,
     leftNavMenu,
     rightNavMenu,
     mobileMenu,

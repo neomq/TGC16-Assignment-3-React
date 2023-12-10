@@ -15,7 +15,8 @@ import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 
 function App() {
-  const { isloggedIn, userData } = useAuth()
+  const { isloggedIn, userData, authChecked } = useAuth()
+
   const [loggedIn, setLoggedIn] = useState(false)
   const [user, setUser] = useState({})
   const location = useLocation()
@@ -32,9 +33,11 @@ function App() {
   }, [location])
 
   useEffect(() => {
-    setLoggedIn(isloggedIn)
-    setUser(userData)
-  },[isloggedIn, userData])
+    if (authChecked) {
+      setLoggedIn(isloggedIn)
+      setUser(userData)
+    }
+  },[authChecked])
 
   return (
       <Fragment>

@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState, useRef } from 'react'
 import { renewToken } from '../utils/auth'
+import { tokenInterval } from '../constants/common'
 import API from '../constants/APIs'
 import axios from "axios"
 
@@ -8,6 +9,7 @@ const BASE_URL = process.env.REACT_APP_API_BASE_URL
 export const useAuth = () => {
     const [isloggedIn, setLoggedIn] = useState(false)
     const [userData, setUser] = useState({})
+    const [authChecked, setAuthChecked] = useState(false)
 
     useEffect(() => {
         validateSession()
@@ -29,16 +31,18 @@ export const useAuth = () => {
                     if (response.data.id === parseInt(userId)) {
                         setLoggedIn(true)
                         setUser(response.data)
+                        setAuthChecked(true)
                     }
                 } else {
                     throw response
                 }
             } catch (error) {
-                console.log("profile Error", error)
+                setAuthChecked(false)
+                console.log("profile error", error)
             }
         }
     }
-    return { isloggedIn, userData, validateSession }
+    return { isloggedIn, userData, authChecked }
 }
 
 export default function AuthWrapper({ children, loggedIn }) {
@@ -61,10 +65,9 @@ export default function AuthWrapper({ children, loggedIn }) {
 
     useEffect(() => {
         if (startTimer) {
-            const interval = 870000 // 14.5 mins in ms
             const tokenTimerId = window.setInterval(() => {
                 renewToken()
-            }, interval)
+            }, tokenInterval)
             setTimerId(tokenTimerId)
         }
     }, [startTimer])

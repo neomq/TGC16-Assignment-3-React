@@ -4,6 +4,7 @@ const API = {
     LOGOUT: '/api/users/logout',
     PROFILE: '/api/users/profile',
     REGISTER: '/api/users/register',
+    REFRESH_TOKEN: '/api/users/refresh',
     
     // Checkout
     CART: '/api/cart/',
