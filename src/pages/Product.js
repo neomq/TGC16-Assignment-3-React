@@ -1,4 +1,4 @@
-import React, {Fragment, useState, useEffect} from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { Accordion } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import { essentialOilById, addItemToCart } from "../utils/API"
@@ -8,7 +8,7 @@ import PageHeader from '../components/PageHeader';
 import Alert from '../components/Alert';
 
 export default function Product({ loggedIn, user }) {
-    
+
     const [eoProduct, setEoProduct] = useState({})
     const [eoType, setEoType] = useState("")
     const [eoImage, setEoImage] = useState("")
@@ -52,19 +52,19 @@ export default function Product({ loggedIn, user }) {
             eoUsage.length > 0 &&
             eoScent.length > 0 &&
             productOptions.length > 0 &&
-            eoPrice > 0 
-        if ( eoType && eoImage && dataLoaded ) {
+            eoPrice > 0
+        if (eoType && eoImage && dataLoaded) {
             setLoaded(true)
         }
 
-    },[ eoType,
+    }, [eoType,
         eoImage,
         eoUsage,
         eoScent,
         eoPrice,
         productOptions
-    ]) 
- 
+    ])
+
     const setProductData = (data) => {
         const type = data.products[0].itemtype.name
         const image = data.products[0].image
@@ -108,7 +108,7 @@ export default function Product({ loggedIn, user }) {
     const renderOptions = () => (
         <Fragment>
             <div className="mt-3 price-label">S${eoPrice}</div>
-            <div className="mt-4 d-flex flex-row"> 
+            <div className="mt-4 d-flex flex-row">
                 {productOptions.map((option, index) => {
                     const margin = (index === productOptions.length - 1) ? "" : " me-2"
                     const checked = selectedOption.toString() === option.pd_id.toString()
@@ -144,10 +144,10 @@ export default function Product({ loggedIn, user }) {
                         <div className="skeleton-block light mt-3" style={{ width: "75px", height: "40px" }}></div>
                         <div className="skeleton-block light mt-4" style={{ maxWidth: "30%", minWidth: "85px", height: "40px" }}></div>
                         <div className="mt-4 mb-5">
-                            <div className="skeleton-block light mt-3" style={{ width: "100%", height: "180px" }}></div>    
+                            <div className="skeleton-block light mt-3" style={{ width: "100%", height: "180px" }}></div>
                         </div>
                         <div className="mt-4">
-                            <div className="skeleton-block light mt-3" style={{ width: "200px", height: "50px" }}></div> 
+                            <div className="skeleton-block light mt-3" style={{ width: "200px", height: "50px" }}></div>
                         </div>
                     </div>
                 </div>
@@ -157,7 +157,7 @@ export default function Product({ loggedIn, user }) {
 
     return (
         <div className="product-bg">
-            <PageHeader data={eoProduct} dataLoaded={isLoaded}/>
+            <PageHeader data={eoProduct} dataLoaded={isLoaded} />
             <div className="page-container">
                 {isLoaded ? (
                     <div className="product-section">
@@ -196,7 +196,7 @@ export default function Product({ loggedIn, user }) {
 
             {/* Product Information Modal */}
             <div className="modal fade" id="productInfo" tabIndex="-1" aria-labelledby="productInfoModalLabel" aria-hidden="true">
-                <div className="product modal-dialog modal-dialog-centered">
+                <div className="product modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
                     <div className="modal-content">
                         <div className="modal-header">
                             <p className="modal-title mt-2" id="exampleModalLabel">{eoProduct.name} {eoType}</p>
@@ -206,24 +206,36 @@ export default function Product({ loggedIn, user }) {
                             <div className="product-info">
                                 <Accordion defaultActiveKey="0">
                                     <Accordion.Item eventKey="0">
-                                        <Accordion.Header>Application</Accordion.Header>
-                                        <Accordion.Body className="body-text">
-                                            <p className="mt-2 body-text">{eoProduct.application}</p>
-                                        </Accordion.Body>
+                                        {eoProduct.application && (
+                                            <Fragment>
+                                                <Accordion.Header>Application</Accordion.Header>
+                                                <Accordion.Body className="body-text">
+                                                    <p className="mt-2 body-text">{eoProduct.application}</p>
+                                                </Accordion.Body>
+                                            </Fragment>
+                                        )}
                                     </Accordion.Item>
                                     <Accordion.Item eventKey="1">
-                                        <Accordion.Header>Directions</Accordion.Header>
-                                        <Accordion.Body>
-                                            <p className="mt-2 body-text">{eoProduct.directions}</p>
-                                        </Accordion.Body>
+                                        {eoProduct.directions && (
+                                            <Fragment>
+                                                <Accordion.Header>Directions</Accordion.Header>
+                                                <Accordion.Body>
+                                                    <p className="mt-2 body-text">{eoProduct.directions}</p>
+                                                </Accordion.Body>
+                                            </Fragment>
+                                        )}
                                     </Accordion.Item>
                                     <Accordion.Item eventKey="2">
-                                        <Accordion.Header className="mb-3">Benefits</Accordion.Header>
-                                        <Accordion.Body>
-                                            <p className="mt-2 body-text"><strong>Beauty</strong><br />{eoProduct.beauty_benefits}</p>
-                                            <p className="body-text"><strong>Body</strong><br />{eoProduct.body_benefits}</p>
-                                            <p className="body-text"><strong>Emotional Health</strong><br />{eoProduct.emotional_benefits}</p>
-                                        </Accordion.Body>
+                                        {(eoProduct.beauty_benefits || eoProduct.body_benefits || eoProduct.emotional_benefits) && (
+                                            <Fragment>
+                                                <Accordion.Header className="mb-3">Benefits</Accordion.Header>
+                                                <Accordion.Body>
+                                                    {eoProduct.beauty_benefits && <p className="mt-2 body-text"><strong>Beauty</strong><br />{eoProduct.beauty_benefits}</p>}
+                                                    {eoProduct.body_benefits && <p className="body-text"><strong>Body</strong><br />{eoProduct.body_benefits}</p>}
+                                                    {eoProduct.emotional_benefits && <p className="body-text"><strong>Emotional Health</strong><br />{eoProduct.emotional_benefits}</p>}
+                                                </Accordion.Body>
+                                            </Fragment>
+                                        )}
                                     </Accordion.Item>
                                 </Accordion>
                             </div>
