@@ -36,7 +36,6 @@ export default function ProductListing() {
 
     // loading state
     const [productsLoaded, setLoaded] = useState(false)
-    console.log("productsLoaded", productsLoaded)
 
     // search
     const [searchActive, setSearchActive] = useState(false)
@@ -125,7 +124,6 @@ export default function ProductListing() {
             }
         }
         const searchResults = await productSearch(searchObj)
-        console.log("search Results", searchResults)
 
         if (searchResults.length > 0){
             renderProducts(searchResults)

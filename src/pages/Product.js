@@ -45,7 +45,6 @@ export default function Product({ loggedIn, user }) {
     const fetchEssentialOil = async () => {
         const essentialOilData = await essentialOilById(essentialoil_id)
         setEoProduct(essentialOilData)
-        console.log(essentialOilData)
     }
 
     useEffect(() => {

@@ -16,8 +16,6 @@ export default function Cart({ user, loggedIn }) {
     const { notFound, noItems } = emptyCartMessage
     
     const navigate = useNavigate()
-
-    console.log("user", user)
     
     useEffect(() => {
         if (loggedIn && Object.keys(user).length > 0) {
