@@ -5,11 +5,11 @@ import { getUserProfile } from "../utils/API"
 import { endAuth } from "../utils/auth"
 import PageHeader from "../components/PageHeader"
 
-export default function Profile({ loggedIn, setUser }) {
+export default function Profile({ setUser }) {
     
     const [userData, setUserData] = useState({})
     const { name, email, address } = userData
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     useEffect(() => {
         fetchProfile()
