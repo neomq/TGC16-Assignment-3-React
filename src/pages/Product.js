@@ -195,14 +195,14 @@ export default function Product({ loggedIn, user }) {
             </div>
 
             {/* Product Information Modal */}
-            <div class="modal fade" id="productInfo" tabindex="-1" aria-labelledby="productInfoModalLabel" aria-hidden="true">
-                <div class="product modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <p class="modal-title mt-2" id="exampleModalLabel">{eoProduct.name} {eoType}</p>
+            <div className="modal fade" id="productInfo" tabIndex="-1" aria-labelledby="productInfoModalLabel" aria-hidden="true">
+                <div className="product modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <p className="modal-title mt-2" id="exampleModalLabel">{eoProduct.name} {eoType}</p>
                             <button type="button" className="close-modal border-0 p-0" data-bs-dismiss="modal" aria-label="Close"><TfiClose color="#3B3530" fontSize="15px" /></button>
                         </div>
-                        <div class="modal-body">
+                        <div className="modal-body">
                             <div className="product-info">
                                 <Accordion defaultActiveKey="0">
                                     <Accordion.Item eventKey="0">

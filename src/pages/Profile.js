@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { pages } from "../constants/common"
 import { getUserProfile } from "../utils/API"
 import { endAuth } from "../utils/auth"
+import PageHeader from "../components/PageHeader"
 
 export default function Profile({ loggedIn, setUser }) {
     
@@ -11,9 +12,7 @@ export default function Profile({ loggedIn, setUser }) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (loggedIn) {        
-            fetchProfile()
-        }
+        fetchProfile()
     }, [])
 
     const fetchProfile = async () => {
@@ -28,30 +27,27 @@ export default function Profile({ loggedIn, setUser }) {
 
     return (
         <React.Fragment>
+            <PageHeader title={`Welcome, ${name}`} />
             <div className="page-container">
-                <div className="row">
-
-                    <div className="mx-auto col-md-4 mt-4">
-                        <h1 className="text-center page-title-large">Welcome,<br/>{name}!</h1>
-
-                        <div className="profile-section mt-3">
+                <div>
+                    <div className="mx-auto mt-5" style={{ maxWidth: "350px" }}>
+                        <div className="profile-section my-3">
                             <p className="section-title text-center">Account Information</p>
-                            <div className="mt-5">
+                            <div className="my-5">
                                 <p className="m-0 text-center profile-details-name">{name}</p>
                                 <p className="m-0 text-center profile-details">{email}</p>
                                 <p className="m-0 text-center profile-details">{address}</p>
                             </div>
                         </div>
 
-                        <div className="mt-5 d-flex justify-content-center">
-                            <button className="btn shop-btn px-5 rounded-0" onClick={()=>navigate(pages.products)}>Start Shopping</button>
-                        </div>
-                        <p className="mt-3 text-center page-subtitle">or <Link onClick={endAuth}>Log out</Link></p>
+                       <hr></hr>
+                       <div className="mt-5 d-flex flex-column justify-content-center">
+                            <button className="btn shop-btn px-5 text-uppercase" onClick={()=>navigate(pages.products)}>Start Shopping</button>
+                            <button className="card-btn btn mt-3 text-uppercase" type="button" onClick={endAuth}>Log out</button>
+                        </div> 
                     </div>
-
                 </div>
             </div>
         </React.Fragment>
-
     )
 }

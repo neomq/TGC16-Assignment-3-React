@@ -2,7 +2,7 @@ import React, { useEffect, useState, Fragment } from "react"
 import { Button } from 'react-bootstrap'
 import { useNavigate } from "react-router-dom"
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai"
-import { pages, emptyCartMessage } from "../constants/common"
+import { pages, emptyStateMessage } from "../constants/common"
 import { allCartItems, deleteItemFromCart, updateCartItemQty } from "../utils/API"
 import { TfiClose } from "react-icons/tfi"
 import API from '../constants/APIs'
@@ -13,7 +13,8 @@ const BASE_URL = process.env.REACT_APP_API_BASE_URL
 export default function Cart({ user, loggedIn }) {
     const [cartItems, setCartItems] = useState([])
     const [orderTotal, setOrderTotal] = useState(0)
-    const { notFound, noItems } = emptyCartMessage
+    const { emptyCart } = emptyStateMessage
+    const { notFound, noItems } = emptyCart
     
     const navigate = useNavigate()
     

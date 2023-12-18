@@ -4,7 +4,7 @@ import { CiSearch } from "react-icons/ci"
 import { TfiClose } from "react-icons/tfi"
 import { PiSlidersHorizontalLight } from "react-icons/pi"
 import { useNavigate } from "react-router-dom"
-import { pages, pageHeader } from "../constants/common"
+import { pages, pageHeader, emptyStateMessage } from "../constants/common"
 import { 
     allProducts,
     allTypes,
@@ -367,7 +367,7 @@ export default function ProductListing() {
     }
 
     const renderEmptyState = () => (
-        <div className="w-auto mt-4 page-text">Sorry, we couldn't find any results. Please try another search.</div>
+        <div className="w-auto mt-4 page-text">{emptyStateMessage.emptySearch}</div>
     )
 
 

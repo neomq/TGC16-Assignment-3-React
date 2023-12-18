@@ -98,17 +98,20 @@ const breakpoint = {
 }
 
 // Empty state messages
-const emptyCartMessage = {
-    notFound: {
-        message: "Please login to view or add items to your shopping cart.",
-        buttonLabel: "Go to login",
-        buttonLink: pages.login
+const emptyStateMessage = {
+    emptyCart: {
+        notFound: {
+            message: "Please login to view or add items to your shopping cart.",
+            buttonLabel: "Go to login",
+            buttonLink: pages.login
+        },
+        noItems: {
+            message: "Seems like there is nothing in your shopping cart.",
+            buttonLabel: "Start shopping",
+            buttonLink: pages.products
+        }
     },
-    noItems: {
-        message: "Seems like there is nothing in your shopping cart.",
-        buttonLabel: "Start shopping",
-        buttonLink: pages.products
-    }
+    emptySearch: "Sorry, we couldn't find any results. Please try another search.",
 }
 
 export {
@@ -121,6 +124,6 @@ export {
     pageHeader,
     footerLinks,
     placeholder,
-    emptyCartMessage,
+    emptyStateMessage,
     breakpoint,
 }

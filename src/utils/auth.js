@@ -15,6 +15,8 @@ const renewToken = async () => {
         }
     } catch (error) {
         console.log("refreshResponse error", error)
+        // logout automatically
+        endAuth()
     }
 }
 
