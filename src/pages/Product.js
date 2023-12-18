@@ -7,7 +7,7 @@ import { TfiClose } from "react-icons/tfi"
 import PageHeader from '../components/PageHeader';
 import Alert from '../components/Alert';
 
-export default function Product() {
+export default function Product({ loggedIn, user }) {
     
     const [eoProduct, setEoProduct] = useState({})
     const [eoType, setEoType] = useState("")
@@ -17,15 +17,13 @@ export default function Product() {
     const [productOptions, setProductOptions] = useState([])
     const [selectedOption, setSelectedOption] = useState(0)
     const [eoPrice, setEoPrice] = useState(0)
+    const [isLoaded, setLoaded] = useState(false)
 
     const [showToast, setShowToast] = useState(false)
     const [error, setError] = useState(false)
 
     const navigate = useNavigate()
     let { essentialoil_id } = useParams()
-
-    console.log("selectedOption", selectedOption)
-    console.log("productOptions", productOptions)
 
     useEffect(() => {
         fetchEssentialOil()
@@ -49,6 +47,24 @@ export default function Product() {
         setEoProduct(essentialOilData)
         console.log(essentialOilData)
     }
+
+    useEffect(() => {
+        const dataLoaded =
+            eoUsage.length > 0 &&
+            eoScent.length > 0 &&
+            productOptions.length > 0 &&
+            eoPrice > 0 
+        if ( eoType && eoImage && dataLoaded ) {
+            setLoaded(true)
+        }
+
+    },[ eoType,
+        eoImage,
+        eoUsage,
+        eoScent,
+        eoPrice,
+        productOptions
+    ]) 
  
     const setProductData = (data) => {
         const type = data.products[0].itemtype.name
@@ -73,9 +89,8 @@ export default function Product() {
 
     const addToCart = async (selectedOption) => {
         // check if user is logged in
-        if (localStorage.getItem("id") !== null) {
-            let user_id = localStorage.getItem("id")
-            const response = await addItemToCart(user_id, selectedOption)
+        if (loggedIn) {
+            const response = await addItemToCart(user.id, selectedOption)
             if (response !== 200) {
                 setError(true)
             } else {
@@ -118,39 +133,66 @@ export default function Product() {
         </Fragment>
     )
 
+    const renderProductSkeleton = () => (
+        <div className="product-section skeleton">
+            <div className="row d-flex justify-content-center">
+                <div className="col-12 col-md-7 px-3 px-md-4 py-4 py-md-0">
+                    <div className="img light"></div>
+                </div>
+                <div className="col-12 col-md-5 px-3 px-md-4 product">
+                    <div className="pb-4">
+                        <div className="skeleton-block light mt-3 mt-lg-0" style={{ maxWidth: "70%", minWidth: "230px", height: "40px" }}></div>
+                        <div className="skeleton-block light mt-3" style={{ width: "75px", height: "40px" }}></div>
+                        <div className="skeleton-block light mt-4" style={{ maxWidth: "30%", minWidth: "85px", height: "40px" }}></div>
+                        <div className="mt-4 mb-5">
+                            <div className="skeleton-block light mt-3" style={{ width: "100%", height: "180px" }}></div>    
+                        </div>
+                        <div className="mt-4">
+                            <div className="skeleton-block light mt-3" style={{ width: "200px", height: "50px" }}></div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+
     return (
         <div className="product-bg">
-            <PageHeader data={eoProduct}/>
+            <PageHeader data={eoProduct} dataLoaded={isLoaded}/>
             <div className="page-container">
-                <div className="product-section">
-                    <div className="row d-flex justify-content-center">
-                        <div className="col-12 col-md-7 px-3 px-md-4 py-4 py-md-0">
-                            <img src={eoImage} className="mx-auto d-block img-fluid" alt="..." />
-                        </div>
-                        <div className="col-12 col-md-5 px-3 px-md-4 product">
-                            <div className="pb-4">
-                                <h1 className="header-text mt-3 mt-lg-0">{eoProduct.name} {eoType}</h1>
-                                {renderOptions()}
-                                <div className="description mt-4 mb-5">
-                                    <p className="mb-0 body-text"><span>Use:</span> {eoUsage.map((use) => (use)).join(", ")}</p>
-                                    <p className="m-0 body-text"><span>Scent:</span> {eoScent.map((sct) => (sct)).join(", ")}</p>
-                                    <p className="mt-3 body-text">{eoProduct.description}</p>
-                                    <button type="button" class="moreinfo-btn rounded-pill" data-bs-toggle="modal" data-bs-target="#productInfo">
-                                        <CiCircleInfo fontSize="20px"/><span className="ps-2 pe-1">Read More</span>
-                                    </button>
-                                </div>
-                                <div className="mt-4">
-                                    <button className="shop-btn text-uppercase" onClick={() => addToCart(selectedOption)}>Add To Cart</button>
-                                    <Alert 
-                                        showToast={showToast}
-                                        setShowToast={setShowToast}
-                                        error={error}
-                                    />
+                {isLoaded ? (
+                    <div className="product-section">
+                        <div className="row d-flex justify-content-center">
+                            <div className="col-12 col-md-7 px-3 px-md-4 py-4 py-md-0">
+                                <img src={eoImage} className="mx-auto d-block img-fluid" alt="..." />
+                            </div>
+                            <div className="col-12 col-md-5 px-3 px-md-4 product">
+                                <div className="pb-4">
+                                    <h1 className="header-text mt-3 mt-lg-0">{eoProduct.name} {eoType}</h1>
+                                    {renderOptions()}
+                                    <div className="description mt-4 mb-5">
+                                        <p className="mb-0 body-text"><span>Use:</span> {eoUsage.map((use) => (use)).join(", ")}</p>
+                                        <p className="m-0 body-text"><span>Scent:</span> {eoScent.map((sct) => (sct)).join(", ")}</p>
+                                        <p className="mt-3 body-text">{eoProduct.description}</p>
+                                        <button type="button" class="moreinfo-btn rounded-pill" data-bs-toggle="modal" data-bs-target="#productInfo">
+                                            <CiCircleInfo fontSize="20px" /><span className="ps-2 pe-1">Read More</span>
+                                        </button>
+                                    </div>
+                                    <div className="mt-4">
+                                        <button className="shop-btn text-uppercase" onClick={() => addToCart(selectedOption)}>Add To Cart</button>
+                                        <Alert
+                                            showToast={showToast}
+                                            setShowToast={setShowToast}
+                                            error={error}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                ) : (
+                    renderProductSkeleton()
+                )}
             </div>
 
             {/* Product Information Modal */}

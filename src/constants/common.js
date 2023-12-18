@@ -53,6 +53,14 @@ const featuredContent = [
     }
 ]
 
+// Page Header texts
+const pageHeader = {
+    productListing: {
+        title: "Shop Essential Oils",
+        description: "Enhance your everyday with 100% pure natural essential oils extracted from nature, all around the world."
+    }
+}
+
 // Footer links
 const footerLinks = {
     shop: [
@@ -110,6 +118,7 @@ export {
     rightNavMenu,
     mobileMenu,
     featuredContent,
+    pageHeader,
     footerLinks,
     placeholder,
     emptyCartMessage,

@@ -26,8 +26,8 @@ export default function ScrollToTop() {
     return (
         <Fragment>
             {showScrollToTop &&
-                <div class="scrolltop d-grid gap-2 d-md-flex justify-content-md-end mb-5 me-5">
-                    <div class="scroll-btn p-0 d-flex justify-content-center align-items-center" onClick={scrollToTop}>
+                <div className="scrolltop d-grid gap-2 d-md-flex justify-content-md-end mb-5 me-5">
+                    <div className="scroll-btn p-0 d-flex justify-content-center align-items-center" onClick={scrollToTop}>
                         <GoArrowUp color="#E7E4DE" size="22px" />
                     </div>
                 </div>

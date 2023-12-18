@@ -4,7 +4,7 @@ import { CiSearch } from "react-icons/ci"
 import { TfiClose } from "react-icons/tfi"
 import { PiSlidersHorizontalLight } from "react-icons/pi"
 import { useNavigate } from "react-router-dom"
-import { pages } from "../constants/common"
+import { pages, pageHeader } from "../constants/common"
 import { 
     allProducts,
     allTypes,
@@ -33,12 +33,16 @@ export default function ProductListing() {
     const [productScent, setProductScent] = useState([])
     const [productBenefits, setProductBenefits] = useState([])
     const [displayProducts, setDisplay] = useState([])
-    const [productsLoaded, setLoaded] = useState(false)
 
-    // kwyword search
+    // loading state
+    const [productsLoaded, setLoaded] = useState(false)
+    console.log("productsLoaded", productsLoaded)
+
+    // search
     const [searchActive, setSearchActive] = useState(false)
     const [nameSearch, setNameSearch] = useState("")
     const [searchIsFocused, setFocused] = useState(false)
+    const [noResults, setNoResults] = useState(false)
     
     //filters
     const [typeSearch, setTypeSearch] = useState("")
@@ -48,8 +52,7 @@ export default function ProductListing() {
     const [clearFilter, setClearFilter] = useState(false)
     const [numOfFilters, setNumOfFilters] = useState(0)
 
-    const pageDesc = "Enhance your everyday with 100% pure natural essential oils extracted from nature, all around the world."
-
+    const { productListing } = pageHeader 
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -90,6 +93,9 @@ export default function ProductListing() {
     }, [displayProducts])
 
     const searchProducts = async () => {
+        setLoaded(false)
+        setNoResults(false)
+
         let searchObj = {}
         let filterCount = 0
         if (clearFilter && nameSearch) {
@@ -119,7 +125,15 @@ export default function ProductListing() {
             }
         }
         const searchResults = await productSearch(searchObj)
-        renderProducts(searchResults)
+        console.log("search Results", searchResults)
+
+        if (searchResults.length > 0){
+            renderProducts(searchResults)
+        } else {
+            setNoResults(true)
+            setLoaded(true)
+        }
+        
         setClearFilter(false)
         setNumOfFilters(filterCount)
     }
@@ -141,6 +155,7 @@ export default function ProductListing() {
     const resetSearch = async () => {
         setNameSearch("")
         clearSearchFilters()
+        setNoResults(false)
         renderProducts(products)
     }
 
@@ -272,22 +287,31 @@ export default function ProductListing() {
         )
     }
 
+    const renderTitleSkeleton = () => (
+        <div className="listing-title pb-3">
+            <div className="skeleton-block mb-3 p-0" style={{ width: "30%", minWidth: "180px", height: "24px" }}></div>
+        </div>
+    )
+
     const displayListingTitle = () => {
         const hasSearch = searchActive && nameSearch
-        const searchWord = () => {
-            return <span className="searchword">{hasSearch ? `"${nameSearch}"` : ""}</span> 
-        }
+        const numProducts = noResults ? '0' : displayProducts.length
+        const searchWord = () => (<span className="searchword">{hasSearch ? `"${nameSearch}"` : ""}</span>)
         return (
             <Fragment>
-                {displayProducts && displayProducts.length > 0 &&
-                    <p className="listing-title">
-                        {hasSearch
-                            ? (<>{displayProducts.length} results for {searchWord()}</>)
-                            : (`${displayProducts.length} Product(s)`)
-                        }
-                        <span>&nbsp;&nbsp;|&nbsp;&nbsp;{numOfFilters} Filter(s)</span>
-                    </p>
-                }
+                {productsLoaded ? (
+                    <div className="listing-title pb-3">
+                        <p>
+                            {hasSearch
+                                ? (<>{numProducts} results for {searchWord()}</>)
+                                : (`${numProducts} Product(s)`)
+                            }
+                            <span>&nbsp;&nbsp;|&nbsp;&nbsp;{numOfFilters} Filter(s)</span>
+                        </p>
+                    </div> 
+                ) : (
+                    renderTitleSkeleton()
+                )}
             </Fragment>
         )
     }
@@ -330,7 +354,7 @@ export default function ProductListing() {
                         <div className="img"></div>
                         <div className="d-flex flex-column justify-content-between my-3 mx-0">
                             <div className="skeleton-block mb-3 p-0" style={{ width: "50%", height: "16.5px" }}></div>
-                            <div className="skeleton-block m-0 p-0" style={{ width: "80%", height: "24px" }}></div>
+                            <div className="skeleton-block m-0 p-0" style={{ width: "70%", minWidth: "115px", height: "24px" }}></div>
                             <div className="skeleton-block m-0 mt-2 p-0" style={{ width: "50px", height: "25px" }}></div>
                             <div className="skeleton-block m-0 mt-3 p-0" style={{ width: "50%", height: "21px" }}></div>
                         </div>
@@ -344,11 +368,16 @@ export default function ProductListing() {
         return [...new Array(6)].map(((item, index) => renderCardSkeleton(item, index)))
     }
 
+    const renderEmptyState = () => (
+        <div className="w-auto mt-4 page-text">Sorry, we couldn't find any results. Please try another search.</div>
+    )
+
+
     return (
         <Fragment>
             <PageHeader
-                title="Shop Essential Oils"
-                description={pageDesc}>
+                title={productListing.title}
+                description={productListing.description}>
                 {searchBar()}
             </PageHeader>
             <div className="page-container">
@@ -390,7 +419,7 @@ export default function ProductListing() {
                                 {displayListingTitle()}
                             </div>
                             <div className="row row-cols-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 g-3 g-md-4">
-                                {productsLoaded ? renderProductListing() : renderSkeletonloader()}
+                                {productsLoaded ? (noResults ? renderEmptyState() : renderProductListing()) : renderSkeletonloader()}
                             </div>
                         </div>
                     </div>

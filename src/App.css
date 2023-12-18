@@ -340,7 +340,7 @@ body {
     letter-spacing: 0.4px;
 }
 
-.listing-title > span.searchword {
+.listing-title > p > span.searchword {
     font-family: 'Prata', serif !important;
     font-size: 16px;
 }
@@ -586,16 +586,36 @@ input.form-check-input:checked {
     margin-right: 34px;
 }
 
-.card.skeleton .img {
+.skeleton .img {
     width: 100%;
     aspect-ratio: 1 / 1;
     background-color: #E7E4DE;
     animation: fading 1.5s infinite;
 }
 
+.skeleton .img.light {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-color: #EFEEEB;
+    animation: fading 1.5s infinite;
+}
+
 .skeleton-block {
     background-color: #E7E4DE;
     animation: fading 1.5s infinite;
+}
+
+.skeleton-block.light {
+    background-color: #EFEEEB;
+    animation: fading 1.5s infinite;
+}
+
+.page-text {
+    color: #3B3530;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.4px;
+    font-weight: 300;
 }
 
 @keyframes fading {
