@@ -4,7 +4,7 @@ import { CiSearch } from "react-icons/ci"
 import { TfiClose } from "react-icons/tfi"
 import { PiSlidersHorizontalLight } from "react-icons/pi"
 import { useNavigate } from "react-router-dom"
-import { pages } from "../constants/constants"
+import { pages, pageHeader, emptyStateMessage } from "../constants/common"
 import { 
     allProducts,
     allTypes,
@@ -17,15 +17,15 @@ import {
     prepareProducts,
     displaySize,
     displayPrice,
-} from "../helpers/productHelpers"
+} from "../helpers/productHelper"
 import {
     updateUsage,
     updateScent,
     updateBenefits,
-} from "../helpers/searchHelpers"
+} from "../helpers/searchHelper"
 import TextInput from "../components/TextInput"
 import PageHeader from "../components/PageHeader"
-import { getObjectKey } from "../utils/common"
+
 export default function ProductListing() {
     const [products, setProducts] = useState([])
     const [productType, setProductType] = useState([])
@@ -34,10 +34,14 @@ export default function ProductListing() {
     const [productBenefits, setProductBenefits] = useState([])
     const [displayProducts, setDisplay] = useState([])
 
-    // kwyword search
+    // loading state
+    const [productsLoaded, setLoaded] = useState(false)
+
+    // search
     const [searchActive, setSearchActive] = useState(false)
     const [nameSearch, setNameSearch] = useState("")
     const [searchIsFocused, setFocused] = useState(false)
+    const [noResults, setNoResults] = useState(false)
     
     //filters
     const [typeSearch, setTypeSearch] = useState("")
@@ -47,9 +51,7 @@ export default function ProductListing() {
     const [clearFilter, setClearFilter] = useState(false)
     const [numOfFilters, setNumOfFilters] = useState(0)
 
-    const pageName = getObjectKey(pages, window.location.pathname)
-    const pageDesc = "Enhance your everyday with 100% pure natural essential oils extracted from nature, all around the world."
-
+    const { productListing } = pageHeader 
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -83,7 +85,16 @@ export default function ProductListing() {
         }
     }
 
+    useEffect(() => {
+        if (displayProducts.length > 0) {
+            setLoaded(true)
+        }
+    }, [displayProducts])
+
     const searchProducts = async () => {
+        setLoaded(false)
+        setNoResults(false)
+
         let searchObj = {}
         let filterCount = 0
         if (clearFilter && nameSearch) {
@@ -113,7 +124,14 @@ export default function ProductListing() {
             }
         }
         const searchResults = await productSearch(searchObj)
-        renderProducts(searchResults)
+
+        if (searchResults.length > 0){
+            renderProducts(searchResults)
+        } else {
+            setNoResults(true)
+            setLoaded(true)
+        }
+        
         setClearFilter(false)
         setNumOfFilters(filterCount)
     }
@@ -135,6 +153,7 @@ export default function ProductListing() {
     const resetSearch = async () => {
         setNameSearch("")
         clearSearchFilters()
+        setNoResults(false)
         renderProducts(products)
     }
 
@@ -192,8 +211,8 @@ export default function ProductListing() {
                     onChange={(e) => setTypeSearch(e.target.value)}
                     className="rounded-0 bg-transparent py-2 px-3">
                     <option>Collection</option>
-                    {productType.map((types) =>
-                        <option key={types[1]} value={types[1]}>
+                    {productType.map((types, index) =>
+                        <option key={index} value={types[1]}>
                             {types[1]}
                         </option>
                     )}
@@ -202,9 +221,10 @@ export default function ProductListing() {
                     <Accordion.Item eventKey="0">
                         <Accordion.Header>Usage</Accordion.Header>
                         <Accordion.Body>
-                            {productUse.map((use) => (
+                            {productUse.map((use, index) => (
                                 <Form.Check
-                                    inline key={use[0]}
+                                    inline
+                                    key={index}
                                     checked={useSearch.includes(use[0].toString())}
                                     label={use[1]}
                                     name="use"
@@ -221,9 +241,9 @@ export default function ProductListing() {
                     <Accordion.Item eventKey="1">
                         <Accordion.Header>Scent</Accordion.Header>
                         <Accordion.Body>
-                            {productScent.map((scent) => (
+                            {productScent.map((scent, index) => (
                                 <Form.Check
-                                    key={scent[0]}
+                                    key={index}
                                     checked={scentSearch.includes(scent[0].toString())}
                                     label={scent[1]}
                                     name="scent"
@@ -240,9 +260,9 @@ export default function ProductListing() {
                     <Accordion.Item eventKey="2">
                         <Accordion.Header>Benefits</Accordion.Header>
                         <Accordion.Body>
-                            {productBenefits.map((benefit) => (
+                            {productBenefits.map((benefit, index) => (
                                 <Form.Check
-                                    key={benefit[0]}
+                                    key={index}
                                     checked={benefitsSearch.includes(benefit[0].toString())}
                                     label={benefit[1]}
                                     name="benefit"
@@ -265,59 +285,109 @@ export default function ProductListing() {
         )
     }
 
+    const renderTitleSkeleton = () => (
+        <div className="listing-title pb-3">
+            <div className="skeleton-block mb-3 p-0" style={{ width: "30%", minWidth: "180px", height: "24px" }}></div>
+        </div>
+    )
+
     const displayListingTitle = () => {
         const hasSearch = searchActive && nameSearch
-        const searchWord = () => {
-            return <span className="searchword">{hasSearch ? `"${nameSearch}"` : ""}</span> 
-        }
+        const numProducts = noResults ? '0' : displayProducts.length
+        const searchWord = () => (<span className="searchword">{hasSearch ? `"${nameSearch}"` : ""}</span>)
         return (
             <Fragment>
-                {displayProducts && displayProducts.length > 0 &&
-                    <p className="listing-title">
-                        {hasSearch
-                            ? (<>{displayProducts.length} results for {searchWord()}</>)
-                            : (`${displayProducts.length} Product(s)`)
-                        }
-                        <span>&nbsp;&nbsp;|&nbsp;&nbsp;{numOfFilters} Filter(s)</span>
-                    </p>
-                }
+                {productsLoaded ? (
+                    <div className="listing-title pb-3">
+                        <p>
+                            {hasSearch
+                                ? (<>{numProducts} results for {searchWord()}</>)
+                                : (`${numProducts} Product(s)`)
+                            }
+                            <span>&nbsp;&nbsp;|&nbsp;&nbsp;{numOfFilters} Filter(s)</span>
+                        </p>
+                    </div> 
+                ) : (
+                    renderTitleSkeleton()
+                )}
             </Fragment>
         )
     }
 
-    const navigateToProduct = (id, name, type) => {
-        navigate(`${pages.products}/${id}`, {
-            state: {
-                navigateFrom: {
-                    name: pageName,
-                    path: window.location.pathname
-                },
-                navigateTo: {
-                    name: `${name} ${type}`
-                }
-            }
-        })
+    const navigateToProduct = (id) => {
+        navigate(`${pages.products}/${id}`)
     }
+    
+    const renderProductCard = (product, index) => (
+        <div className="col" key={index}>
+            <div className="card d-flex flex-column justify-content-between border-0 rounded-0 h-100 bg-transparent">
+                <div onClick={() => navigateToProduct(product.eo_id)}>
+                        <div className="img">
+                            <img src={product.image} className="card-img-top rounded-0" alt="..." />
+                        </div>
+                        <div className="d-flex row justify-content-between my-3 mx-0">
+                            <p className="product-label text-uppercase p-0">{product.type}</p>
+                            <p className="product-title m-0 p-0">{product.name} {product.type}</p>
+                            <p className="product-title m-0 mt-2 p-0">{displaySize(product.size)}</p>
+                            <p className="product-title m-0 mt-3 p-0">{displayPrice(product.price)}</p>
+                        </div>
+                </div>
+            </div>
+        </div>
+    )
+
+    const renderProductListing = () => {
+        return displayProducts.map(
+            (product, index) => renderProductCard(product, index)
+        )
+    }
+
+    const renderCardSkeleton = (item, index) => {
+        return (
+            <div className="col" key={index}>
+                <div
+                    className="card skeleton d-flex flex-column justify-content-between border-0 rounded-0 h-100 bg-transparent"
+                    style={{ width: "-webkit-fill-available" }}>
+                    <div>
+                        <div className="img"></div>
+                        <div className="d-flex flex-column justify-content-between my-3 mx-0">
+                            <div className="skeleton-block mb-3 p-0" style={{ width: "50%", height: "16.5px" }}></div>
+                            <div className="skeleton-block m-0 p-0" style={{ width: "70%", minWidth: "115px", height: "24px" }}></div>
+                            <div className="skeleton-block m-0 mt-2 p-0" style={{ width: "50px", height: "25px" }}></div>
+                            <div className="skeleton-block m-0 mt-3 p-0" style={{ width: "50%", height: "21px" }}></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    const renderSkeletonloader = () => {
+        return [...new Array(6)].map(((item, index) => renderCardSkeleton(item, index)))
+    }
+
+    const renderEmptyState = () => (
+        <div className="w-auto mt-4 page-text">{emptyStateMessage.emptySearch}</div>
+    )
+
 
     return (
         <Fragment>
             <PageHeader
-                    name={pageName}
-                    title="Shop Essential Oils"
-                    description={pageDesc}>
-                    {searchBar()}
-                </PageHeader>
+                title={productListing.title}
+                description={productListing.description}>
+                {searchBar()}
+            </PageHeader>
             <div className="page-container">
-                
-
                 <div className="page-body mt-md-5 row">
-                {/* Mobile Filter Buttons*/}
+
+                    {/* Mobile Filter Buttons*/}
                     <div className="py-0 d-flex my-4 d-md-none justify-content-between">
                         <button className="btn filter-btn d-flex align-items-center py-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
-                            <PiSlidersHorizontalLight color="#3B3530" fontSize="22px"/>
+                            <PiSlidersHorizontalLight color="#3B3530" fontSize="22px" />
                             <span className="p-2 px-2 mb-0">Filter</span>
                         </button>
-                        <button className="transparent-btn" onClick={()=>{handleClearFilter()}}>
+                        <button className="transparent-btn" onClick={() => { handleClearFilter() }}>
                             Clear Filter
                         </button>
                     </div>
@@ -330,47 +400,26 @@ export default function ProductListing() {
                     </div>
 
                     <div className="d-flex flex-row">
-                    {/* Desktop Filter */}
-                    <div className="search filters d-none d-md-block mb-5">
-                        <div className="d-flex flex-row justify-content-between align-items-center mb-3">
-                            <p className="filter-title m-0">Filters</p>
-                            <button className="flat-btn btn text-uppercase" onClick={()=>{handleClearFilter()}}>
-                                Clear
-                            </button>
+                        {/* Desktop Filter */}
+                        <div className="search filters d-none d-md-block mb-5">
+                            <div className="d-flex flex-row justify-content-between align-items-center mb-3">
+                                <p className="filter-title m-0">Filters</p>
+                                <button className="flat-btn btn text-uppercase" onClick={() => { handleClearFilter() }}>
+                                    Clear
+                                </button>
+                            </div>
+                            {searchFilters()}
                         </div>
-                        {searchFilters()}
-                    </div>
 
-                    {/* Product Listing */}
-                    <div className="products">
-                        <div className="listing-title">
-                            {displayListingTitle()}
+                        {/* Product Listing */}
+                        <div className="products">
+                            <div className="listing-title">
+                                {displayListingTitle()}
+                            </div>
+                            <div className="row row-cols-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 g-3 g-md-4">
+                                {productsLoaded ? (noResults ? renderEmptyState() : renderProductListing()) : renderSkeletonloader()}
+                            </div>
                         </div>
-                        <div className="row row-cols-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 g-3 g-md-4">
-                            {displayProducts && displayProducts.map((product, index) => (
-                                <div className="col" key={index}>
-                                    {/* Card */}
-                                    <div className="card d-flex flex-column justify-content-between border-0 rounded-0 h-100 bg-transparent">
-                                        {/* Card Header */}
-                                        <div onClick={()=>navigateToProduct(product.eo_id, product.name, product.type)}>
-                                                {/* Card Img */}
-                                                <div className="img">
-                                                    <img src={product.image} className="card-img-top rounded-0" alt="..." />
-                                                </div>
-                                                {/* Card Body */}
-                                                <div className="d-flex row justify-content-between my-3 mx-0">
-                                                    <p className="product-label text-uppercase p-0">{product.type}</p>
-                                                    <p className="product-title m-0 p-0">{product.name} {product.type}</p>
-                                                    <p className="product-title m-0 mt-2 p-0">{displaySize(product.size)}</p>
-                                                    <p className="product-title m-0 mt-3 p-0">{displayPrice(product.price)}</p>
-                                                </div>
-                                            {/* </Link> */}
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
                     </div>
                 </div>
             </div>

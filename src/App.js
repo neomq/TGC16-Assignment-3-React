@@ -1,6 +1,7 @@
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import React, { Fragment, useState, useEffect } from 'react';
+import { Routes, Route, useLocation } from "react-router-dom";
+import React, { useState, useEffect, Fragment } from 'react';
+import AuthWrapper, { useAuth } from './components/AuthWrapper';
 import ProductListing from './pages/ProductListing';
 import Product from './pages/Product';
 import Cart from './pages/Cart';
@@ -11,78 +12,58 @@ import Register from './pages/Register';
 import CheckoutSuccess from './pages/CheckoutSuccess';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import API from './constants/apiEndpoints';
-import axios from "axios"
-
-const BASE_URL = process.env.REACT_APP_API_BASE_URL
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
+  const { isloggedIn, userData, authChecked } = useAuth()
 
   const [loggedIn, setLoggedIn] = useState(false)
   const [user, setUser] = useState({})
+  const [isLoading, setLoading] = useState(true)
+  const location = useLocation()
 
-  const AuthProps = {
+  const disableScroll = "overflow-hidden vh-100"
+  const scrollStyle = isLoading ? disableScroll : ""
+
+  const authProps = {
     loggedIn: loggedIn,
     setLoggedIn: setLoggedIn,
     user: user,
     setUser: setUser,
   }
+  
+  useEffect(() => {
+    window.scrollTo(0, -1)
+  }, [location])
 
   useEffect(() => {
-    // check for existing token
-    const accessToken = localStorage.getItem('accessToken')
-    if (accessToken) {
-      console.log(accessToken)
-      const checkAccesssToken = async () => {
-        const response = await axios.get(BASE_URL + API.PROFILE, {
-          headers: {
-            authorization: "Bearer " + accessToken
-          }
-        })
-
-        // see if the id and returning access token is the same
-        if (response.data.id === parseInt(localStorage.getItem('id'))) {
-          setLoggedIn(true)
-          // setUserName(response.data.name)
-        }
-      }
-      checkAccesssToken()
+    if (authChecked) {
+      setLoggedIn(isloggedIn)
+      setUser(userData)
     }
-  }, [])
-  
+  },[authChecked])
+
   return (
-    <Fragment>
-      <Router>
-        <Navbar {...AuthProps}/>
-        <Routes>
-          {/* Home route */}
-          <Route path="/" element={<Home/>}/>
-
-          {/* Product Listing route */}
-          <Route path="/products" element={<ProductListing/>} />
-
-          {/* Individual product route */}
-          <Route path="/products/:essentialoil_id" element={<Product/>} />
-
-          {/* Cart route */}
-          <Route path="/cart" element={<Cart/>} />
-
-          {/* Login route */}
-          <Route path="/login" element={<Login {...AuthProps}/>} />
-
-          {/* Profile route */}
-          <Route path="/profile" element={<Profile {...AuthProps}/>} />
-
-          {/* Register route */}
-          <Route path="/register" element={<Register/>} />
-
-          {/* Checkout success route */}
-          <Route path="/paymentsuccess" element={<CheckoutSuccess/>} />
-        </Routes>
-        <Footer />
-      </Router>
-    </Fragment>
-  );
+      <Fragment>
+        <AuthWrapper loggedIn={loggedIn}>
+          <div className={scrollStyle}>
+            <Navbar {...authProps} />
+            <Routes>
+              <Route path="/" element={<Home setLoading={setLoading}/>} />
+              <Route path="/products" element={<ProductListing />} />
+              <Route path="/products/:essentialoil_id" element={<Product {...authProps} />} />
+              <Route path="/cart" element={<Cart {...authProps} />} />
+              <Route path="/login" element={<Login {...authProps} />} />
+              <Route path="/profile" element={<Profile {...authProps} />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/paymentsuccess" element={<CheckoutSuccess />} />
+            </Routes>
+            <ScrollToTop />
+            <Footer />
+          </div>
+        </AuthWrapper>
+      </Fragment>
+  )
 }
 
 export default App;

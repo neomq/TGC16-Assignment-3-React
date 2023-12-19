@@ -1,76 +1,53 @@
 import React, { useEffect, useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
-import API from "../constants/apiEndpoints"
-import axios from 'axios'
+import { useNavigate } from "react-router-dom"
+import { pages } from "../constants/common"
+import { getUserProfile } from "../utils/API"
+import { endAuth } from "../utils/auth"
+import PageHeader from "../components/PageHeader"
 
-const BASE_URL = process.env.REACT_APP_API_BASE_URL
-
-export default function Profile({ loggedIn, setLoggedIn, setUser }) {
-
-    const [name, setName] = useState("")
-    const [email, setEmail] = useState("")
-    const [address, setAddress] = useState("")
-    const navigate = useNavigate();
+export default function Profile({ setUser }) {
+    
+    const [userData, setUserData] = useState({})
+    const { name, email, address } = userData
+    const navigate = useNavigate()
 
     useEffect(() => {
-        // check if user is logged in
-        if (localStorage.getItem("id") !== null) {
-            const fetchProfile = async () => {
-                let response = await axios.get(BASE_URL + API.PROFILE, {
-                    headers: {
-                        authorization: "Bearer " + localStorage.getItem('accessToken')
-                    }
-                })
-                
-                setName(response.data.name)
-                setEmail(response.data.email)
-                setAddress(response.data.address)
-                setUser(response.data)
-                console.log("USER PROFILE", response.data)
-            }
-            fetchProfile()
-            setLoggedIn(true)
-        }
+        fetchProfile()
     }, [])
 
-    // logout
-    const logout = async () => {
-        const response = await axios.post(BASE_URL + API.LOGOUT, {
-            'refreshToken': localStorage.getItem('refreshToken')
-        })
+    const fetchProfile = async () => {
+        const token = localStorage.getItem('accessToken')
+        const profileData = await getUserProfile(token)
 
-        if (response.data) {
-            localStorage.clear()
-            window.location.pathname = '/'
+        if (profileData.status === 200) {
+            setUserData(profileData.data)
+            setUser(profileData.data)
         }
     }
 
     return (
         <React.Fragment>
+            <PageHeader title={`Welcome, ${name}`} />
             <div className="page-container">
-                <div className="row">
-
-                    <div className="mx-auto col-md-4 mt-4">
-                        <h1 className="text-center page-title-large">Welcome,<br/>{name}!</h1>
-
-                        <div className="profile-section mt-3">
+                <div>
+                    <div className="mx-auto mt-5" style={{ maxWidth: "350px" }}>
+                        <div className="profile-section my-3">
                             <p className="section-title text-center">Account Information</p>
-                            <div className="mt-5">
+                            <div className="my-5">
                                 <p className="m-0 text-center profile-details-name">{name}</p>
                                 <p className="m-0 text-center profile-details">{email}</p>
                                 <p className="m-0 text-center profile-details">{address}</p>
                             </div>
                         </div>
 
-                        <div className="mt-5 d-flex justify-content-center">
-                            <button className="btn shop-btn px-5 rounded-0" onClick={()=>navigate('/products')}>Start Shopping</button>
-                        </div>
-                        <p className="mt-3 text-center page-subtitle">or <Link onClick={logout}>Log out</Link></p>
+                       <hr></hr>
+                       <div className="mt-5 d-flex flex-column justify-content-center">
+                            <button className="btn shop-btn px-5 text-uppercase" onClick={()=>navigate(pages.products)}>Start Shopping</button>
+                            <button className="card-btn btn mt-3 text-uppercase" type="button" onClick={endAuth}>Log out</button>
+                        </div> 
                     </div>
-
                 </div>
             </div>
         </React.Fragment>
-
     )
 }

@@ -8,6 +8,9 @@ const pages = {
     cart: '/cart'
 }
 
+// timer interval for renewing token
+const tokenInterval = 870000 // 14.5 mins in ms
+
 // Navigation
 const leftNavMenu = [
     { name: "Shop", link: pages.products },
@@ -50,6 +53,14 @@ const featuredContent = [
     }
 ]
 
+// Page Header texts
+const pageHeader = {
+    productListing: {
+        title: "Shop Essential Oils",
+        description: "Enhance your everyday with 100% pure natural essential oils extracted from nature, all around the world."
+    }
+}
+
 // Footer links
 const footerLinks = {
     shop: [
@@ -86,13 +97,33 @@ const breakpoint = {
     xxl: 1400
 }
 
+// Empty state messages
+const emptyStateMessage = {
+    emptyCart: {
+        notFound: {
+            message: "Please login to view or add items to your shopping cart.",
+            buttonLabel: "Go to login",
+            buttonLink: pages.login
+        },
+        noItems: {
+            message: "Seems like there is nothing in your shopping cart.",
+            buttonLabel: "Start shopping",
+            buttonLink: pages.products
+        }
+    },
+    emptySearch: "Sorry, we couldn't find any results. Please try another search.",
+}
+
 export {
     pages,
+    tokenInterval,
     leftNavMenu,
     rightNavMenu,
     mobileMenu,
     featuredContent,
+    pageHeader,
     footerLinks,
     placeholder,
+    emptyStateMessage,
     breakpoint,
 }
