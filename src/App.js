@@ -19,7 +19,11 @@ function App() {
 
   const [loggedIn, setLoggedIn] = useState(false)
   const [user, setUser] = useState({})
+  const [isLoading, setLoading] = useState(true)
   const location = useLocation()
+  
+  const enableScroll = "overflow-hidden vh-100"
+  const scrollStyle = isLoading ? enableScroll : ""
 
   const authProps = {
     loggedIn: loggedIn,
@@ -42,34 +46,21 @@ function App() {
   return (
       <Fragment>
         <AuthWrapper loggedIn={loggedIn}>
-          <Navbar {...authProps}/>
-          <Routes>
-            {/* Home route */}
-            <Route path="/" element={<Home/>}/>
-
-            {/* Product Listing route */}
-            <Route path="/products" element={<ProductListing/>} />
-
-            {/* Individual product route */}
-            <Route path="/products/:essentialoil_id" element={<Product {...authProps}/>} />
-
-            {/* Cart route */}
-            <Route path="/cart" element={<Cart {...authProps}/>} />
-
-            {/* Login route */}
-            <Route path="/login" element={<Login {...authProps}/>} />
-
-            {/* Profile route */}
-            <Route path="/profile" element={<Profile {...authProps}/>} />
-
-            {/* Register route */}
-            <Route path="/register" element={<Register/>} />
-
-            {/* Checkout success route */}
-            <Route path="/paymentsuccess" element={<CheckoutSuccess/>} />
-          </Routes>
-          <ScrollToTop />
-          <Footer />
+          <div className={scrollStyle}>
+            <Navbar {...authProps} />
+            <Routes>
+              <Route path="/" element={<Home setLoading={setLoading}/>} />
+              <Route path="/products" element={<ProductListing />} />
+              <Route path="/products/:essentialoil_id" element={<Product {...authProps} />} />
+              <Route path="/cart" element={<Cart {...authProps} />} />
+              <Route path="/login" element={<Login {...authProps} />} />
+              <Route path="/profile" element={<Profile {...authProps} />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/paymentsuccess" element={<CheckoutSuccess />} />
+            </Routes>
+            <ScrollToTop />
+            <Footer />
+          </div>
         </AuthWrapper>
       </Fragment>
   )
