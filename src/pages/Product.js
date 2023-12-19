@@ -173,7 +173,7 @@ export default function Product({ loggedIn, user }) {
                                         <p className="mb-0 body-text"><span>Use:</span> {eoUsage.map((use) => (use)).join(", ")}</p>
                                         <p className="m-0 body-text"><span>Scent:</span> {eoScent.map((sct) => (sct)).join(", ")}</p>
                                         <p className="mt-3 body-text">{eoProduct.description}</p>
-                                        <button type="button" class="moreinfo-btn rounded-pill" data-bs-toggle="modal" data-bs-target="#productInfo">
+                                        <button type="button" className="moreinfo-btn rounded-pill" data-bs-toggle="modal" data-bs-target="#productInfo">
                                             <CiCircleInfo fontSize="20px" /><span className="ps-2 pe-1">Read More</span>
                                         </button>
                                     </div>

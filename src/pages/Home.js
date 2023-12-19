@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useNavigate } from 'react-router-dom'
 import Preloader from "../components/Preloader"
 import Feature from "../components/Home/Feature"
@@ -8,10 +8,18 @@ export default function Home({ setLoading }) {
     const [showLoader, setShowLoader] = useState(true)
     const navigate = useNavigate()
 
-    window.onload = (event) => {
-        setShowLoader(false)
-        setLoading(false)
-    }
+    useEffect(() => {
+        if (document.readyState === 'complete') {
+            setShowLoader(false)
+            setLoading(false)
+        }
+        window.onload = (event) => {
+            if (event.target.readyState === 'complete') {
+                setShowLoader(false)
+                setLoading(false)
+            }
+        }
+    },[])
     
     return (
         <div>

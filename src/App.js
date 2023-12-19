@@ -21,9 +21,9 @@ function App() {
   const [user, setUser] = useState({})
   const [isLoading, setLoading] = useState(true)
   const location = useLocation()
-  
-  const enableScroll = "overflow-hidden vh-100"
-  const scrollStyle = isLoading ? enableScroll : ""
+
+  const disableScroll = "overflow-hidden vh-100"
+  const scrollStyle = isLoading ? disableScroll : ""
 
   const authProps = {
     loggedIn: loggedIn,
