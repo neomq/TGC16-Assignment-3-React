@@ -33,6 +33,9 @@ function App() {
   }
   
   useEffect(() => {
+    if (location.pathname !== '/'){
+      setLoading(false)
+    }
     window.scrollTo(0, -1)
   }, [location])
 

@@ -237,7 +237,7 @@ export default function ProductListing() {
                         </Accordion.Body>
                     </Accordion.Item>
                 </Accordion>
-                <Accordion defaultActiveKey="1">
+                <Accordion>
                     <Accordion.Item eventKey="1">
                         <Accordion.Header>Scent</Accordion.Header>
                         <Accordion.Body>
@@ -256,7 +256,7 @@ export default function ProductListing() {
                         </Accordion.Body>
                     </Accordion.Item>
                 </Accordion>
-                <Accordion defaultActiveKey="2">
+                <Accordion>
                     <Accordion.Item eventKey="2">
                         <Accordion.Header>Benefits</Accordion.Header>
                         <Accordion.Body>
