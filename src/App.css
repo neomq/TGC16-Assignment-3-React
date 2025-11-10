@@ -1075,6 +1075,49 @@ input.form-check-input:checked {
 	100% { opacity: 1; }
 }
 
+/* --- Not Found --- */
+.not-found {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh; /* leaves space for navbar/footer */
+  text-align: center;
+  padding: 2rem;
+  color: #3B3530; /* dark text matching your theme */
+  background-color: #EFEEEB; /* app background */
+  font-family: 'Poppins', sans-serif;
+}
+
+.not-found h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #5F4027; /* primary earthy color for headings */
+  font-family: 'Prata', serif;
+}
+
+.not-found p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #3B3530; /* slightly lighter than heading */
+}
+
+.not-found a {
+  display: inline-block;
+  text-decoration: none;
+  color: #F1F1EE; /* off-white button text */
+  background-color: #28411F; /* button background matching footer/navbar */
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.25rem;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 0.6px;
+  transition: background-color 0.3s ease;
+}
+
+.not-found a:hover {
+  background-color: #22371A; /* slightly darker on hover */
+}
+
 /* --- Media Queries --- */
 /* if width is 992px or smaller */
 @media only screen and (max-width: 992px) {

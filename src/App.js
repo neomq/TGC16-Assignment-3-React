@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
+import NotFound from './pages/NotFound';
 import CheckoutSuccess from './pages/CheckoutSuccess';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -60,6 +61,7 @@ function App() {
               <Route path="/profile" element={<Profile {...authProps} />} />
               <Route path="/register" element={<Register />} />
               <Route path="/paymentsuccess" element={<CheckoutSuccess />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
             <ScrollToTop />
             <Footer />
